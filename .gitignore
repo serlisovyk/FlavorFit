@@ -1,0 +1,14 @@
+dist
+
+node_modules
+
+build
+
+.DS_Store
+
+.env
+!.env.sample
+
+generated/prisma
+
+
