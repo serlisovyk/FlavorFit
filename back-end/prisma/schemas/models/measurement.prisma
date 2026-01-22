@@ -1,0 +1,23 @@
+model Measurement {
+  id String @id @default(cuid())
+
+  heightCm     Int? @map("height_cm")
+  weightKg     Int? @map("weight_kg")
+  goalWeightKg Int? @map("goal_weight_kg")
+
+  chestCm Int? @map("chest_cm")
+  waistCm Int? @map("waist_cm")
+  thighCm Int? @map("thigh_cm")
+  armCm   Int? @map("arm_cm")
+
+  activityLevel ACTIVITY_LEVEL? @map("activity_level")
+  nutritionGoal NUTRITION_GOAL? @map("nutrition_goal")
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique @map("user_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("measurements")
+}

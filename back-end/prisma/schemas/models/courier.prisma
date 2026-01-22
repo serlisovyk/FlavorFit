@@ -1,17 +1,11 @@
-model User {
+model Courier {
   id String @id @default(cuid())
 
-  email    String @unique
-  password String
-  role     Role   @default(USER)
+  name  String
+  phone String
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("users")
-}
-
-enum Role {
-  USER
-  ADMIN
+  @@map("couriers")
 }

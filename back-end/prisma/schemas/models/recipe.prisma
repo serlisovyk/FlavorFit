@@ -1,0 +1,23 @@
+model Recipe {
+  id String @id @default(cuid())
+
+  title       String
+  description String
+  calories    Int
+  cookingTime Int        @map("cooking_time")
+  difficulty  DIFFICULTY
+
+  recipeIngredients RecipeIngredient[]
+  recipeSteps       RecipeStep[]
+
+  comments Comment[]
+  likes    Like[]
+
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String @map("author_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("recipes")
+}
