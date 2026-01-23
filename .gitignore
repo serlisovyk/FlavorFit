@@ -9,6 +9,4 @@ build
 .env
 !.env.sample
 
-generated/prisma
-
-
+generated
