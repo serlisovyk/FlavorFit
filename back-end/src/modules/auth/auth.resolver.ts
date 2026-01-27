@@ -1,4 +1,5 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
+import type { GraphQLContext } from '../../types';
 import { AuthService } from './auth.service';
 import { AuthInput } from './auth.input';
 import { AuthResponse } from './auth.interfaces';
@@ -9,8 +10,28 @@ export class AuthResolver {
 
   // TODO: Add captcha
   @Mutation(() => AuthResponse)
-  async register(@Args('data') input: AuthInput) {
-    // TODO: Add cookie
-    return this.authService.register(input);
+  async login(
+    @Args('data') input: AuthInput,
+    @Context() { res }: GraphQLContext,
+  ) {
+    const { refreshToken, ...response } = await this.authService.login(input);
+
+    this.authService.toggleRefreshTokenCookie(res, refreshToken);
+
+    return response;
+  }
+
+  // TODO: Add captcha
+  @Mutation(() => AuthResponse)
+  async register(
+    @Args('data') input: AuthInput,
+    @Context() { res }: GraphQLContext,
+  ) {
+    const { refreshToken, ...response } =
+      await this.authService.register(input);
+
+    this.authService.toggleRefreshTokenCookie(res, refreshToken);
+
+    return response;
   }
 }
