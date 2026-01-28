@@ -1,5 +1,5 @@
 import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
-import type { GraphQLContext } from '../../types';
+import type { GraphQLContext } from '../../shared/types';
 import { AuthService } from './auth.service';
 import { AuthInput } from './auth.input';
 import { AuthResponse } from './auth.interfaces';

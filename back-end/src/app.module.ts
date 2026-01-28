@@ -3,11 +3,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { PrismaModule } from './prisma/prisma.module';
+import { getGraphQLConfig } from './shared/config';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { RecipesModule } from './modules/recipes/recipes.module';
 import { OrdersModule } from './modules/orders/orders.module';
-import { getGraphQLConfig } from './config';
 
 @Module({
   imports: [

@@ -1,7 +1,7 @@
 import { ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigService } from '@nestjs/config';
-import { MODE_ENV } from '../constants';
-import { GraphQLContext, MODE } from '../types';
+import { isDev } from '../utils';
+import { GraphQLContext } from '../types';
 
 export function getGraphQLConfig(
   configService: ConfigService,
@@ -9,7 +9,7 @@ export function getGraphQLConfig(
   return {
     autoSchemaFile: true,
     sortSchema: true,
-    playground: configService.get<string>(MODE_ENV) === MODE.DEVELOPMENT,
+    playground: isDev(configService),
     context: ({ req, res }: GraphQLContext): GraphQLContext => ({ req, res }),
   };
 }

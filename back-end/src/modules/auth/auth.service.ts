@@ -8,7 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import type { StringValue } from 'ms';
 import { verify } from 'argon2';
 import { Response } from 'express';
-import { isDev } from '../../utils';
+import { isDev } from '../../shared/utils';
 import { UsersService } from '../users/users.service';
 import { AuthInput } from './auth.input';
 import {
@@ -118,17 +118,17 @@ export class AuthService {
   }
 
   private getRefreshTokenCookieExpires(token: string | null): Date {
-    const isRemoveCookie = !token;
-
-    const refreshTokenExpiresDays = Number(
-      this.configService.getOrThrow<string>(JWT_REFRESH_TOKEN_EXPIRES_DAYS_ENV),
-    );
-
     const expires = new Date();
 
-    if (isRemoveCookie) {
+    if (!token) {
       expires.setTime(0);
     } else {
+      const refreshTokenExpiresDays = Number(
+        this.configService.getOrThrow<string>(
+          JWT_REFRESH_TOKEN_EXPIRES_DAYS_ENV,
+        ),
+      );
+
       expires.setDate(expires.getDate() + refreshTokenExpiresDays);
     }
 
