@@ -9,5 +9,8 @@ export const COOKIE_DOMAIN_ENV = 'COOKIE_DOMAIN';
 export const USER_ALREADY_EXISTS_ERROR = 'User with this email already exists';
 export const REGISTRATION_FAILED_ERROR = 'Registration failed: ';
 export const EMAIL_OR_PASSWORD_INVALID_ERROR = 'Invalid email or password';
+export const INVALID_REFRESH_TOKEN_ERROR = 'Invalid refresh token';
+export const USER_NOT_FOUND_ERROR = 'User not found';
+export const REFRESH_TOKEN_MISSING_ERROR = 'Refresh token is missing';
 export const FORBIDDEN_ERROR =
   'You do not have permission to access this resource.';

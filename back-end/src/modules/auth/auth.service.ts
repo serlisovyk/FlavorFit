@@ -20,6 +20,8 @@ import {
   REGISTRATION_FAILED_ERROR,
   USER_ALREADY_EXISTS_ERROR,
   EMAIL_OR_PASSWORD_INVALID_ERROR,
+  INVALID_REFRESH_TOKEN_ERROR,
+  USER_NOT_FOUND_ERROR,
 } from './auth.constants';
 import { AuthTokenData } from './auth.interfaces';
 
@@ -37,9 +39,7 @@ export class AuthService {
 
       const user = await this.usersService.findByEmail(preparedEmail);
 
-      if (user) {
-        throw new BadRequestException(USER_ALREADY_EXISTS_ERROR);
-      }
+      if (user) throw new BadRequestException(USER_ALREADY_EXISTS_ERROR);
 
       const newUser = await this.usersService.create(
         preparedEmail,
@@ -78,6 +78,25 @@ export class AuthService {
       domain: this.configService.get<string>(COOKIE_DOMAIN_ENV),
       sameSite: isDev(this.configService) ? 'none' : 'strict',
     });
+  }
+
+  async getNewTokens(refreshToken: string) {
+    const verifiedUser =
+      await this.jwt.verifyAsync<Pick<AuthTokenData, 'id'>>(refreshToken);
+
+    if (!verifiedUser) {
+      throw new BadRequestException(INVALID_REFRESH_TOKEN_ERROR);
+    }
+
+    const user = await this.usersService.findById(verifiedUser.id);
+    if (!user) throw new NotFoundException(USER_NOT_FOUND_ERROR);
+
+    const tokens = this.generateTokens({
+      id: user.id,
+      role: user.role,
+    });
+
+    return { user, ...tokens };
   }
 
   private async validateUser(input: AuthInput) {
