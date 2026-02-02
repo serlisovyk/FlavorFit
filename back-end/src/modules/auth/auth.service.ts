@@ -18,7 +18,6 @@ import {
   COOKIE_DOMAIN_ENV,
   REFRESH_TOKEN_COOKIE_NAME,
   REGISTRATION_FAILED_ERROR,
-  USER_ALREADY_EXISTS_ERROR,
   EMAIL_OR_PASSWORD_INVALID_ERROR,
   INVALID_REFRESH_TOKEN_ERROR,
   USER_NOT_FOUND_ERROR,
@@ -36,10 +35,6 @@ export class AuthService {
   async register(input: AuthInput) {
     try {
       const preparedEmail = input.email.toLowerCase();
-
-      const user = await this.usersService.findByEmail(preparedEmail);
-
-      if (user) throw new BadRequestException(USER_ALREADY_EXISTS_ERROR);
 
       const newUser = await this.usersService.create(
         preparedEmail,

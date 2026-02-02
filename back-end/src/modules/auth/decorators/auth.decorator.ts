@@ -1,5 +1,5 @@
 import { applyDecorators, UseGuards } from '@nestjs/common';
-import { ROLE } from '../../../../prisma/generated/prisma/enums';
+import { ROLE } from '@prisma/generated/graphql/prisma';
 import { GqlAuthGuard } from '../guards/auth.guard';
 import { AdminGuard } from '../guards/admin.guard';
 

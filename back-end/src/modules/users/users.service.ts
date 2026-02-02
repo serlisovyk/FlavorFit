@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { hash } from 'argon2';
-import type { Prisma } from '../../../prisma/generated/prisma/browser';
-import type { UserUpdateInput } from '../../../prisma/generated/prisma/models';
+import type { Prisma } from '@prisma/generated/prisma/client';
 import { PrismaService } from '../../prisma/prisma.service';
+import { UserUpdateCustomInput } from './inputs/user-update.input';
+import { USER_ALREADY_EXISTS_ERROR } from './users.constants';
 
 @Injectable()
 export class UsersService {
@@ -27,6 +28,10 @@ export class UsersService {
   }
 
   async create(email: string, password: string) {
+    const user = await this.findByEmail(email);
+
+    if (user) throw new BadRequestException(USER_ALREADY_EXISTS_ERROR);
+
     return this.prisma.user.create({
       data: {
         email,
@@ -35,10 +40,8 @@ export class UsersService {
     });
   }
 
-  async updateProfile(id: string, input: UserUpdateInput) {
+  async updateProfile(id: string, input: UserUpdateCustomInput) {
     const { profile, measurements, password, ...data } = input;
-
-    // TODO check user existence (findById with exception)
 
     const updateProfile: Prisma.XOR<
       Prisma.UserUpdateInput,

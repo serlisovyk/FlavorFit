@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { ForbiddenError } from '@nestjs/apollo';
-import { ROLE } from '../../../../prisma/generated/prisma/enums';
+import { ROLE } from '@prisma/generated/prisma/enums';
 import { FORBIDDEN_ERROR } from '../auth.constants';
 import { RequestWithUser } from '../auth.interfaces';
 
