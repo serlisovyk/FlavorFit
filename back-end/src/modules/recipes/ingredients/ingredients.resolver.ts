@@ -1,6 +1,5 @@
 import { Query, Mutation, Resolver, Args } from '@nestjs/graphql';
-import { ROLE } from '@prisma/generated/graphql/prisma';
-import { Auth } from '@/modules/auth/decorators/auth.decorator';
+import { Admin } from '@/modules/auth/decorators/admin.decorator';
 import { IngredientModel } from './models/ingredient.model';
 import { IngredientCreateInput } from './inputs/create-ingredients.input';
 import { IngredientUpdateInput } from './inputs/update-ingredients.input';
@@ -11,31 +10,31 @@ export class IngredientsResolver {
   constructor(private readonly ingredientsService: IngredientsService) {}
 
   @Query(() => [IngredientModel], { name: 'ingredients' })
-  @Auth(ROLE.ADMIN)
+  @Admin()
   getAll() {
     return this.ingredientsService.getAll();
   }
 
   @Query(() => IngredientModel, { name: 'ingredientById' })
-  @Auth(ROLE.ADMIN)
+  @Admin()
   getById(@Args('id') id: string) {
     return this.ingredientsService.getById(id);
   }
 
   @Mutation(() => IngredientModel, { name: 'createIngredient' })
-  @Auth(ROLE.ADMIN)
+  @Admin()
   create(@Args('input') input: IngredientCreateInput) {
     return this.ingredientsService.create(input);
   }
 
   @Mutation(() => IngredientModel, { name: 'updateIngredient' })
-  @Auth(ROLE.ADMIN)
+  @Admin()
   update(@Args('id') id: string, @Args('input') input: IngredientUpdateInput) {
     return this.ingredientsService.update(id, input);
   }
 
   @Mutation(() => IngredientModel, { name: 'deleteIngredientById' })
-  @Auth(ROLE.ADMIN)
+  @Admin()
   delete(@Args('id') id: string) {
     return this.ingredientsService.delete(id);
   }
