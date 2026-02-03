@@ -2,9 +2,9 @@ model Ingredient {
   id String @id @default(cuid())
 
   name        String
-  defaultUnit UNIT   @map("default_unit")
+  defaultUnit UNIT?   @default(GRAM) @map("default_unit")
 
-  recipes RecipeIngredient[]
+  recipesIngredient RecipeIngredient[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
