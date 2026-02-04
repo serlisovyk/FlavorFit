@@ -1,11 +1,15 @@
 model Recipe {
   id String @id @default(cuid())
 
+  slug        String     @unique
   title       String
   description String
-  calories    Int
   cookingTime Int        @map("cooking_time")
   difficulty  DIFFICULTY
+
+  nutritionFacts NutritionFact?
+
+  tags RecipeTag[]
 
   recipeIngredients RecipeIngredient[]
   recipeSteps       RecipeStep[]
