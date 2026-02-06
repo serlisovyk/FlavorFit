@@ -8,8 +8,17 @@ export class RecipesService {
 
   // TODO: pagination, filtering (category, searchTerm (name, description), ingredients)
   // sorting (createdAt, recommended (likes), popularity (views))
-  getAll() {
-    return this.prisma.recipe.findMany();
+  async getAll() {
+    const data = await this.prisma.recipe.findMany({
+      include: {
+        comments: true,
+        likes: true,
+      },
+    });
+
+    // const likesCount = data.c;
+
+    return data;
   }
 
   async getBySlug(slug: string) {

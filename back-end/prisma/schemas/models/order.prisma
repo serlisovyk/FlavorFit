@@ -3,8 +3,9 @@ model Order {
 
   orderId String       @unique @map("order_id")
   status  ORDER_STATUS @default(PENDING)
+  total   Decimal
 
-  orderItems OrderItem[]
+  items OrderItem[]
 
   user   User   @relation(fields: [userId], references: [id])
   userId String @map("user_id")

@@ -7,7 +7,7 @@ model OrderItem {
   recipeIngredient   RecipeIngredient @relation(fields: [recipeIngredientId], references: [id])
   recipeIngredientId String           @map("recipe_ingredient_id")
 
-  order   Order  @relation(fields: [orderId], references: [id])
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
   orderId String @map("order_id")
 
   createdAt DateTime @default(now()) @map("created_at")
