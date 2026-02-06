@@ -7,7 +7,7 @@ model Recipe {
   cookingTime Int        @map("cooking_time")
   difficulty  DIFFICULTY
 
-  nutritionFacts NutritionFact?
+  nutritionFact NutritionFact?
 
   tags RecipeTag[]
 
