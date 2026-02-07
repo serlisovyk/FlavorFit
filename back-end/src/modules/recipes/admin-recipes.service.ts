@@ -1,7 +1,7 @@
 import type { PrismaService } from '@/prisma/prisma.service';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { RECIPE_NOT_FOUND_ERROR } from './recipes.constants';
-import type { RecipeCreateInput } from './inputs/recipe.input';
+import type { RecipeInput } from './inputs/recipe.input';
 
 @Injectable()
 export class AdminRecipesService {
@@ -23,13 +23,7 @@ export class AdminRecipesService {
 
   create(
     authorId: string,
-    {
-      recipeSteps,
-      nutritionFact,
-      ingredientsIds,
-      tags,
-      ...data
-    }: RecipeCreateInput,
+    { recipeSteps, nutritionFact, ingredientsIds, tags, ...data }: RecipeInput,
   ) {
     return this.prisma.recipe.create({
       data: {
@@ -67,13 +61,7 @@ export class AdminRecipesService {
 
   async update(
     id: string,
-    {
-      recipeSteps,
-      nutritionFact,
-      ingredientsIds,
-      tags,
-      ...data
-    }: RecipeCreateInput,
+    { recipeSteps, nutritionFact, ingredientsIds, tags, ...data }: RecipeInput,
   ) {
     const recipe = await this.prisma.recipe.update({
       where: { id },

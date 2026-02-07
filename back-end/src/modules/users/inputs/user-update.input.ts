@@ -3,7 +3,7 @@ import { ProfileUpdateWithoutUserInput } from '@prisma/generated/graphql/profile
 import { MeasurementUpdateWithoutUserInput } from '@prisma/generated/graphql/measurement';
 
 @InputType()
-export class UserUpdateCustomInput {
+export class UserUpdateInput {
   @Field(() => String, { nullable: true })
   email?: string;
 

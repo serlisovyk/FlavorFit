@@ -1,6 +1,6 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { OrderItemModel } from './order-item.model';
 import { ORDER_STATUS } from '../enums/order.enums';
+import { OrderItemModel } from './order-item.model';
 
 @ObjectType()
 export class OrderModel {

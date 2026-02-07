@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { hash } from 'argon2';
 import type { Prisma } from '@prisma/generated/prisma/client';
 import { PrismaService } from '../../prisma/prisma.service';
-import { UserUpdateCustomInput } from './inputs/user-update.input';
+import { UserUpdateInput } from './inputs/user-update.input';
 import { USER_ALREADY_EXISTS_ERROR } from './users.constants';
 
 @Injectable()
@@ -40,7 +40,7 @@ export class UsersService {
     });
   }
 
-  async updateProfile(id: string, input: UserUpdateCustomInput) {
+  async updateProfile(id: string, input: UserUpdateInput) {
     const { profile, measurements, password, ...data } = input;
 
     const updateProfile: Prisma.XOR<

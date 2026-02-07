@@ -4,7 +4,7 @@ import { NutritionFactInput } from './nutrition-fact.input';
 import { RecipeStepInput } from './recipe-step.input';
 
 @InputType()
-export class RecipeCreateInput {
+export class RecipeInput {
   @Field(() => String, { nullable: false })
   slug!: string;
 

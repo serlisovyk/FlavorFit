@@ -13,8 +13,8 @@ export type CurrentUser = Omit<User, 'password'>;
 @ObjectType()
 export class AuthResponse {
   @Field(() => User)
-  user: User;
+  user!: User;
 
   @Field()
-  accessToken: string;
+  accessToken!: string;
 }

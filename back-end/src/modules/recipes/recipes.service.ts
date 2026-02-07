@@ -16,8 +16,6 @@ export class RecipesService {
       },
     });
 
-    // const likesCount = data.c;
-
     return data;
   }
 

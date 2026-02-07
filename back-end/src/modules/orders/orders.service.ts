@@ -4,12 +4,12 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import type { PrismaService } from '@/prisma/prisma.service';
+import { ORDER_STATUS } from './enums/order.enums';
 import type { OrderCreateInput } from './inputs/order.input';
 import {
   ORDER_EMPTY_ERROR,
   RECIPE_INGREDIENT_NOT_FOUND_ERROR,
 } from './orders.constants';
-import { ORDER_STATUS } from './enums/order.enums';
 
 @Injectable()
 export class OrdersService {
