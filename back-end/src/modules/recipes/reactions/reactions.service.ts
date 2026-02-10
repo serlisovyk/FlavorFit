@@ -1,14 +1,14 @@
-import type { PrismaService } from '@/prisma/prisma.service';
 import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ROLE } from '@prisma/generated/prisma/enums';
+import type { PrismaService } from '@/prisma/prisma.service';
 import type {
   CommentCreateInput,
   CommentUpdateInput,
 } from './inputs/comment.input';
-import { COMMENT_NOT_FOUND_OR_UNAUTHORIZED_ERROR } from './reaction.constants';
-import { ROLE } from '@prisma/generated/prisma/enums';
+import { COMMENT_NOT_FOUND_OR_UNAUTHORIZED_ERROR } from './reactions.constants';
 
 @Injectable()
-export class ReactionService {
+export class ReactionsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async toggleLike(userId: string, recipeId: string) {

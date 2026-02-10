@@ -6,6 +6,15 @@ import type { RecipeInput } from './inputs/recipe.input';
 import type { RecipesQueryInput } from './inputs/recipes-query.input';
 import type { AdminRecipesService } from './admin-recipes.service';
 import { RecipesService } from './recipes.service';
+import {
+  GET_RECIPES_QUERY_DESCRIPTION,
+  GET_RECIPE_BY_SLUG_QUERY_DESCRIPTION,
+  GET_ADMIN_RECIPES_QUERY_DESCRIPTION,
+  GET_RECIPE_BY_ID_QUERY_DESCRIPTION,
+  CREATE_RECIPE_MUTATION_DESCRIPTION,
+  UPDATE_RECIPE_MUTATION_DESCRIPTION,
+  DELETE_RECIPE_MUTATION_DESCRIPTION,
+} from './recipes.constants';
 
 @Resolver()
 export class RecipesResolver {
@@ -14,29 +23,44 @@ export class RecipesResolver {
     private readonly adminRecipesService: AdminRecipesService,
   ) {}
 
-  @Query(() => [RecipeModel], { name: 'recipes' })
+  @Query(() => [RecipeModel], {
+    name: 'recipes',
+    description: GET_RECIPES_QUERY_DESCRIPTION,
+  })
   getAll(@Args('input') input: RecipesQueryInput) {
     return this.recipesService.getAll(input);
   }
 
-  @Query(() => RecipeModel, { name: 'recipeBySlug' })
+  @Query(() => RecipeModel, {
+    name: 'recipeBySlug',
+    description: GET_RECIPE_BY_SLUG_QUERY_DESCRIPTION,
+  })
   getBySlug(@Args('slug') slug: string) {
     return this.recipesService.getBySlug(slug);
   }
 
-  @Query(() => [RecipeModel], { name: 'adminRecipes' })
+  @Query(() => [RecipeModel], {
+    name: 'adminRecipes',
+    description: GET_ADMIN_RECIPES_QUERY_DESCRIPTION,
+  })
   @Admin()
   getAllAdmin() {
     return this.adminRecipesService.getAll();
   }
 
-  @Query(() => RecipeModel, { name: 'recipeById' })
+  @Query(() => RecipeModel, {
+    name: 'recipeById',
+    description: GET_RECIPE_BY_ID_QUERY_DESCRIPTION,
+  })
   @Admin()
   getById(@Args('id') id: string) {
     return this.adminRecipesService.getById(id);
   }
 
-  @Mutation(() => RecipeModel, { name: 'createRecipe' })
+  @Mutation(() => RecipeModel, {
+    name: 'createRecipe',
+    description: CREATE_RECIPE_MUTATION_DESCRIPTION,
+  })
   @Admin()
   create(
     @CurrentUser('id') authorId: string,
@@ -45,13 +69,19 @@ export class RecipesResolver {
     return this.adminRecipesService.create(authorId, input);
   }
 
-  @Mutation(() => RecipeModel, { name: 'updateRecipe' })
+  @Mutation(() => RecipeModel, {
+    name: 'updateRecipe',
+    description: UPDATE_RECIPE_MUTATION_DESCRIPTION,
+  })
   @Admin()
   update(@Args('id') id: string, @Args('input') input: RecipeInput) {
     return this.adminRecipesService.update(id, input);
   }
 
-  @Mutation(() => RecipeModel, { name: 'deleteRecipeById' })
+  @Mutation(() => RecipeModel, {
+    name: 'deleteRecipeById',
+    description: DELETE_RECIPE_MUTATION_DESCRIPTION,
+  })
   @Admin()
   delete(@Args('id') id: string) {
     return this.adminRecipesService.delete(id);

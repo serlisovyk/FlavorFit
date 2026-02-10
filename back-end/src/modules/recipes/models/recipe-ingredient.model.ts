@@ -1,24 +1,50 @@
-import { ObjectType, Field, Float, ID } from '@nestjs/graphql';
+import { ObjectType, Field, Float } from '@nestjs/graphql';
+import type { Prisma, RecipeIngredient } from '@prisma/generated/prisma/client';
+import { UNIT } from '@prisma/generated/prisma/enums';
+import { BaseModel } from '@/shared/models/base.model';
 import { IngredientModel } from '../ingredients/models/ingredient.model';
-import { UNIT } from '../enums/recipes.enums';
+import {
+  RECIPE_INGREDIENT_MODEL_DESCRIPTION,
+  RECIPE_INGREDIENT_MODEL_QUANTITY_FIELD_DESCRIPTION,
+  RECIPE_INGREDIENT_MODEL_UNIT_FIELD_DESCRIPTION,
+  RECIPE_INGREDIENT_MODEL_INGREDIENT_FIELD_DESCRIPTION,
+  RECIPE_INGREDIENT_MODEL_RECIPE_ID_FIELD_DESCRIPTION,
+  RECIPE_INGREDIENT_MODEL_INGREDIENT_ID_FIELD_DESCRIPTION,
+} from '../recipes.constants';
 
-@ObjectType()
-export class RecipeIngredientModel {
-  @Field(() => ID, { nullable: false })
-  id!: string;
+@ObjectType({ description: RECIPE_INGREDIENT_MODEL_DESCRIPTION })
+export class RecipeIngredientModel
+  extends BaseModel
+  implements RecipeIngredient
+{
+  @Field(() => Float, {
+    nullable: false,
+    description: RECIPE_INGREDIENT_MODEL_QUANTITY_FIELD_DESCRIPTION,
+  })
+  quantity!: Prisma.Decimal;
 
-  @Field(() => Float, { nullable: false })
-  quantity!: number;
-
-  @Field(() => UNIT, { defaultValue: 'GRAM', nullable: false })
+  @Field(() => UNIT, {
+    defaultValue: UNIT.GRAM,
+    nullable: false,
+    description: RECIPE_INGREDIENT_MODEL_UNIT_FIELD_DESCRIPTION,
+  })
   unit!: `${UNIT}`;
 
-  @Field(() => Date, { nullable: false })
-  createdAt!: Date;
-
-  @Field(() => Date, { nullable: false })
-  updatedAt!: Date;
-
-  @Field(() => IngredientModel, { nullable: false })
+  @Field(() => IngredientModel, {
+    nullable: false,
+    description: RECIPE_INGREDIENT_MODEL_INGREDIENT_FIELD_DESCRIPTION,
+  })
   ingredient?: IngredientModel;
+
+  @Field(() => String, {
+    nullable: false,
+    description: RECIPE_INGREDIENT_MODEL_RECIPE_ID_FIELD_DESCRIPTION,
+  })
+  recipeId!: string;
+
+  @Field(() => String, {
+    nullable: false,
+    description: RECIPE_INGREDIENT_MODEL_INGREDIENT_ID_FIELD_DESCRIPTION,
+  })
+  ingredientId!: string;
 }

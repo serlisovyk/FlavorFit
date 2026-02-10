@@ -1,1 +1,8 @@
-export type RecipeSortOption = 'new' | 'recommended' | 'popular';
+export const RECIPE_SORT_OPTIONS = {
+  NEW: 'NEW',
+  RECOMMENDED: 'RECOMMENDED',
+  POPULAR: 'POPULAR',
+};
+
+export type RECIPE_SORT_OPTIONS =
+  (typeof RECIPE_SORT_OPTIONS)[keyof typeof RECIPE_SORT_OPTIONS];

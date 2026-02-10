@@ -1,22 +1,37 @@
-import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
+import type { RecipeStep } from '@prisma/generated/prisma/client';
+import { BaseModel } from '@/shared/models/base.model';
+import {
+  RECIPE_STEP_MODEL_DESCRIPTION,
+  RECIPE_STEP_MODEL_ORDER_FIELD_DESCRIPTION,
+  RECIPE_STEP_MODEL_TITLE_FIELD_DESCRIPTION,
+  RECIPE_STEP_MODEL_DESCRIPTION_FIELD_DESCRIPTION,
+  RECIPE_STEP_MODEL_RECIPE_ID_FIELD_DESCRIPTION,
+} from '../recipes.constants';
 
-@ObjectType()
-export class RecipeStepModel {
-  @Field(() => ID, { nullable: false })
-  id!: string;
-
-  @Field(() => Int, { nullable: false })
+@ObjectType({ description: RECIPE_STEP_MODEL_DESCRIPTION })
+export class RecipeStepModel extends BaseModel implements RecipeStep {
+  @Field(() => Int, {
+    nullable: false,
+    description: RECIPE_STEP_MODEL_ORDER_FIELD_DESCRIPTION,
+  })
   order!: number;
 
-  @Field(() => String, { nullable: false })
+  @Field(() => String, {
+    nullable: false,
+    description: RECIPE_STEP_MODEL_TITLE_FIELD_DESCRIPTION,
+  })
   title!: string;
 
-  @Field(() => String, { nullable: false })
+  @Field(() => String, {
+    nullable: false,
+    description: RECIPE_STEP_MODEL_DESCRIPTION_FIELD_DESCRIPTION,
+  })
   description!: string;
 
-  @Field(() => Date, { nullable: false })
-  createdAt!: Date;
-
-  @Field(() => Date, { nullable: false })
-  updatedAt!: Date;
+  @Field(() => String, {
+    nullable: false,
+    description: RECIPE_STEP_MODEL_RECIPE_ID_FIELD_DESCRIPTION,
+  })
+  recipeId!: string;
 }

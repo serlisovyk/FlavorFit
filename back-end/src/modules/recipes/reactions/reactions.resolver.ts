@@ -7,13 +7,22 @@ import type {
   CommentCreateInput,
   CommentUpdateInput,
 } from './inputs/comment.input';
-import { ReactionService } from './reaction.service';
+import { ReactionsService } from './reactions.service';
+import {
+  CREATE_COMMENT_MUTATION_DESCRIPTION,
+  UPDATE_COMMENT_MUTATION_DESCRIPTION,
+  DELETE_COMMENT_MUTATION_DESCRIPTION,
+  TOGGLE_LIKE_MUTATION_DESCRIPTION,
+} from './reactions.constants';
 
 @Resolver()
-export class ReactionResolver {
-  constructor(private readonly reactionService: ReactionService) {}
+export class ReactionsResolver {
+  constructor(private readonly reactionService: ReactionsService) {}
 
-  @Mutation(() => CommentModel)
+  @Mutation(() => CommentModel, {
+    name: 'createComment',
+    description: CREATE_COMMENT_MUTATION_DESCRIPTION,
+  })
   @Auth()
   createComment(
     @CurrentUser('id') userId: string,
@@ -22,7 +31,10 @@ export class ReactionResolver {
     return this.reactionService.createComment(userId, input);
   }
 
-  @Mutation(() => CommentModel)
+  @Mutation(() => CommentModel, {
+    name: 'updateComment',
+    description: UPDATE_COMMENT_MUTATION_DESCRIPTION,
+  })
   @Auth()
   updateComment(
     @CurrentUser('id') userId: string,
@@ -38,7 +50,10 @@ export class ReactionResolver {
     );
   }
 
-  @Mutation(() => CommentModel)
+  @Mutation(() => CommentModel, {
+    name: 'deleteComment',
+    description: DELETE_COMMENT_MUTATION_DESCRIPTION,
+  })
   @Auth()
   deleteComment(
     @CurrentUser('id') userId: string,
@@ -48,7 +63,10 @@ export class ReactionResolver {
     return this.reactionService.deleteComment(userId, userRole, commentId);
   }
 
-  @Mutation(() => ToggleLikeResponse)
+  @Mutation(() => ToggleLikeResponse, {
+    name: 'toggleLike',
+    description: TOGGLE_LIKE_MUTATION_DESCRIPTION,
+  })
   @Auth()
   toggleLike(
     @CurrentUser('id') userId: string,
