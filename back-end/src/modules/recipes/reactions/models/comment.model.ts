@@ -1,5 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import type { Comment } from '@prisma/generated/prisma/client';
+import { Comment } from '@prisma/generated/prisma/client';
 import { BaseModel } from '@/shared/models/base.model';
 import {
   COMMENT_MODEL_DESCRIPTION,

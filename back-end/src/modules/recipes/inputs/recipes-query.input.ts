@@ -6,7 +6,7 @@ import {
   RECIPES_QUERY_SEARCH_TERM_FIELD_DESCRIPTION,
   RECIPES_QUERY_SORT_FIELD_DESCRIPTION,
 } from '../recipes.constants';
-import type { RECIPE_SORT_OPTIONS } from '../recipes.types';
+import { RECIPE_SORT_OPTIONS } from '../recipes.types';
 
 @InputType({ description: RECIPES_QUERY_INPUT_DESCRIPTION })
 export class RecipesQueryInput {

@@ -1,5 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import type { Recipe } from '@prisma/generated/prisma/client';
+import { Recipe } from '@prisma/generated/prisma/client';
 import { DIFFICULTY } from '@prisma/generated/prisma/enums';
 import { BaseModel } from '@/shared/models/base.model';
 import { NutritionFactModel } from './nutrition-fact.model';
@@ -21,6 +21,7 @@ import {
   RECIPE_MODEL_LIKES_FIELD_DESCRIPTION,
   RECIPE_MODEL_AUTHOR_ID_FIELD_DESCRIPTION,
 } from '../recipes.constants';
+import '../enums/recipes.enums';
 
 @ObjectType({ description: RECIPE_MODEL_DESCRIPTION })
 export class RecipeModel extends BaseModel implements Recipe {

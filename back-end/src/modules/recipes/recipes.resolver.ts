@@ -2,9 +2,9 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Admin } from '../auth/decorators/admin.decorator';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { RecipeModel } from './models/recipe.model';
-import type { RecipeInput } from './inputs/recipe.input';
-import type { RecipesQueryInput } from './inputs/recipes-query.input';
-import type { AdminRecipesService } from './admin-recipes.service';
+import { RecipeInput } from './inputs/recipe.input';
+import { RecipesQueryInput } from './inputs/recipes-query.input';
+import { AdminRecipesService } from './admin-recipes.service';
 import { RecipesService } from './recipes.service';
 import {
   GET_RECIPES_QUERY_DESCRIPTION,

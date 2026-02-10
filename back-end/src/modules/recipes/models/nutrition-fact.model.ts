@@ -1,5 +1,5 @@
 import { ObjectType, Field, Float } from '@nestjs/graphql';
-import type { Prisma, NutritionFact } from '@prisma/generated/prisma/client';
+import { Prisma, NutritionFact } from '@prisma/generated/prisma/client';
 import { BaseModel } from '@/shared/models/base.model';
 import {
   NUTRITION_FACT_MODEL_DESCRIPTION,

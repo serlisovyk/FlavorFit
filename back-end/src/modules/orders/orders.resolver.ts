@@ -2,7 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { OrderModel } from './models/order.model';
-import type { OrderInput } from './inputs/order.input';
+import { OrderInput } from './inputs/order.input';
 import { OrdersService } from './orders.service';
 import {
   GET_ORDERS_QUERY_DESCRIPTION,

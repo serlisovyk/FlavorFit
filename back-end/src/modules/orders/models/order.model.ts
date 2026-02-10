@@ -11,6 +11,7 @@ import {
   ORDER_USER_ID_FIELD_DESCRIPTION,
   ORDER_ITEMS_FIELD_DESCRIPTION,
 } from '../orders.constants';
+import '../enums/order.enums';
 
 @ObjectType({ description: ORDER_MODEL_DESCRIPTION })
 export class OrderModel extends BaseModel implements Order {

@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PrismaService } from '../../prisma/prisma.service';
-import type { UserModel } from '../users/models/user.model';
+import { UserModel } from '../users/models/user.model';
 import { JWT_SECRET_ENV } from '../../shared/constants';
 
 @Injectable()

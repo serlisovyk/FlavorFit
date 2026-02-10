@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import type { StringValue } from 'ms';
+import { StringValue } from 'ms';
 import { verify } from 'argon2';
 import { Response } from 'express';
 import { isDev } from '../../shared/utils';

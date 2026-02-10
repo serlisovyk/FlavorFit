@@ -3,10 +3,7 @@ import { Auth } from '@/modules/auth/decorators/auth.decorator';
 import { CurrentUser } from '@/modules/auth/decorators/current-user.decorator';
 import { CommentModel } from './models/comment.model';
 import { ToggleLikeResponse } from './models/toggle-like.response';
-import type {
-  CommentCreateInput,
-  CommentUpdateInput,
-} from './inputs/comment.input';
+import { CommentCreateInput, CommentUpdateInput } from './inputs/comment.input';
 import { ReactionsService } from './reactions.service';
 import {
   CREATE_COMMENT_MUTATION_DESCRIPTION,

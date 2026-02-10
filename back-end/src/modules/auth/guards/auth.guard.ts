@@ -1,7 +1,7 @@
 import { ExecutionContext } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import type { RequestWithUser } from '../auth.interfaces';
+import { RequestWithUser } from '../auth.interfaces';
 
 export class GqlAuthGuard extends AuthGuard('jwt') {
   getRequest(context: ExecutionContext) {

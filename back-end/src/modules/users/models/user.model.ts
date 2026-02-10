@@ -16,6 +16,7 @@ import {
   USER_RECIPES_DESCRIPTION,
   USER_ROLE_DESCRIPTION,
 } from '../users.constants';
+import '../enums/users.enums';
 
 @ObjectType({ description: USER_MODEL_DESCRIPTION })
 export class UserModel extends BaseModel implements User {

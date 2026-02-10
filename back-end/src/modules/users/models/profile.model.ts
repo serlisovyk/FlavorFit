@@ -1,5 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import type { Profile } from '@prisma/generated/prisma/client';
+import { Profile } from '@prisma/generated/prisma/client';
 import { GENDER } from '@prisma/generated/prisma/enums';
 import { BaseModel } from '@/shared/models/base.model';
 import {

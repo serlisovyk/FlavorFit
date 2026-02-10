@@ -4,8 +4,8 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { ORDER_STATUS } from '@prisma/generated/prisma/enums';
-import type { PrismaService } from '@/prisma/prisma.service';
-import type { OrderInput } from './inputs/order.input';
+import { PrismaService } from '@/prisma/prisma.service';
+import { OrderInput } from './inputs/order.input';
 import {
   ORDER_EMPTY_ERROR,
   RECIPE_INGREDIENT_NOT_FOUND_ERROR,
