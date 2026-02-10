@@ -1,0 +1,2 @@
+export const THROTTLE_TTL_ENV = 'THROTTLE_TTL';
+export const THROTTLE_LIMIT_ENV = 'THROTTLE_LIMIT';
