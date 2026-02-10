@@ -23,7 +23,7 @@ export class AdminRecipesService {
 
   create(
     authorId: string,
-    { recipeSteps, nutritionFact, ingredientsIds, tags, ...data }: RecipeInput,
+    { recipeSteps, nutritionFact, ingredients, tags, ...data }: RecipeInput,
   ) {
     return this.prisma.recipe.create({
       data: {
@@ -37,12 +37,13 @@ export class AdminRecipesService {
         recipeSteps: {
           create: recipeSteps,
         },
-        ...(!!ingredientsIds?.length && {
+        ...(!!ingredients?.length && {
           recipeIngredients: {
             // TODO: Update it after front-end start
-            create: ingredientsIds.map((ingredientId, index) => ({
-              ingredientId,
-              quantity: 1,
+            create: ingredients.map((ingredient, index) => ({
+              ingredientId: ingredient.ingredientId,
+              quantity: ingredient.quantity,
+              unit: ingredient.unit,
               order: index,
             })),
           },
@@ -61,7 +62,7 @@ export class AdminRecipesService {
 
   async update(
     id: string,
-    { recipeSteps, nutritionFact, ingredientsIds, tags, ...data }: RecipeInput,
+    { recipeSteps, nutritionFact, ingredients, tags, ...data }: RecipeInput,
   ) {
     const recipe = await this.prisma.recipe.update({
       where: { id },
@@ -85,13 +86,14 @@ export class AdminRecipesService {
             })),
           },
         }),
-        ...(ingredientsIds && {
+        ...(ingredients && {
           // TODO: Update it after front-end start
           recipeIngredients: {
             deleteMany: {},
-            create: ingredientsIds.map((ingredientId, index) => ({
-              ingredientId,
-              quantity: 1,
+            create: ingredients.map((ingredient, index) => ({
+              ingredientId: ingredient.ingredientId,
+              quantity: ingredient.quantity,
+              unit: ingredient.unit,
               order: index,
             })),
           },

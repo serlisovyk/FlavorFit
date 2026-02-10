@@ -1,11 +1,13 @@
 model Recipe {
   id String @id @default(cuid())
 
-  slug        String     @unique
+  slug        String @unique
   title       String
   description String
-  cookingTime Int        @map("cooking_time")
-  difficulty  DIFFICULTY
+  cookingTime Int    @map("cooking_time")
+  views       Int    @default(0)
+
+  difficulty DIFFICULTY
 
   nutritionFact NutritionFact?
 

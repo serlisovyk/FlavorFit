@@ -1,10 +1,11 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Admin } from '../auth/decorators/admin.decorator';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { RecipeModel } from './models/recipe.model';
 import type { RecipeInput } from './inputs/recipe.input';
+import type { RecipesQueryInput } from './inputs/recipes-query.input';
 import type { AdminRecipesService } from './admin-recipes.service';
 import { RecipesService } from './recipes.service';
-import { RecipeModel } from './models/recipe.model';
-import { CurrentUser } from '../auth/decorators/current-user.decorator';
 
 @Resolver()
 export class RecipesResolver {
@@ -14,8 +15,8 @@ export class RecipesResolver {
   ) {}
 
   @Query(() => [RecipeModel], { name: 'recipes' })
-  getAll() {
-    return this.recipesService.getAll();
+  getAll(@Args('input') input: RecipesQueryInput) {
+    return this.recipesService.getAll(input);
   }
 
   @Query(() => RecipeModel, { name: 'recipeBySlug' })

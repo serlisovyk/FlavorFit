@@ -1,22 +1,44 @@
-import type { PrismaService } from '@/prisma/prisma.service';
 import { Injectable, NotFoundException } from '@nestjs/common';
+import type { PrismaService } from '@/prisma/prisma.service';
+import { Prisma } from '@prisma/generated/prisma/client';
+import type { RecipesQueryInput } from './inputs/recipes-query.input';
 import { RECIPE_NOT_FOUND_ERROR } from './recipes.constants';
+import type { RecipeSortOption } from './recipes.types';
 
 @Injectable()
 export class RecipesService {
   constructor(private readonly prisma: PrismaService) {}
 
-  // TODO: pagination, filtering (category, searchTerm (name, description), ingredients)
-  // sorting (createdAt, recommended (likes), popularity (views))
-  async getAll() {
-    const data = await this.prisma.recipe.findMany({
+  getAll({ page, limit, searchTerm, sort }: RecipesQueryInput) {
+    const skip = (page - 1) * limit;
+
+    return this.prisma.recipe.findMany({
+      skip,
+      take: limit,
+      orderBy: this.getOrderBy(sort),
+      where: {
+        ...(searchTerm && {
+          OR: [
+            { title: { contains: searchTerm, mode: 'insensitive' } },
+            { description: { contains: searchTerm, mode: 'insensitive' } },
+            {
+              recipeIngredients: {
+                some: {
+                  ingredient: {
+                    name: { contains: searchTerm, mode: 'insensitive' },
+                  },
+                },
+              },
+            },
+          ],
+        }),
+      },
       include: {
-        comments: true,
-        likes: true,
+        _count: {
+          select: { likes: true },
+        },
       },
     });
-
-    return data;
   }
 
   async getBySlug(slug: string) {
@@ -33,5 +55,16 @@ export class RecipesService {
     if (!recipe) throw new NotFoundException(RECIPE_NOT_FOUND_ERROR);
 
     return recipe;
+  }
+
+  private getOrderBy(sort?: RecipeSortOption) {
+    switch (sort) {
+      case 'recommended':
+        return { likes: { _count: Prisma.SortOrder.desc } };
+      case 'popular':
+        return { views: Prisma.SortOrder.desc };
+      default:
+        return { createdAt: Prisma.SortOrder.desc };
+    }
   }
 }
