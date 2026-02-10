@@ -2,15 +2,15 @@ model RecipeIngredient {
   id String @id @default(cuid())
 
   quantity Decimal
-  unit     UNIT  @default(GRAM)
+  unit     UNIT    @default(GRAM)
+
+  orderItems OrderItem[]
 
   recipe   Recipe @relation(fields: [recipeId], references: [id])
   recipeId String @map("recipe_id")
 
   ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
   ingredientId String     @map("ingredient_id")
-
-  orderItems OrderItem[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

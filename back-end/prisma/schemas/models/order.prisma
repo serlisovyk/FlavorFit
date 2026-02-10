@@ -1,9 +1,10 @@
 model Order {
   id String @id @default(cuid())
 
-  orderId String       @unique @map("order_id")
-  status  ORDER_STATUS @default(PENDING)
-  total   Decimal
+  status ORDER_STATUS @default(PENDING)
+  total  Decimal
+
+  orderId String @unique @map("order_id")
 
   items OrderItem[]
 
