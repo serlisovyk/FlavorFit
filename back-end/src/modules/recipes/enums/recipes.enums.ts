@@ -1,19 +1,16 @@
 import { registerEnumType } from '@nestjs/graphql';
+import { DIFFICULTY, UNIT } from '@prisma/generated/prisma/enums';
+import {
+  RECIPE_DIFFICULTY_ENUM_DESCRIPTION,
+  RECIPE_UNIT_ENUM_DESCRIPTION,
+} from '../recipes.constants';
 
-export enum DIFFICULTY {
-  EASY = 'EASY',
-  MEDIUM = 'MEDIUM',
-  HARD = 'HARD',
-}
+registerEnumType(UNIT, {
+  name: 'UNIT',
+  description: RECIPE_UNIT_ENUM_DESCRIPTION,
+});
 
-export enum UNIT {
-  GRAM = 'GRAM',
-  MILLILITER = 'MILLILITER',
-  PIECE = 'PIECE',
-  TEASPOON = 'TEASPOON',
-  TABLESPOON = 'TABLESPOON',
-  CLOVES = 'CLOVES',
-}
-
-registerEnumType(UNIT, { name: 'UNIT', description: undefined });
-registerEnumType(DIFFICULTY, { name: 'DIFFICULTY', description: undefined });
+registerEnumType(DIFFICULTY, {
+  name: 'DIFFICULTY',
+  description: RECIPE_DIFFICULTY_ENUM_DESCRIPTION,
+});

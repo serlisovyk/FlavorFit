@@ -1,7 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '@/prisma/prisma.service';
-import { IngredientCreateInput } from './inputs/create-ingredients.input';
-import { IngredientUpdateInput } from './inputs/update-ingredients.input';
+import {
+  IngredientsCreateInput,
+  IngredientsUpdateInput,
+} from './inputs/ingredients.input';
 import { INGREDIENT_NOT_FOUND_ERROR } from './ingredients.constants';
 
 @Injectable()
@@ -22,13 +24,13 @@ export class IngredientsService {
     return ingredient;
   }
 
-  create(data: IngredientCreateInput) {
+  create(data: IngredientsCreateInput) {
     return this.prisma.ingredient.create({
       data,
     });
   }
 
-  async update(id: string, data: IngredientUpdateInput) {
+  async update(id: string, data: IngredientsUpdateInput) {
     const ingredient = await this.prisma.ingredient.update({
       where: { id },
       data,

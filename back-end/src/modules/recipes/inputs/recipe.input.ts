@@ -1,5 +1,5 @@
 import { InputType, Field, Int } from '@nestjs/graphql';
-import { DIFFICULTY } from '../enums/recipes.enums';
+import { DIFFICULTY } from '@prisma/generated/prisma/enums';
 import { NutritionFactInput } from './nutrition-fact.input';
 import { RecipeStepInput } from './recipe-step.input';
 import { RecipeIngredientInput } from './recipe-ingredient.input';

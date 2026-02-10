@@ -18,6 +18,13 @@ export const ORDER_ITEM_RECIPE_INGREDIENT_ID_FIELD_DESCRIPTION =
 export const ORDER_ITEM_ORDER_ID_FIELD_DESCRIPTION = 'Associated order ID';
 export const ORDER_ITEM_RECIPE_INGREDIENT_FIELD_DESCRIPTION =
   'Recipe ingredient details';
+export const ORDER_INPUT_ITEMS_FIELD_DESCRIPTION = 'List of items to order';
+export const ORDER_ITEM_INPUT_RECIPE_INGREDIENT_ID_FIELD_DESCRIPTION =
+  'ID of the recipe ingredient to order';
+export const ORDER_ITEM_INPUT_QUANTITY_FIELD_DESCRIPTION = 'Quantity to order';
+export const GET_ORDERS_QUERY_DESCRIPTION =
+  'Get all orders for the current user';
+export const CREATE_ORDER_MUTATION_DESCRIPTION = 'Create a new order';
 
 export const ORDER_ITEMS_MUST_BE_ARRAY_ERROR = 'Items must be an array';
 export const RECIPE_INGREDIENT_ID_INVALID_ERROR =
