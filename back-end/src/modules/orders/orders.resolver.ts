@@ -2,7 +2,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Auth } from '../auth/decorators/auth.decorator';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { OrderModel } from './models/order.model';
-import type { OrderCreateInput } from './inputs/order.input';
+import type { OrderInput } from './inputs/order.input';
 import { OrdersService } from './orders.service';
 
 @Resolver()
@@ -19,7 +19,7 @@ export class OrdersResolver {
   @Auth()
   createOrder(
     @CurrentUser('id') userId: string,
-    @Args('input') input: OrderCreateInput,
+    @Args('input') input: OrderInput,
   ) {
     return this.ordersService.makeOrder(userId, input);
   }

@@ -1,13 +1,8 @@
 import { registerEnumType } from '@nestjs/graphql';
-
-export enum ORDER_STATUS {
-  PENDING = 'PENDING',
-  PROCESSING = 'PROCESSING',
-  COMPLETED = 'COMPLETED',
-  CANCELLED = 'CANCELLED',
-}
+import { ORDER_STATUS } from '@prisma/generated/prisma/enums';
+import { ORDER_STATUS_ENUM_DESCRIPTION } from '../orders.constants';
 
 registerEnumType(ORDER_STATUS, {
   name: 'ORDER_STATUS',
-  description: undefined,
+  description: ORDER_STATUS_ENUM_DESCRIPTION,
 });

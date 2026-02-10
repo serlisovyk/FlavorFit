@@ -3,9 +3,9 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { ORDER_STATUS } from '@prisma/generated/prisma/enums';
 import type { PrismaService } from '@/prisma/prisma.service';
-import { ORDER_STATUS } from './enums/order.enums';
-import type { OrderCreateInput } from './inputs/order.input';
+import type { OrderInput } from './inputs/order.input';
 import {
   ORDER_EMPTY_ERROR,
   RECIPE_INGREDIENT_NOT_FOUND_ERROR,
@@ -23,7 +23,10 @@ export class OrdersService {
         items: {
           include: {
             recipeIngredient: {
-              include: { recipe: true, ingredient: true },
+              include: {
+                recipe: true,
+                ingredient: true,
+              },
             },
           },
         },
@@ -31,10 +34,8 @@ export class OrdersService {
     });
   }
 
-  async makeOrder(userId: string, input: OrderCreateInput) {
-    if (!input.items.length) {
-      throw new BadRequestException(ORDER_EMPTY_ERROR);
-    }
+  async makeOrder(userId: string, input: OrderInput) {
+    if (!input.items.length) throw new BadRequestException(ORDER_EMPTY_ERROR);
 
     const generatedOrderId = Math.random()
       .toString(36)
@@ -77,8 +78,8 @@ export class OrdersService {
       data: {
         orderId: generatedOrderId,
         userId,
-        status: ORDER_STATUS.PENDING,
         total,
+        status: ORDER_STATUS.PENDING,
         items: {
           create: itemsWithPrice,
         },
@@ -87,7 +88,9 @@ export class OrdersService {
         items: {
           include: {
             recipeIngredient: {
-              include: { ingredient: true },
+              include: {
+                ingredient: true,
+              },
             },
           },
         },
