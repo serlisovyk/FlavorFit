@@ -10,3 +10,5 @@ build
 !.env.sample
 
 generated
+
+.next
