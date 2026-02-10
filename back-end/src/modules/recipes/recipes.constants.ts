@@ -80,7 +80,6 @@ export const RECIPE_MODEL_STEPS_FIELD_DESCRIPTION = 'Recipe steps';
 export const RECIPE_MODEL_LIKES_FIELD_DESCRIPTION =
   'User IDs who liked the recipe';
 export const RECIPE_MODEL_AUTHOR_ID_FIELD_DESCRIPTION = 'Author user ID';
-export const RECIPE_MODEL_AUTHOR_FIELD_DESCRIPTION = 'Recipe author';
 export const GET_RECIPES_QUERY_DESCRIPTION =
   'Get all recipes with pagination and filters';
 export const GET_RECIPE_BY_SLUG_QUERY_DESCRIPTION = 'Get recipe by slug';

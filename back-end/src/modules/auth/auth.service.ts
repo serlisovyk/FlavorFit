@@ -10,7 +10,7 @@ import { verify } from 'argon2';
 import { Response } from 'express';
 import { isDev } from '../../shared/utils';
 import { UsersService } from '../users/users.service';
-import { AuthInput } from './auth.input';
+import { AuthInput } from './inputs/auth.input';
 import {
   JWT_ACCESS_TOKEN_EXPIRES_IN_ENV,
   JWT_REFRESH_TOKEN_EXPIRES_IN_ENV,
@@ -99,9 +99,7 @@ export class AuthService {
 
     const user = await this.usersService.findByEmail(email);
 
-    if (!user) {
-      throw new NotFoundException(EMAIL_OR_PASSWORD_INVALID_ERROR);
-    }
+    if (!user) throw new NotFoundException(EMAIL_OR_PASSWORD_INVALID_ERROR);
 
     const isPasswordValid = await verify(user.password, password);
 

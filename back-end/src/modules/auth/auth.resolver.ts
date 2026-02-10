@@ -1,20 +1,23 @@
 import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { BadRequestException } from '@nestjs/common';
 import type { GraphQLContext } from '../../shared/types';
+import { AuthResponse } from './models/auth.response';
+import { AuthInput } from './inputs/auth.input';
 import { AuthService } from './auth.service';
-import { AuthInput } from './auth.input';
-import { AuthResponse } from './auth.interfaces';
 import {
+  LOGIN_MUTATION_DESCRIPTION,
+  LOGOUT_MUTATION_DESCRIPTION,
+  NEW_TOKENS_QUERY_DESCRIPTION,
   REFRESH_TOKEN_COOKIE_NAME,
   REFRESH_TOKEN_MISSING_ERROR,
+  REGISTER_MUTATION_DESCRIPTION,
 } from './auth.constants';
 
 @Resolver()
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
-  // TODO: Add captcha
-  @Mutation(() => AuthResponse)
+  @Mutation(() => AuthResponse, { description: LOGIN_MUTATION_DESCRIPTION })
   async login(
     @Args('data') input: AuthInput,
     @Context() { res }: GraphQLContext,
@@ -26,8 +29,7 @@ export class AuthResolver {
     return response;
   }
 
-  // TODO: Add captcha
-  @Mutation(() => AuthResponse)
+  @Mutation(() => AuthResponse, { description: REGISTER_MUTATION_DESCRIPTION })
   async register(
     @Args('data') input: AuthInput,
     @Context() { res }: GraphQLContext,
@@ -40,7 +42,7 @@ export class AuthResolver {
     return response;
   }
 
-  @Query(() => AuthResponse)
+  @Query(() => AuthResponse, { description: NEW_TOKENS_QUERY_DESCRIPTION })
   async newTokens(@Context() { req, res }: GraphQLContext) {
     const initialRefreshToken = req.cookies?.[REFRESH_TOKEN_COOKIE_NAME];
 
@@ -57,7 +59,7 @@ export class AuthResolver {
     return response;
   }
 
-  @Mutation(() => Boolean)
+  @Mutation(() => Boolean, { description: LOGOUT_MUTATION_DESCRIPTION })
   logout(@Context() { req, res }: GraphQLContext) {
     const initialRefreshToken = req.cookies?.[REFRESH_TOKEN_COOKIE_NAME];
 

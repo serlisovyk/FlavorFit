@@ -1,5 +1,4 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { User } from '@prisma/generated/graphql/user';
 import type { Recipe } from '@prisma/generated/prisma/client';
 import { DIFFICULTY } from '@prisma/generated/prisma/enums';
 import { BaseModel } from '@/shared/models/base.model';
@@ -21,7 +20,6 @@ import {
   RECIPE_MODEL_STEPS_FIELD_DESCRIPTION,
   RECIPE_MODEL_LIKES_FIELD_DESCRIPTION,
   RECIPE_MODEL_AUTHOR_ID_FIELD_DESCRIPTION,
-  RECIPE_MODEL_AUTHOR_FIELD_DESCRIPTION,
 } from '../recipes.constants';
 
 @ObjectType({ description: RECIPE_MODEL_DESCRIPTION })
@@ -100,10 +98,4 @@ export class RecipeModel extends BaseModel implements Recipe {
     description: RECIPE_MODEL_AUTHOR_ID_FIELD_DESCRIPTION,
   })
   authorId!: string;
-
-  @Field(() => User, {
-    nullable: false,
-    description: RECIPE_MODEL_AUTHOR_FIELD_DESCRIPTION,
-  })
-  author?: User;
 }
