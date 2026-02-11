@@ -1,5 +1,5 @@
 import { InputType, Field, ID } from '@nestjs/graphql';
-import { UNIT } from '@prisma/generated/prisma/enums';
+import { UNIT } from '@prisma/generated/enums';
 import {
   IsString,
   IsNotEmpty,

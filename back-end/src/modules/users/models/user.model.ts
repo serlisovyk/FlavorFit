@@ -1,5 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { ROLE, type User } from '@prisma/generated/prisma/client';
+import { ROLE, type User } from '@prisma/generated/client';
 import { RecipeModel } from '@/modules/recipes/models/recipe.model';
 import { OrderModel } from '@/modules/orders/models/order.model';
 import { BaseModel } from '@/shared/models/base.model';

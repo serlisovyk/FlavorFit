@@ -4,7 +4,7 @@ import {
   ACTIVITY_LEVEL,
   NUTRITION_GOAL,
   ROLE,
-} from '@prisma/generated/prisma/enums';
+} from '@prisma/generated/enums';
 import {
   ACTIVITY_LEVEL_ENUM_DESCRIPTION,
   GENDER_ENUM_DESCRIPTION,

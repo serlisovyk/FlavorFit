@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Profile } from '@prisma/generated/prisma/client';
-import { GENDER } from '@prisma/generated/prisma/enums';
+import { Profile } from '@prisma/generated/client';
+import { GENDER } from '@prisma/generated/enums';
 import { BaseModel } from '@/shared/models/base.model';
 import {
   PROFILE_AGE_DESCRIPTION,

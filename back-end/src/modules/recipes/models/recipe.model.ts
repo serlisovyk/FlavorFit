@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Recipe } from '@prisma/generated/prisma/client';
-import { DIFFICULTY } from '@prisma/generated/prisma/enums';
+import { Recipe } from '@prisma/generated/client';
+import { DIFFICULTY } from '@prisma/generated/enums';
 import { BaseModel } from '@/shared/models/base.model';
 import { NutritionFactModel } from './nutrition-fact.model';
 import { RecipeTagModel } from './recipe-tag.model';

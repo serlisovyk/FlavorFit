@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { hash } from 'argon2';
-import { Prisma } from '@prisma/generated/prisma/client';
+import { Prisma } from '@prisma/generated/client';
 import { PrismaService } from '@/prisma/prisma.service';
 import { UserUpdateInput } from './inputs/user-update.input';
 import { USER_ALREADY_EXISTS_ERROR } from './users.constants';

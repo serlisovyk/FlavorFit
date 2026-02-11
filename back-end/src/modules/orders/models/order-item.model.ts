@@ -1,5 +1,5 @@
 import { ObjectType, Field, Float } from '@nestjs/graphql';
-import { Prisma, OrderItem } from '@prisma/generated/prisma/client';
+import { Prisma, OrderItem } from '@prisma/generated/client';
 import { RecipeIngredientModel } from '@/modules/recipes/models/recipe-ingredient.model';
 import { BaseModel } from '@/shared/models/base.model';
 import {

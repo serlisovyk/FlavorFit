@@ -1,5 +1,5 @@
 import { InputType, Field, Int } from '@nestjs/graphql';
-import { ACTIVITY_LEVEL, NUTRITION_GOAL } from '@prisma/generated/prisma/enums';
+import { ACTIVITY_LEVEL, NUTRITION_GOAL } from '@prisma/generated/enums';
 import { IsEnum, IsOptional, Min } from 'class-validator';
 import {
   MEASUREMENT_ARM_MIN_ERROR,

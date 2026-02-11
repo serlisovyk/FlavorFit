@@ -3,7 +3,7 @@ import {
   ACTIVITY_LEVEL,
   NUTRITION_GOAL,
   type Measurement,
-} from '@prisma/generated/prisma/client';
+} from '@prisma/generated/client';
 import { BaseModel } from '@/shared/models/base.model';
 import {
   MEASUREMENT_ACTIVITY_LEVEL_DESCRIPTION,

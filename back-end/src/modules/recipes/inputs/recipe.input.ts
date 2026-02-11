@@ -1,5 +1,5 @@
 import { InputType, Field, Int } from '@nestjs/graphql';
-import { DIFFICULTY } from '@prisma/generated/prisma/enums';
+import { DIFFICULTY } from '@prisma/generated/enums';
 import {
   IsString,
   IsNotEmpty,

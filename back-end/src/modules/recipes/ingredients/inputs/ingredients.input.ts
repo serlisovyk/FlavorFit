@@ -1,5 +1,5 @@
 import { Field, Float, InputType, PartialType } from '@nestjs/graphql';
-import { type Prisma, UNIT } from '@prisma/generated/prisma/client';
+import { type Prisma, UNIT } from '@prisma/generated/client';
 import {
   IsString,
   IsNotEmpty,

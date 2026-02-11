@@ -3,7 +3,7 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { ORDER_STATUS } from '@prisma/generated/prisma/enums';
+import { ORDER_STATUS } from '@prisma/generated/enums';
 import { PrismaService } from '@/prisma/prisma.service';
 import { OrderInput } from './inputs/order.input';
 import {

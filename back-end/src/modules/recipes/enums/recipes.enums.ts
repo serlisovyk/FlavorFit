@@ -1,5 +1,5 @@
 import { registerEnumType } from '@nestjs/graphql';
-import { DIFFICULTY, UNIT } from '@prisma/generated/prisma/enums';
+import { DIFFICULTY, UNIT } from '@prisma/generated/enums';
 import {
   RECIPE_DIFFICULTY_ENUM_DESCRIPTION,
   RECIPE_UNIT_ENUM_DESCRIPTION,

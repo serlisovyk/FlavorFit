@@ -1,5 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { RecipeStep } from '@prisma/generated/prisma/client';
+import { RecipeStep } from '@prisma/generated/client';
 import { BaseModel } from '@/shared/models/base.model';
 import {
   RECIPE_STEP_MODEL_DESCRIPTION,

@@ -1,6 +1,6 @@
 import { ObjectType, Field, Float } from '@nestjs/graphql';
-import { Prisma, Order } from '@prisma/generated/prisma/client';
-import { ORDER_STATUS } from '@prisma/generated/prisma/enums';
+import { Prisma, Order } from '@prisma/generated/client';
+import { ORDER_STATUS } from '@prisma/generated/enums';
 import { BaseModel } from '@/shared/models/base.model';
 import { OrderItemModel } from './order-item.model';
 import {
