@@ -16,7 +16,8 @@
     "plugins": [{ "name": "next" }],
     "paths": {
       "@generated/*": ["./generated/*"],
-      "@shared/*": ["./src/shared/*"]
+      "@shared/*": ["./src/shared/*"],
+      "@features/*": ["./src/features/*"]
     }
   },
   "include": [
