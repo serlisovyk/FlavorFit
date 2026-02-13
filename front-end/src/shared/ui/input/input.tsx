@@ -1,7 +1,7 @@
-import * as React from 'react'
+import { ComponentProps } from 'react'
 import { cn } from '@shared/utils'
 
-function Input({ className, type, ...props }: React.ComponentProps<'input'>) {
+export function Input({ className, type, ...props }: ComponentProps<'input'>) {
   return (
     <input
       type={type}
@@ -16,5 +16,3 @@ function Input({ className, type, ...props }: React.ComponentProps<'input'>) {
     />
   )
 }
-
-export { Input }

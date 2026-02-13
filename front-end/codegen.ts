@@ -7,12 +7,9 @@ const config: CodegenConfig = {
   schema: 'http://localhost:4200/graphql',
   documents: 'src/**/*.graphql',
   generates: {
-    'generated/output.ts': {
-      plugins: [
-        'typescript',
-        'typescript-operations',
-        'typescript-react-apollo',
-      ],
+    "generated/": {
+      preset: 'client',
+      presetConfig: { fragmentMasking: false },
       config: { enumsAsConst: true },
     },
     'schema.json': {
