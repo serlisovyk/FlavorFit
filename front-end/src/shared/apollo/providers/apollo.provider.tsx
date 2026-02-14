@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { ApolloProvider } from '@apollo/client/react'
-import { getApolloClient } from '@shared/apollo'
+import { getApolloClient } from '../utils'
 
 const apolloClient = getApolloClient()
 

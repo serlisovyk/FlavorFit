@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, ApolloLink } from '@apollo/client'
 import { NODE_ENV } from '@shared/config'
 import { IS_CLIENT, NODE } from '@shared/constants'
-import { httpLink } from './links'
+import { httpLink } from '../links'
 
 export function getApolloClient() {
   return new ApolloClient({
