@@ -1,13 +1,13 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { Auth } from '../auth/decorators/auth.decorator';
-import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { UserModel } from './models/user.model';
-import { UserUpdateInput } from './inputs/user-update.input';
-import { UsersService } from './users.service';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Auth } from '../auth/decorators/auth.decorator'
+import { CurrentUser } from '../auth/decorators/current-user.decorator'
+import { UserModel } from './models/user.model'
+import { UserUpdateInput } from './inputs/user-update.input'
+import { UsersService } from './users.service'
 import {
   GET_PROFILE_QUERY_DESCRIPTION,
   UPDATE_PROFILE_MUTATION_DESCRIPTION,
-} from './users.constants';
+} from './users.constants'
 
 @Resolver()
 export class UsersResolver {
@@ -19,7 +19,7 @@ export class UsersResolver {
   })
   @Auth()
   getProfile(@CurrentUser('id') id: string) {
-    return this.usersService.findById(id);
+    return this.usersService.findById(id)
   }
 
   @Mutation(() => UserModel, {
@@ -30,6 +30,6 @@ export class UsersResolver {
     @CurrentUser('id') id: string,
     @Args('data') input: UserUpdateInput,
   ) {
-    return this.usersService.updateProfile(id, input);
+    return this.usersService.updateProfile(id, input)
   }
 }

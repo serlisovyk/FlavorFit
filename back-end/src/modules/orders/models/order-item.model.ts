@@ -1,7 +1,7 @@
-import { ObjectType, Field, Float } from '@nestjs/graphql';
-import { Prisma, OrderItem } from '@prisma/generated/client';
-import { RecipeIngredientModel } from '@/modules/recipes/models/recipe-ingredient.model';
-import { BaseModel } from '@/shared/models/base.model';
+import { ObjectType, Field, Float } from '@nestjs/graphql'
+import { Prisma, OrderItem } from '@prisma/generated/client'
+import { RecipeIngredientModel } from '@/modules/recipes/models/recipe-ingredient.model'
+import { BaseModel } from '@/shared/models/base.model'
 import {
   ORDER_ITEM_MODEL_DESCRIPTION,
   ORDER_ITEM_QUANTITY_FIELD_DESCRIPTION,
@@ -9,7 +9,7 @@ import {
   ORDER_ITEM_RECIPE_INGREDIENT_ID_FIELD_DESCRIPTION,
   ORDER_ITEM_ORDER_ID_FIELD_DESCRIPTION,
   ORDER_ITEM_RECIPE_INGREDIENT_FIELD_DESCRIPTION,
-} from '../orders.constants';
+} from '../orders.constants'
 
 @ObjectType({ description: ORDER_ITEM_MODEL_DESCRIPTION })
 export class OrderItemModel extends BaseModel implements OrderItem {
@@ -18,29 +18,29 @@ export class OrderItemModel extends BaseModel implements OrderItem {
     nullable: true,
     description: ORDER_ITEM_QUANTITY_FIELD_DESCRIPTION,
   })
-  quantity!: Prisma.Decimal | null;
+  quantity!: Prisma.Decimal | null
 
   @Field(() => Float, {
     nullable: false,
     description: ORDER_ITEM_PRICE_FIELD_DESCRIPTION,
   })
-  price!: Prisma.Decimal;
+  price!: Prisma.Decimal
 
   @Field(() => String, {
     nullable: false,
     description: ORDER_ITEM_RECIPE_INGREDIENT_ID_FIELD_DESCRIPTION,
   })
-  recipeIngredientId!: string;
+  recipeIngredientId!: string
 
   @Field(() => String, {
     nullable: false,
     description: ORDER_ITEM_ORDER_ID_FIELD_DESCRIPTION,
   })
-  orderId!: string;
+  orderId!: string
 
   @Field(() => RecipeIngredientModel, {
     nullable: false,
     description: ORDER_ITEM_RECIPE_INGREDIENT_FIELD_DESCRIPTION,
   })
-  recipeIngredient?: RecipeIngredientModel;
+  recipeIngredient?: RecipeIngredientModel
 }

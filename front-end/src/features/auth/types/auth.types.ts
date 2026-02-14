@@ -1,6 +1,8 @@
 export interface AuthFormProps {
-  type: 'login' | 'register'
+  type: AuthFormTypes
 }
+
+export type AuthFormTypes = 'login' | 'register'
 
 export interface AuthLinksProps {
   isLogin: boolean

@@ -1,8 +1,8 @@
-import { ObjectType, Field, Float } from '@nestjs/graphql';
-import { Prisma, Order } from '@prisma/generated/client';
-import { ORDER_STATUS } from '@prisma/generated/enums';
-import { BaseModel } from '@/shared/models/base.model';
-import { OrderItemModel } from './order-item.model';
+import { ObjectType, Field, Float } from '@nestjs/graphql'
+import { Prisma, Order } from '@prisma/generated/client'
+import { ORDER_STATUS } from '@prisma/generated/enums'
+import { BaseModel } from '@/shared/models/base.model'
+import { OrderItemModel } from './order-item.model'
 import {
   ORDER_MODEL_DESCRIPTION,
   ORDER_ID_FIELD_DESCRIPTION,
@@ -10,8 +10,8 @@ import {
   ORDER_TOTAL_FIELD_DESCRIPTION,
   ORDER_USER_ID_FIELD_DESCRIPTION,
   ORDER_ITEMS_FIELD_DESCRIPTION,
-} from '../orders.constants';
-import '../enums/order.enums';
+} from '../orders.constants'
+import '../enums/order.enums'
 
 @ObjectType({ description: ORDER_MODEL_DESCRIPTION })
 export class OrderModel extends BaseModel implements Order {
@@ -19,30 +19,30 @@ export class OrderModel extends BaseModel implements Order {
     nullable: false,
     description: ORDER_ID_FIELD_DESCRIPTION,
   })
-  orderId!: string;
+  orderId!: string
 
   @Field(() => ORDER_STATUS, {
     defaultValue: ORDER_STATUS.PENDING,
     nullable: false,
     description: ORDER_STATUS_FIELD_DESCRIPTION,
   })
-  status!: `${ORDER_STATUS}`;
+  status!: `${ORDER_STATUS}`
 
   @Field(() => Float, {
     nullable: false,
     description: ORDER_TOTAL_FIELD_DESCRIPTION,
   })
-  total!: Prisma.Decimal;
+  total!: Prisma.Decimal
 
   @Field(() => String, {
     nullable: false,
     description: ORDER_USER_ID_FIELD_DESCRIPTION,
   })
-  userId!: string;
+  userId!: string
 
   @Field(() => [OrderItemModel], {
     nullable: false,
     description: ORDER_ITEMS_FIELD_DESCRIPTION,
   })
-  items!: OrderItemModel[];
+  items!: OrderItemModel[]
 }

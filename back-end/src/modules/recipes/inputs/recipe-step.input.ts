@@ -1,11 +1,11 @@
-import { InputType, Field, Int } from '@nestjs/graphql';
+import { InputType, Field, Int } from '@nestjs/graphql'
 import {
   IsInt,
   IsPositive,
   IsString,
   IsNotEmpty,
   MinLength,
-} from 'class-validator';
+} from 'class-validator'
 import {
   RECIPE_STEP_INPUT_DESCRIPTION,
   RECIPE_STEP_ORDER_FIELD_DESCRIPTION,
@@ -17,7 +17,7 @@ import {
   RECIPE_STEP_TITLE_MIN_LENGTH_ERROR,
   RECIPE_STEP_DESCRIPTION_REQUIRED_ERROR,
   RECIPE_STEP_DESCRIPTION_MIN_LENGTH_ERROR,
-} from '../recipes.constants';
+} from '../recipes.constants'
 
 @InputType({ description: RECIPE_STEP_INPUT_DESCRIPTION })
 export class RecipeStepInput {
@@ -27,7 +27,7 @@ export class RecipeStepInput {
   })
   @IsInt({ message: RECIPE_STEP_ORDER_INT_ERROR })
   @IsPositive({ message: RECIPE_STEP_ORDER_POSITIVE_ERROR })
-  order!: number;
+  order!: number
 
   @Field(() => String, {
     nullable: false,
@@ -36,7 +36,7 @@ export class RecipeStepInput {
   @IsString({ message: RECIPE_STEP_TITLE_REQUIRED_ERROR })
   @IsNotEmpty({ message: RECIPE_STEP_TITLE_REQUIRED_ERROR })
   @MinLength(3, { message: RECIPE_STEP_TITLE_MIN_LENGTH_ERROR })
-  title!: string;
+  title!: string
 
   @Field(() => String, {
     nullable: false,
@@ -45,5 +45,5 @@ export class RecipeStepInput {
   @IsString({ message: RECIPE_STEP_DESCRIPTION_REQUIRED_ERROR })
   @IsNotEmpty({ message: RECIPE_STEP_DESCRIPTION_REQUIRED_ERROR })
   @MinLength(10, { message: RECIPE_STEP_DESCRIPTION_MIN_LENGTH_ERROR })
-  description!: string;
+  description!: string
 }

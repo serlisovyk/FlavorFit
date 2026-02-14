@@ -1,9 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { hash } from 'argon2';
-import { Prisma } from '@prisma/generated/client';
-import { PrismaService } from '@/prisma/prisma.service';
-import { UserUpdateInput } from './inputs/user-update.input';
-import { USER_ALREADY_EXISTS_ERROR } from './users.constants';
+import { BadRequestException, Injectable } from '@nestjs/common'
+import { hash } from 'argon2'
+import { Prisma } from '@prisma/generated/client'
+import { PrismaService } from '@/prisma/prisma.service'
+import { UserUpdateInput } from './inputs/user-update.input'
+import { USER_ALREADY_EXISTS_ERROR } from './users.constants'
 
 @Injectable()
 export class UsersService {
@@ -13,7 +13,7 @@ export class UsersService {
     return this.prisma.user.findUnique({
       where: { id },
       include: { profile: true, measurements: true },
-    });
+    })
   }
 
   async findByEmail(email: string) {
@@ -24,24 +24,24 @@ export class UsersService {
           mode: 'insensitive',
         },
       },
-    });
+    })
   }
 
   async create(email: string, password: string) {
-    const user = await this.findByEmail(email);
+    const user = await this.findByEmail(email)
 
-    if (user) throw new BadRequestException(USER_ALREADY_EXISTS_ERROR);
+    if (user) throw new BadRequestException(USER_ALREADY_EXISTS_ERROR)
 
     return this.prisma.user.create({
       data: {
         email,
         password: await hash(password),
       },
-    });
+    })
   }
 
   async updateProfile(id: string, input: UserUpdateInput) {
-    const { profile, measurements, password, ...data } = input;
+    const { profile, measurements, password, ...data } = input
 
     const updateProfile: Prisma.XOR<
       Prisma.UserUpdateInput,
@@ -55,7 +55,7 @@ export class UsersService {
             },
           },
         }
-      : {};
+      : {}
 
     const updateMeasurements: Prisma.XOR<
       Prisma.UserUpdateInput,
@@ -69,14 +69,14 @@ export class UsersService {
             },
           },
         }
-      : {};
+      : {}
 
     const hashedPassword =
       password && typeof password === 'string'
         ? {
             password: await hash(password),
           }
-        : {};
+        : {}
 
     return this.prisma.user.update({
       where: { id },
@@ -87,6 +87,6 @@ export class UsersService {
         email: data.email,
       },
       include: { profile: true, measurements: true },
-    });
+    })
   }
 }

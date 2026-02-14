@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { PassportStrategy } from '@nestjs/passport';
-import { ExtractJwt, Strategy } from 'passport-jwt';
-import { PrismaService } from '../../prisma/prisma.service';
-import { UserModel } from '../users/models/user.model';
-import { JWT_SECRET_ENV } from '../../shared/constants';
+import { Injectable } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
+import { PassportStrategy } from '@nestjs/passport'
+import { ExtractJwt, Strategy } from 'passport-jwt'
+import { PrismaService } from '../../prisma/prisma.service'
+import { UserModel } from '../users/models/user.model'
+import { JWT_SECRET_ENV } from '../../shared/constants'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -16,7 +16,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: configService.getOrThrow<string>(JWT_SECRET_ENV),
       ignoreExpiration: true,
-    });
+    })
   }
 
   validate({ id }: UserModel): Promise<UserModel | null> {
@@ -26,6 +26,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         profile: true,
         measurements: true,
       },
-    });
+    })
   }
 }

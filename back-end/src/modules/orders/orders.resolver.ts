@@ -1,13 +1,13 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { Auth } from '../auth/decorators/auth.decorator';
-import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { OrderModel } from './models/order.model';
-import { OrderInput } from './inputs/order.input';
-import { OrdersService } from './orders.service';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Auth } from '../auth/decorators/auth.decorator'
+import { CurrentUser } from '../auth/decorators/current-user.decorator'
+import { OrderModel } from './models/order.model'
+import { OrderInput } from './inputs/order.input'
+import { OrdersService } from './orders.service'
 import {
   GET_ORDERS_QUERY_DESCRIPTION,
   CREATE_ORDER_MUTATION_DESCRIPTION,
-} from './orders.constants';
+} from './orders.constants'
 
 @Resolver()
 export class OrdersResolver {
@@ -19,7 +19,7 @@ export class OrdersResolver {
   })
   @Auth()
   getAllByUserId(@CurrentUser('id') userId: string) {
-    return this.ordersService.getAllByUserId(userId);
+    return this.ordersService.getAllByUserId(userId)
   }
 
   @Mutation(() => OrderModel, {
@@ -31,6 +31,6 @@ export class OrdersResolver {
     @CurrentUser('id') userId: string,
     @Args('input') input: OrderInput,
   ) {
-    return this.ordersService.makeOrder(userId, input);
+    return this.ordersService.makeOrder(userId, input)
   }
 }

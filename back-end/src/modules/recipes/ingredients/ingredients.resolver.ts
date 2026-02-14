@@ -1,18 +1,18 @@
-import { Query, Mutation, Resolver, Args } from '@nestjs/graphql';
-import { Admin } from '@/modules/auth/decorators/admin.decorator';
-import { IngredientModel } from './models/ingredient.model';
+import { Query, Mutation, Resolver, Args } from '@nestjs/graphql'
+import { Admin } from '@/modules/auth/decorators/admin.decorator'
+import { IngredientModel } from './models/ingredient.model'
 import {
   IngredientsCreateInput,
   IngredientsUpdateInput,
-} from './inputs/ingredients.input';
-import { IngredientsService } from './ingredients.service';
+} from './inputs/ingredients.input'
+import { IngredientsService } from './ingredients.service'
 import {
   GET_INGREDIENTS_QUERY_DESCRIPTION,
   GET_INGREDIENT_BY_ID_QUERY_DESCRIPTION,
   CREATE_INGREDIENT_MUTATION_DESCRIPTION,
   UPDATE_INGREDIENT_MUTATION_DESCRIPTION,
   DELETE_INGREDIENT_MUTATION_DESCRIPTION,
-} from './ingredients.constants';
+} from './ingredients.constants'
 
 @Resolver()
 export class IngredientsResolver {
@@ -24,7 +24,7 @@ export class IngredientsResolver {
   })
   @Admin()
   getAll() {
-    return this.ingredientsService.getAll();
+    return this.ingredientsService.getAll()
   }
 
   @Query(() => IngredientModel, {
@@ -33,7 +33,7 @@ export class IngredientsResolver {
   })
   @Admin()
   getById(@Args('id') id: string) {
-    return this.ingredientsService.getById(id);
+    return this.ingredientsService.getById(id)
   }
 
   @Mutation(() => IngredientModel, {
@@ -42,7 +42,7 @@ export class IngredientsResolver {
   })
   @Admin()
   create(@Args('input') input: IngredientsCreateInput) {
-    return this.ingredientsService.create(input);
+    return this.ingredientsService.create(input)
   }
 
   @Mutation(() => IngredientModel, {
@@ -51,7 +51,7 @@ export class IngredientsResolver {
   })
   @Admin()
   update(@Args('id') id: string, @Args('input') input: IngredientsUpdateInput) {
-    return this.ingredientsService.update(id, input);
+    return this.ingredientsService.update(id, input)
   }
 
   @Mutation(() => IngredientModel, {
@@ -60,6 +60,6 @@ export class IngredientsResolver {
   })
   @Admin()
   delete(@Args('id') id: string) {
-    return this.ingredientsService.delete(id);
+    return this.ingredientsService.delete(id)
   }
 }

@@ -1,5 +1,5 @@
-import { InputType, Field, Int } from '@nestjs/graphql';
-import { DIFFICULTY } from '@prisma/generated/enums';
+import { InputType, Field, Int } from '@nestjs/graphql'
+import { DIFFICULTY } from '@prisma/generated/enums'
 import {
   IsString,
   IsNotEmpty,
@@ -12,11 +12,11 @@ import {
   IsArray,
   ArrayMinSize,
   ValidateNested,
-} from 'class-validator';
-import { Type } from 'class-transformer';
-import { NutritionFactInput } from './nutrition-fact.input';
-import { RecipeStepInput } from './recipe-step.input';
-import { RecipeIngredientInput } from './recipe-ingredient.input';
+} from 'class-validator'
+import { Type } from 'class-transformer'
+import { NutritionFactInput } from './nutrition-fact.input'
+import { RecipeStepInput } from './recipe-step.input'
+import { RecipeIngredientInput } from './recipe-ingredient.input'
 import {
   RECIPE_INPUT_DESCRIPTION,
   RECIPE_SLUG_FIELD_DESCRIPTION,
@@ -43,7 +43,7 @@ import {
   RECIPE_STEPS_MIN_SIZE_ERROR,
   RECIPE_INGREDIENTS_ARRAY_ERROR,
   RECIPE_INGREDIENTS_MIN_SIZE_ERROR,
-} from '../recipes.constants';
+} from '../recipes.constants'
 
 @InputType({ description: RECIPE_INPUT_DESCRIPTION })
 export class RecipeInput {
@@ -54,7 +54,7 @@ export class RecipeInput {
   @IsString({ message: RECIPE_SLUG_REQUIRED_ERROR })
   @IsNotEmpty({ message: RECIPE_SLUG_REQUIRED_ERROR })
   @MinLength(3, { message: RECIPE_SLUG_MIN_LENGTH_ERROR })
-  slug!: string;
+  slug!: string
 
   @Field(() => String, {
     nullable: false,
@@ -64,7 +64,7 @@ export class RecipeInput {
   @IsNotEmpty({ message: RECIPE_TITLE_REQUIRED_ERROR })
   @MinLength(3, { message: RECIPE_TITLE_MIN_LENGTH_ERROR })
   @MaxLength(200, { message: RECIPE_TITLE_MAX_LENGTH_ERROR })
-  title!: string;
+  title!: string
 
   @Field(() => String, {
     nullable: false,
@@ -73,7 +73,7 @@ export class RecipeInput {
   @IsString({ message: RECIPE_DESCRIPTION_REQUIRED_ERROR })
   @IsNotEmpty({ message: RECIPE_DESCRIPTION_REQUIRED_ERROR })
   @MinLength(10, { message: RECIPE_DESCRIPTION_MIN_LENGTH_ERROR })
-  description!: string;
+  description!: string
 
   @Field(() => Int, {
     nullable: false,
@@ -81,14 +81,14 @@ export class RecipeInput {
   })
   @IsInt({ message: RECIPE_COOKING_TIME_INT_ERROR })
   @IsPositive({ message: RECIPE_COOKING_TIME_POSITIVE_ERROR })
-  cookingTime!: number;
+  cookingTime!: number
 
   @Field(() => DIFFICULTY, {
     nullable: false,
     description: RECIPE_DIFFICULTY_FIELD_DESCRIPTION,
   })
   @IsEnum(DIFFICULTY, { message: RECIPE_DIFFICULTY_ENUM_ERROR })
-  difficulty!: `${DIFFICULTY}`;
+  difficulty!: `${DIFFICULTY}`
 
   @Field(() => NutritionFactInput, {
     nullable: true,
@@ -97,7 +97,7 @@ export class RecipeInput {
   @IsOptional()
   @ValidateNested()
   @Type(() => NutritionFactInput)
-  nutritionFact?: NutritionFactInput;
+  nutritionFact?: NutritionFactInput
 
   @Field(() => [String], {
     nullable: true,
@@ -105,7 +105,7 @@ export class RecipeInput {
   })
   @IsOptional()
   @IsArray({ message: RECIPE_TAGS_ARRAY_ERROR })
-  tags?: string[];
+  tags?: string[]
 
   @Field(() => [RecipeStepInput], {
     nullable: true,
@@ -116,7 +116,7 @@ export class RecipeInput {
   @ArrayMinSize(1, { message: RECIPE_STEPS_MIN_SIZE_ERROR })
   @ValidateNested({ each: true })
   @Type(() => RecipeStepInput)
-  recipeSteps?: RecipeStepInput[];
+  recipeSteps?: RecipeStepInput[]
 
   @Field(() => [RecipeIngredientInput], {
     nullable: true,
@@ -127,5 +127,5 @@ export class RecipeInput {
   @ArrayMinSize(1, { message: RECIPE_INGREDIENTS_MIN_SIZE_ERROR })
   @ValidateNested({ each: true })
   @Type(() => RecipeIngredientInput)
-  ingredients?: RecipeIngredientInput[];
+  ingredients?: RecipeIngredientInput[]
 }

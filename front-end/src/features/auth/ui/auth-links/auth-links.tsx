@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { PAGES } from '@shared/config'
+import { ROUTES } from '@shared/config'
 import { AuthLinksProps } from '../../types'
 
 export function AuthLinks({ isLogin }: AuthLinksProps) {
@@ -8,14 +8,14 @@ export function AuthLinks({ isLogin }: AuthLinksProps) {
       {isLogin ? (
         <div>
           Don&apos;t have an account?{' '}
-          <Link href={PAGES.REGISTER} className="underline">
+          <Link href={ROUTES.REGISTER} className="underline">
             Register
           </Link>
         </div>
       ) : (
         <div>
           Already have an account?{' '}
-          <Link href={PAGES.LOGIN} className="underline">
+          <Link href={ROUTES.LOGIN} className="underline">
             Login
           </Link>
         </div>

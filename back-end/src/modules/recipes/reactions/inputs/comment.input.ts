@@ -1,5 +1,5 @@
-import { InputType, Field, PartialType } from '@nestjs/graphql';
-import { IsString, IsNotEmpty, MinLength, MaxLength } from 'class-validator';
+import { InputType, Field, PartialType } from '@nestjs/graphql'
+import { IsString, IsNotEmpty, MinLength, MaxLength } from 'class-validator'
 import {
   COMMENT_CREATE_INPUT_DESCRIPTION,
   COMMENT_UPDATE_INPUT_DESCRIPTION,
@@ -9,7 +9,7 @@ import {
   COMMENT_CONTENT_MIN_LENGTH_ERROR,
   COMMENT_CONTENT_MAX_LENGTH_ERROR,
   COMMENT_RECIPE_ID_REQUIRED_ERROR,
-} from '../reactions.constants';
+} from '../reactions.constants'
 
 @InputType({ description: COMMENT_CREATE_INPUT_DESCRIPTION })
 export class CommentCreateInput {
@@ -18,12 +18,12 @@ export class CommentCreateInput {
   @IsNotEmpty({ message: COMMENT_CONTENT_REQUIRED_ERROR })
   @MinLength(3, { message: COMMENT_CONTENT_MIN_LENGTH_ERROR })
   @MaxLength(1000, { message: COMMENT_CONTENT_MAX_LENGTH_ERROR })
-  content!: string;
+  content!: string
 
   @Field(() => String, { description: COMMENT_RECIPE_ID_FIELD_DESCRIPTION })
   @IsString({ message: COMMENT_RECIPE_ID_REQUIRED_ERROR })
   @IsNotEmpty({ message: COMMENT_RECIPE_ID_REQUIRED_ERROR })
-  recipeId!: string;
+  recipeId!: string
 }
 
 @InputType({ description: COMMENT_UPDATE_INPUT_DESCRIPTION })

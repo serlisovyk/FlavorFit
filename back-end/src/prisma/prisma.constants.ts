@@ -1,1 +1,1 @@
-export const DATABASE_URL_ENV = 'DATABASE_URL';
+export const DATABASE_URL_ENV = 'DATABASE_URL'

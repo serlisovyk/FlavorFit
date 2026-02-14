@@ -1,16 +1,16 @@
-import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { Auth } from '@/modules/auth/decorators/auth.decorator';
-import { CurrentUser } from '@/modules/auth/decorators/current-user.decorator';
-import { CommentModel } from './models/comment.model';
-import { ToggleLikeResponse } from './models/toggle-like.response';
-import { CommentCreateInput, CommentUpdateInput } from './inputs/comment.input';
-import { ReactionsService } from './reactions.service';
+import { Args, Mutation, Resolver } from '@nestjs/graphql'
+import { Auth } from '@/modules/auth/decorators/auth.decorator'
+import { CurrentUser } from '@/modules/auth/decorators/current-user.decorator'
+import { CommentModel } from './models/comment.model'
+import { ToggleLikeResponse } from './models/toggle-like.response'
+import { CommentCreateInput, CommentUpdateInput } from './inputs/comment.input'
+import { ReactionsService } from './reactions.service'
 import {
   CREATE_COMMENT_MUTATION_DESCRIPTION,
   UPDATE_COMMENT_MUTATION_DESCRIPTION,
   DELETE_COMMENT_MUTATION_DESCRIPTION,
   TOGGLE_LIKE_MUTATION_DESCRIPTION,
-} from './reactions.constants';
+} from './reactions.constants'
 
 @Resolver()
 export class ReactionsResolver {
@@ -25,7 +25,7 @@ export class ReactionsResolver {
     @CurrentUser('id') userId: string,
     @Args('input') input: CommentCreateInput,
   ) {
-    return this.reactionService.createComment(userId, input);
+    return this.reactionService.createComment(userId, input)
   }
 
   @Mutation(() => CommentModel, {
@@ -44,7 +44,7 @@ export class ReactionsResolver {
       userRole,
       commentId,
       input,
-    );
+    )
   }
 
   @Mutation(() => CommentModel, {
@@ -57,7 +57,7 @@ export class ReactionsResolver {
     @CurrentUser('role') userRole: string,
     @Args('commentId') commentId: string,
   ) {
-    return this.reactionService.deleteComment(userId, userRole, commentId);
+    return this.reactionService.deleteComment(userId, userRole, commentId)
   }
 
   @Mutation(() => ToggleLikeResponse, {
@@ -69,6 +69,6 @@ export class ReactionsResolver {
     @CurrentUser('id') userId: string,
     @Args('recipeId') recipeId: string,
   ) {
-    return this.reactionService.toggleLike(userId, recipeId);
+    return this.reactionService.toggleLike(userId, recipeId)
   }
 }

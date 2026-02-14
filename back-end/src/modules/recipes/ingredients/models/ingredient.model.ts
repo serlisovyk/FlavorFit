@@ -1,6 +1,6 @@
-import { ObjectType, Field, Float } from '@nestjs/graphql';
-import { UNIT, type Ingredient, type Prisma } from '@prisma/generated/client';
-import { BaseModel } from '@/shared/models/base.model';
+import { ObjectType, Field, Float } from '@nestjs/graphql'
+import { UNIT, type Ingredient, type Prisma } from '@prisma/generated/client'
+import { BaseModel } from '@/shared/models/base.model'
 import {
   INGREDIENT_MODEL_DESCRIPTION,
   INGREDIENT_NAME_FIELD_DESCRIPTION,
@@ -8,7 +8,7 @@ import {
   INGREDIENT_CONTENT_FIELD_DESCRIPTION,
   INGREDIENT_PRICE_FIELD_DESCRIPTION,
   INGREDIENT_DEFAULT_UNIT_FIELD_DESCRIPTION,
-} from '../ingredients.constants';
+} from '../ingredients.constants'
 
 @ObjectType({ description: INGREDIENT_MODEL_DESCRIPTION })
 export class IngredientModel extends BaseModel implements Ingredient {
@@ -16,29 +16,29 @@ export class IngredientModel extends BaseModel implements Ingredient {
     nullable: false,
     description: INGREDIENT_NAME_FIELD_DESCRIPTION,
   })
-  name!: string;
+  name!: string
 
   @Field(() => String, {
     nullable: false,
     description: INGREDIENT_ICON_URL_FIELD_DESCRIPTION,
   })
-  iconUrl!: string;
+  iconUrl!: string
 
   @Field(() => String, {
     nullable: false,
     description: INGREDIENT_CONTENT_FIELD_DESCRIPTION,
   })
-  content!: string;
+  content!: string
 
   @Field(() => Float, {
     nullable: false,
     description: INGREDIENT_PRICE_FIELD_DESCRIPTION,
   })
-  price!: Prisma.Decimal;
+  price!: Prisma.Decimal
 
   @Field(() => UNIT, {
     nullable: false,
     description: INGREDIENT_DEFAULT_UNIT_FIELD_DESCRIPTION,
   })
-  defaultUnit!: `${UNIT}`;
+  defaultUnit!: `${UNIT}`
 }

@@ -2,14 +2,14 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-} from '@nestjs/common';
-import { ORDER_STATUS } from '@prisma/generated/enums';
-import { PrismaService } from '@/prisma/prisma.service';
-import { OrderInput } from './inputs/order.input';
+} from '@nestjs/common'
+import { ORDER_STATUS } from '@prisma/generated/enums'
+import { PrismaService } from '@/prisma/prisma.service'
+import { OrderInput } from './inputs/order.input'
 import {
   ORDER_EMPTY_ERROR,
   RECIPE_INGREDIENT_NOT_FOUND_ERROR,
-} from './orders.constants';
+} from './orders.constants'
 
 @Injectable()
 export class OrdersService {
@@ -31,48 +31,48 @@ export class OrdersService {
           },
         },
       },
-    });
+    })
   }
 
   async makeOrder(userId: string, input: OrderInput) {
-    if (!input.items.length) throw new BadRequestException(ORDER_EMPTY_ERROR);
+    if (!input.items.length) throw new BadRequestException(ORDER_EMPTY_ERROR)
 
     const generatedOrderId = Math.random()
       .toString(36)
       .substring(2, 8)
-      .toUpperCase();
+      .toUpperCase()
 
     const recipeIngredientsIds = input.items.map(
       (item) => item.recipeIngredientId,
-    );
+    )
 
     const recipeIngredients = await this.prisma.recipeIngredient.findMany({
       where: { id: { in: recipeIngredientsIds } },
       include: { ingredient: true },
-    });
+    })
 
-    const ingredientsMap = new Map(recipeIngredients.map((ri) => [ri.id, ri]));
+    const ingredientsMap = new Map(recipeIngredients.map((ri) => [ri.id, ri]))
 
-    let total = 0;
+    let total = 0
 
     const itemsWithPrice = input.items.map((item) => {
-      const recipeIngredient = ingredientsMap.get(item.recipeIngredientId);
+      const recipeIngredient = ingredientsMap.get(item.recipeIngredientId)
 
       if (!recipeIngredient) {
-        throw new NotFoundException(RECIPE_INGREDIENT_NOT_FOUND_ERROR);
+        throw new NotFoundException(RECIPE_INGREDIENT_NOT_FOUND_ERROR)
       }
 
-      const price = Number(recipeIngredient.ingredient.price) || 0;
-      const itemPrice = price * item.quantity;
+      const price = Number(recipeIngredient.ingredient.price) || 0
+      const itemPrice = price * item.quantity
 
-      total += itemPrice;
+      total += itemPrice
 
       return {
         recipeIngredientId: item.recipeIngredientId,
         quantity: item.quantity,
         price: itemPrice,
-      };
-    });
+      }
+    })
 
     return this.prisma.order.create({
       data: {
@@ -95,6 +95,6 @@ export class OrdersService {
           },
         },
       },
-    });
+    })
   }
 }

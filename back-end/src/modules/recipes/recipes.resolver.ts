@@ -1,11 +1,11 @@
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
-import { Admin } from '../auth/decorators/admin.decorator';
-import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { RecipeModel } from './models/recipe.model';
-import { RecipeInput } from './inputs/recipe.input';
-import { RecipesQueryInput } from './inputs/recipes-query.input';
-import { AdminRecipesService } from './admin-recipes.service';
-import { RecipesService } from './recipes.service';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql'
+import { Admin } from '../auth/decorators/admin.decorator'
+import { CurrentUser } from '../auth/decorators/current-user.decorator'
+import { RecipeModel } from './models/recipe.model'
+import { RecipeInput } from './inputs/recipe.input'
+import { RecipesQueryInput } from './inputs/recipes-query.input'
+import { AdminRecipesService } from './admin-recipes.service'
+import { RecipesService } from './recipes.service'
 import {
   GET_RECIPES_QUERY_DESCRIPTION,
   GET_RECIPE_BY_SLUG_QUERY_DESCRIPTION,
@@ -14,7 +14,7 @@ import {
   CREATE_RECIPE_MUTATION_DESCRIPTION,
   UPDATE_RECIPE_MUTATION_DESCRIPTION,
   DELETE_RECIPE_MUTATION_DESCRIPTION,
-} from './recipes.constants';
+} from './recipes.constants'
 
 @Resolver()
 export class RecipesResolver {
@@ -28,7 +28,7 @@ export class RecipesResolver {
     description: GET_RECIPES_QUERY_DESCRIPTION,
   })
   getAll(@Args('input') input: RecipesQueryInput) {
-    return this.recipesService.getAll(input);
+    return this.recipesService.getAll(input)
   }
 
   @Query(() => RecipeModel, {
@@ -36,7 +36,7 @@ export class RecipesResolver {
     description: GET_RECIPE_BY_SLUG_QUERY_DESCRIPTION,
   })
   getBySlug(@Args('slug') slug: string) {
-    return this.recipesService.getBySlug(slug);
+    return this.recipesService.getBySlug(slug)
   }
 
   @Query(() => [RecipeModel], {
@@ -45,7 +45,7 @@ export class RecipesResolver {
   })
   @Admin()
   getAllAdmin() {
-    return this.adminRecipesService.getAll();
+    return this.adminRecipesService.getAll()
   }
 
   @Query(() => RecipeModel, {
@@ -54,7 +54,7 @@ export class RecipesResolver {
   })
   @Admin()
   getById(@Args('id') id: string) {
-    return this.adminRecipesService.getById(id);
+    return this.adminRecipesService.getById(id)
   }
 
   @Mutation(() => RecipeModel, {
@@ -66,7 +66,7 @@ export class RecipesResolver {
     @CurrentUser('id') authorId: string,
     @Args('input') input: RecipeInput,
   ) {
-    return this.adminRecipesService.create(authorId, input);
+    return this.adminRecipesService.create(authorId, input)
   }
 
   @Mutation(() => RecipeModel, {
@@ -75,7 +75,7 @@ export class RecipesResolver {
   })
   @Admin()
   update(@Args('id') id: string, @Args('input') input: RecipeInput) {
-    return this.adminRecipesService.update(id, input);
+    return this.adminRecipesService.update(id, input)
   }
 
   @Mutation(() => RecipeModel, {
@@ -84,6 +84,6 @@ export class RecipesResolver {
   })
   @Admin()
   delete(@Args('id') id: string) {
-    return this.adminRecipesService.delete(id);
+    return this.adminRecipesService.delete(id)
   }
 }

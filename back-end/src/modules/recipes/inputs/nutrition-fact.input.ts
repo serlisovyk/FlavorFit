@@ -1,5 +1,5 @@
-import { InputType, Field, Float, Int } from '@nestjs/graphql';
-import { IsNumber, IsPositive, IsInt } from 'class-validator';
+import { InputType, Field, Float, Int } from '@nestjs/graphql'
+import { IsNumber, IsPositive, IsInt } from 'class-validator'
 import {
   NUTRITION_FACT_INPUT_DESCRIPTION,
   NUTRITION_PROTEINS_FIELD_DESCRIPTION,
@@ -17,7 +17,7 @@ import {
   NUTRITION_FIBER_NUMBER_ERROR,
   NUTRITION_CALORIES_POSITIVE_ERROR,
   NUTRITION_CALORIES_NUMBER_ERROR,
-} from '../recipes.constants';
+} from '../recipes.constants'
 
 @InputType({ description: NUTRITION_FACT_INPUT_DESCRIPTION })
 export class NutritionFactInput {
@@ -27,7 +27,7 @@ export class NutritionFactInput {
   })
   @IsNumber({}, { message: NUTRITION_PROTEINS_NUMBER_ERROR })
   @IsPositive({ message: NUTRITION_PROTEINS_POSITIVE_ERROR })
-  proteins!: number;
+  proteins!: number
 
   @Field(() => Float, {
     nullable: false,
@@ -35,7 +35,7 @@ export class NutritionFactInput {
   })
   @IsNumber({}, { message: NUTRITION_FATS_NUMBER_ERROR })
   @IsPositive({ message: NUTRITION_FATS_POSITIVE_ERROR })
-  fats!: number;
+  fats!: number
 
   @Field(() => Float, {
     nullable: false,
@@ -43,7 +43,7 @@ export class NutritionFactInput {
   })
   @IsNumber({}, { message: NUTRITION_CARBOHYDRATES_NUMBER_ERROR })
   @IsPositive({ message: NUTRITION_CARBOHYDRATES_POSITIVE_ERROR })
-  carbohydrates!: number;
+  carbohydrates!: number
 
   @Field(() => Float, {
     nullable: false,
@@ -51,7 +51,7 @@ export class NutritionFactInput {
   })
   @IsNumber({}, { message: NUTRITION_FIBER_NUMBER_ERROR })
   @IsPositive({ message: NUTRITION_FIBER_POSITIVE_ERROR })
-  fiber!: number;
+  fiber!: number
 
   @Field(() => Int, {
     nullable: false,
@@ -59,5 +59,5 @@ export class NutritionFactInput {
   })
   @IsInt({ message: NUTRITION_CALORIES_NUMBER_ERROR })
   @IsPositive({ message: NUTRITION_CALORIES_POSITIVE_ERROR })
-  calories!: number;
+  calories!: number
 }

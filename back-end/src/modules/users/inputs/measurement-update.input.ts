@@ -1,6 +1,6 @@
-import { InputType, Field, Int } from '@nestjs/graphql';
-import { ACTIVITY_LEVEL, NUTRITION_GOAL } from '@prisma/generated/enums';
-import { IsEnum, IsOptional, Min } from 'class-validator';
+import { InputType, Field, Int } from '@nestjs/graphql'
+import { ACTIVITY_LEVEL, NUTRITION_GOAL } from '@prisma/generated/enums'
+import { IsEnum, IsOptional, Min } from 'class-validator'
 import {
   MEASUREMENT_ARM_MIN_ERROR,
   MEASUREMENT_CHEST_MIN_ERROR,
@@ -21,7 +21,7 @@ import {
   MEASUREMENT_WEIGHT_MIN_ERROR,
   MEASUREMENT_ACTIVITY_LEVEL_ENUM_ERROR,
   MEASUREMENT_NUTRITION_GOAL_ENUM_ERROR,
-} from '../users.constants';
+} from '../users.constants'
 
 @InputType({ description: MEASUREMENT_UPDATE_INPUT_DESCRIPTION })
 export class MeasurementUpdateInput {
@@ -31,7 +31,7 @@ export class MeasurementUpdateInput {
   })
   @IsOptional()
   @Min(1, { message: MEASUREMENT_HEIGHT_MIN_ERROR })
-  heightCm?: number;
+  heightCm?: number
 
   @Field(() => Int, {
     nullable: true,
@@ -39,7 +39,7 @@ export class MeasurementUpdateInput {
   })
   @IsOptional()
   @Min(1, { message: MEASUREMENT_WEIGHT_MIN_ERROR })
-  weightKg?: number;
+  weightKg?: number
 
   @Field(() => Int, {
     nullable: true,
@@ -47,7 +47,7 @@ export class MeasurementUpdateInput {
   })
   @IsOptional()
   @Min(1, { message: MEASUREMENT_GOAL_WEIGHT_MIN_ERROR })
-  goalWeightKg?: number;
+  goalWeightKg?: number
 
   @Field(() => Int, {
     nullable: true,
@@ -55,7 +55,7 @@ export class MeasurementUpdateInput {
   })
   @IsOptional()
   @Min(1, { message: MEASUREMENT_CHEST_MIN_ERROR })
-  chestCm?: number;
+  chestCm?: number
 
   @Field(() => Int, {
     nullable: true,
@@ -63,7 +63,7 @@ export class MeasurementUpdateInput {
   })
   @IsOptional()
   @Min(1, { message: MEASUREMENT_WAIST_MIN_ERROR })
-  waistCm?: number;
+  waistCm?: number
 
   @Field(() => Int, {
     nullable: true,
@@ -71,7 +71,7 @@ export class MeasurementUpdateInput {
   })
   @IsOptional()
   @Min(1, { message: MEASUREMENT_THIGH_MIN_ERROR })
-  thighCm?: number;
+  thighCm?: number
 
   @Field(() => Int, {
     nullable: true,
@@ -79,7 +79,7 @@ export class MeasurementUpdateInput {
   })
   @IsOptional()
   @Min(1, { message: MEASUREMENT_ARM_MIN_ERROR })
-  armCm?: number;
+  armCm?: number
 
   @Field(() => ACTIVITY_LEVEL, {
     nullable: true,
@@ -87,7 +87,7 @@ export class MeasurementUpdateInput {
   })
   @IsOptional()
   @IsEnum(ACTIVITY_LEVEL, { message: MEASUREMENT_ACTIVITY_LEVEL_ENUM_ERROR })
-  activityLevel?: `${ACTIVITY_LEVEL}`;
+  activityLevel?: `${ACTIVITY_LEVEL}`
 
   @Field(() => NUTRITION_GOAL, {
     nullable: true,
@@ -95,5 +95,5 @@ export class MeasurementUpdateInput {
   })
   @IsOptional()
   @IsEnum(NUTRITION_GOAL, { message: MEASUREMENT_NUTRITION_GOAL_ENUM_ERROR })
-  nutritionGoal?: `${NUTRITION_GOAL}`;
+  nutritionGoal?: `${NUTRITION_GOAL}`
 }

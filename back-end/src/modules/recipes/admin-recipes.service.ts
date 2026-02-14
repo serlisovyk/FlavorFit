@@ -1,24 +1,24 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '@/prisma/prisma.service';
-import { RecipeInput } from './inputs/recipe.input';
-import { RECIPE_NOT_FOUND_ERROR } from './recipes.constants';
+import { Injectable, NotFoundException } from '@nestjs/common'
+import { PrismaService } from '@/prisma/prisma.service'
+import { RecipeInput } from './inputs/recipe.input'
+import { RECIPE_NOT_FOUND_ERROR } from './recipes.constants'
 
 @Injectable()
 export class AdminRecipesService {
   constructor(private readonly prisma: PrismaService) {}
 
   getAll() {
-    return this.prisma.recipe.findMany();
+    return this.prisma.recipe.findMany()
   }
 
   async getById(id: string) {
     const recipe = await this.prisma.recipe.findUnique({
       where: { id },
-    });
+    })
 
-    if (!recipe) throw new NotFoundException(RECIPE_NOT_FOUND_ERROR);
+    if (!recipe) throw new NotFoundException(RECIPE_NOT_FOUND_ERROR)
 
-    return recipe;
+    return recipe
   }
 
   create(
@@ -57,7 +57,7 @@ export class AdminRecipesService {
           },
         }),
       },
-    });
+    })
   }
 
   async update(
@@ -108,16 +108,16 @@ export class AdminRecipesService {
           },
         }),
       },
-    });
+    })
 
-    if (!recipe) throw new NotFoundException(RECIPE_NOT_FOUND_ERROR);
+    if (!recipe) throw new NotFoundException(RECIPE_NOT_FOUND_ERROR)
 
-    return recipe;
+    return recipe
   }
 
   delete(id: string) {
     return this.prisma.recipe.delete({
       where: { id },
-    });
+    })
   }
 }

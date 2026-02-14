@@ -1,1 +1,1 @@
-export { isDev } from './is-dev.util';
+export { isDev } from './is-dev.util'

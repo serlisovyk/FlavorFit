@@ -1,13 +1,14 @@
+import 'dotenv/config'
 import type { CodegenConfig } from '@graphql-codegen/cli'
+import { GRAPHQL_SERVER_URL } from './src/shared/config'
 
 const config: CodegenConfig = {
   overwrite: true,
   ignoreNoDocuments: true,
-  // TODO: Update on config constant if can
-  schema: 'http://localhost:4200/graphql',
+  schema: GRAPHQL_SERVER_URL,
   documents: 'src/**/*.graphql',
   generates: {
-    "generated/": {
+    'generated/': {
       preset: 'client',
       presetConfig: { fragmentMasking: false },
       config: { enumsAsConst: true },
