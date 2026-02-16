@@ -1,43 +1,74 @@
 'use client'
 
-import { useMutation } from '@apollo/client/react'
-import { LoginDocument, RegisterDocument } from '@generated/graphql'
-import { Button, Input } from '@shared/ui'
-import { AuthLinks } from '../auth-links'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { AuthInput } from '@generated/graphql'
+import { Input, Button } from '@shared/ui'
+import { AuthChangeTypeForm } from '../auth-change-form'
+import { useAuthMutation } from '../../queries'
+import { authSchema } from '../../schemas'
 import { AuthFormProps } from '../../types'
+import { AUTH_FORM_DEFAULT_VALUES } from '../../constants'
 
 export function AuthForm({ type }: AuthFormProps) {
   const isLogin = type === 'login'
 
-  const [auth, { loading }] = useMutation(
-    isLogin ? LoginDocument : RegisterDocument,
-  )
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<AuthInput>({
+    mode: 'onSubmit',
+    defaultValues: AUTH_FORM_DEFAULT_VALUES,
+    resolver: zodResolver(authSchema),
+  })
+
+  const { auth, isLoading } = useAuthMutation(isLogin)
+
+  const handleAuth = (data: AuthInput) => auth({ variables: { data } })
+
+  const formTitle = isLogin ? 'Login' : 'Register'
 
   return (
     <div className="flex h-screen">
-      <div className="m-auto w-sm p-5 text-white rounded-lg shadow-lg bg-linear-to-tr from-[#8062ee] to-[#a088fc]">
+      <div className="m-auto w-sm p-5 text-white rounded-lg shadow-lg bg-linear-to-tr from-primary to-primary-dark">
         <h1 className="text-center font-bold text-2xl md:text-4xl mb-5">
-          {isLogin ? 'Login' : 'Register'}
+          {formTitle}
         </h1>
 
-        <form className="space-y-3 mb-3">
-          <Input type="email" name="email" placeholder="Email" required />
+        <form className="space-y-3 mb-3" onSubmit={handleSubmit(handleAuth)}>
+          <Input
+            id="email"
+            type="email"
+            label="Email"
+            placeholder="Enter email:"
+            required
+            {...register('email')}
+            error={errors.email}
+          />
 
           <Input
+            id="password"
             type="password"
-            name="password"
-            placeholder="Password"
+            label="Password"
+            placeholder="Enter password:"
             required
+            {...register('password')}
+            error={errors.password}
           />
 
           <div className="text-center">
-            <Button type="submit" disabled={loading}>
-              {isLogin ? 'Login' : 'Register'}
+            <Button
+              variant="accent"
+              type="submit"
+              disabled={!isValid || isLoading}
+            >
+              {formTitle}
             </Button>
           </div>
         </form>
 
-        <AuthLinks isLogin={isLogin} />
+        <AuthChangeTypeForm isLogin={isLogin} />
       </div>
     </div>
   )

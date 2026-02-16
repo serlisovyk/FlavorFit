@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import type { PropsWithChildren } from 'react'
+import { cn } from '@shared/utils'
 import { getCurrentTheme } from '@shared/theme/server-index'
 import { Providers } from './providers'
 import './globals.css'
@@ -25,7 +26,11 @@ export default async function RootLayout({ children }: PropsWithChildren) {
   const theme = await getCurrentTheme()
 
   return (
-    <html lang="en" className={theme} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={cn(theme, 'scroll-smooth')}
+      suppressHydrationWarning
+    >
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

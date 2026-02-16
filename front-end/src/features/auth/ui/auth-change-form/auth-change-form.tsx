@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { ROUTES } from '@shared/config'
-import { AuthLinksProps } from '../../types'
+import { AuthChangeTypeFormProps } from '../../types'
 
-export function AuthLinks({ isLogin }: AuthLinksProps) {
+export function AuthChangeTypeForm({ isLogin }: AuthChangeTypeFormProps) {
   return (
     <div className="text-center">
       {isLogin ? (
