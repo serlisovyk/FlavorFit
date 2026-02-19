@@ -9,45 +9,33 @@ import {
   IsPositive,
 } from 'class-validator'
 import { Type } from 'class-transformer'
-import {
-  ORDER_EMPTY_ERROR,
-  ORDER_ITEMS_MUST_BE_ARRAY_ERROR,
-  ORDER_QUANTITY_MUST_BE_NUMBER_ERROR,
-  ORDER_QUANTITY_MUST_BE_POSITIVE_ERROR,
-  RECIPE_INGREDIENT_ID_INVALID_ERROR,
-  ORDER_INPUT_DESCRIPTION,
-  ORDER_ITEM_INPUT_DESCRIPTION,
-  ORDER_INPUT_ITEMS_FIELD_DESCRIPTION,
-  ORDER_ITEM_INPUT_RECIPE_INGREDIENT_ID_FIELD_DESCRIPTION,
-  ORDER_ITEM_INPUT_QUANTITY_FIELD_DESCRIPTION,
-} from '../orders.constants'
 
-@InputType({ description: ORDER_INPUT_DESCRIPTION })
+@InputType({ description: 'Input for creating a new order' })
 export class OrderInput {
   @Field(() => [OrderItemInput], {
-    description: ORDER_INPUT_ITEMS_FIELD_DESCRIPTION,
+    description: 'List of items to order',
   })
-  @IsArray({ message: ORDER_ITEMS_MUST_BE_ARRAY_ERROR })
-  @ArrayMinSize(1, { message: ORDER_EMPTY_ERROR })
+  @IsArray({ message: 'Items must be an array' })
+  @ArrayMinSize(1, { message: 'Order must contain at least one item' })
   @ValidateNested({ each: true })
   @Type(() => OrderItemInput)
   items!: OrderItemInput[]
 }
 
-@InputType({ description: ORDER_ITEM_INPUT_DESCRIPTION })
+@InputType({ description: 'Input for order item' })
 export class OrderItemInput {
   @Field(() => ID, {
-    description: ORDER_ITEM_INPUT_RECIPE_INGREDIENT_ID_FIELD_DESCRIPTION,
+    description: 'ID of the recipe ingredient to order',
   })
-  @IsString({ message: RECIPE_INGREDIENT_ID_INVALID_ERROR })
-  @IsNotEmpty({ message: RECIPE_INGREDIENT_ID_INVALID_ERROR })
+  @IsString({ message: 'Recipe ingredient ID is required' })
+  @IsNotEmpty({ message: 'Recipe ingredient ID is required' })
   recipeIngredientId!: string
 
   @Field(() => Float, {
     defaultValue: 1,
-    description: ORDER_ITEM_INPUT_QUANTITY_FIELD_DESCRIPTION,
+    description: 'Quantity to order',
   })
-  @IsNumber({}, { message: ORDER_QUANTITY_MUST_BE_NUMBER_ERROR })
-  @IsPositive({ message: ORDER_QUANTITY_MUST_BE_POSITIVE_ERROR })
+  @IsNumber({}, { message: 'Quantity must be a number' })
+  @IsPositive({ message: 'Quantity must be positive' })
   quantity!: number
 }

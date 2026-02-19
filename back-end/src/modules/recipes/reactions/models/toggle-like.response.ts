@@ -1,11 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql'
-import {
-  TOGGLE_LIKE_RESPONSE_DESCRIPTION,
-  TOGGLE_LIKE_LIKED_FIELD_DESCRIPTION,
-} from '../reactions.constants'
 
-@ObjectType({ description: TOGGLE_LIKE_RESPONSE_DESCRIPTION })
+@ObjectType({ description: 'Response for toggle like action' })
 export class ToggleLikeResponse {
-  @Field(() => Boolean, { description: TOGGLE_LIKE_LIKED_FIELD_DESCRIPTION })
+  @Field(() => Boolean, { description: 'Whether the recipe is now liked' })
   liked!: boolean
 }

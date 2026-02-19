@@ -1,30 +1,22 @@
 import { InputType, Field, PartialType } from '@nestjs/graphql'
 import { IsString, IsNotEmpty, MinLength, MaxLength } from 'class-validator'
-import {
-  COMMENT_CREATE_INPUT_DESCRIPTION,
-  COMMENT_UPDATE_INPUT_DESCRIPTION,
-  COMMENT_CONTENT_FIELD_DESCRIPTION,
-  COMMENT_RECIPE_ID_FIELD_DESCRIPTION,
-  COMMENT_CONTENT_REQUIRED_ERROR,
-  COMMENT_CONTENT_MIN_LENGTH_ERROR,
-  COMMENT_CONTENT_MAX_LENGTH_ERROR,
-  COMMENT_RECIPE_ID_REQUIRED_ERROR,
-} from '../reactions.constants'
 
-@InputType({ description: COMMENT_CREATE_INPUT_DESCRIPTION })
+@InputType({ description: 'Input for creating a new comment' })
 export class CommentCreateInput {
-  @Field(() => String, { description: COMMENT_CONTENT_FIELD_DESCRIPTION })
-  @IsString({ message: COMMENT_CONTENT_REQUIRED_ERROR })
-  @IsNotEmpty({ message: COMMENT_CONTENT_REQUIRED_ERROR })
-  @MinLength(3, { message: COMMENT_CONTENT_MIN_LENGTH_ERROR })
-  @MaxLength(1000, { message: COMMENT_CONTENT_MAX_LENGTH_ERROR })
+  @Field(() => String, { description: 'Comment content' })
+  @IsString({ message: 'Comment content is required' })
+  @IsNotEmpty({ message: 'Comment content is required' })
+  @MinLength(3, { message: 'Comment must be at least 3 characters' })
+  @MaxLength(1000, {
+    message: 'Comment must not exceed 1000 characters',
+  })
   content!: string
 
-  @Field(() => String, { description: COMMENT_RECIPE_ID_FIELD_DESCRIPTION })
-  @IsString({ message: COMMENT_RECIPE_ID_REQUIRED_ERROR })
-  @IsNotEmpty({ message: COMMENT_RECIPE_ID_REQUIRED_ERROR })
+  @Field(() => String, { description: 'Recipe ID' })
+  @IsString({ message: 'Recipe ID is required' })
+  @IsNotEmpty({ message: 'Recipe ID is required' })
   recipeId!: string
 }
 
-@InputType({ description: COMMENT_UPDATE_INPUT_DESCRIPTION })
+@InputType({ description: 'Input for updating a comment' })
 export class CommentUpdateInput extends PartialType(CommentCreateInput) {}

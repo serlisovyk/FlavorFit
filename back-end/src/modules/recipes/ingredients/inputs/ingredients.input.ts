@@ -11,74 +11,57 @@ import {
   IsEnum,
   IsOptional,
 } from 'class-validator'
-import {
-  INGREDIENT_CREATE_INPUT_DESCRIPTION,
-  INGREDIENT_UPDATE_INPUT_DESCRIPTION,
-  INGREDIENT_NAME_FIELD_DESCRIPTION,
-  INGREDIENT_ICON_URL_FIELD_DESCRIPTION,
-  INGREDIENT_CONTENT_FIELD_DESCRIPTION,
-  INGREDIENT_PRICE_FIELD_DESCRIPTION,
-  INGREDIENT_DEFAULT_UNIT_FIELD_DESCRIPTION,
-  INGREDIENT_NAME_REQUIRED_ERROR,
-  INGREDIENT_NAME_MIN_LENGTH_ERROR,
-  INGREDIENT_NAME_MAX_LENGTH_ERROR,
-  INGREDIENT_ICON_URL_REQUIRED_ERROR,
-  INGREDIENT_ICON_URL_INVALID_ERROR,
-  INGREDIENT_CONTENT_REQUIRED_ERROR,
-  INGREDIENT_CONTENT_MIN_LENGTH_ERROR,
-  INGREDIENT_PRICE_POSITIVE_ERROR,
-  INGREDIENT_PRICE_NUMBER_ERROR,
-  INGREDIENT_DEFAULT_UNIT_ENUM_ERROR,
-} from '../ingredients.constants'
 
-@InputType({ description: INGREDIENT_CREATE_INPUT_DESCRIPTION })
+@InputType({ description: 'Input for creating a new ingredient' })
 export class IngredientsCreateInput {
   @Field(() => String, {
     nullable: false,
-    description: INGREDIENT_NAME_FIELD_DESCRIPTION,
+    description: 'Name of the ingredient',
   })
-  @IsString({ message: INGREDIENT_NAME_REQUIRED_ERROR })
-  @IsNotEmpty({ message: INGREDIENT_NAME_REQUIRED_ERROR })
-  @MinLength(2, { message: INGREDIENT_NAME_MIN_LENGTH_ERROR })
-  @MaxLength(100, { message: INGREDIENT_NAME_MAX_LENGTH_ERROR })
+  @IsString({ message: 'Ingredient name is required' })
+  @IsNotEmpty({ message: 'Ingredient name is required' })
+  @MinLength(2, { message: 'Ingredient name must be at least 2 characters' })
+  @MaxLength(100, {
+    message: 'Ingredient name must not exceed 100 characters',
+  })
   name!: string
 
   @Field(() => String, {
     nullable: false,
-    description: INGREDIENT_ICON_URL_FIELD_DESCRIPTION,
+    description: 'Icon URL for the ingredient',
   })
-  @IsString({ message: INGREDIENT_ICON_URL_REQUIRED_ERROR })
-  @IsNotEmpty({ message: INGREDIENT_ICON_URL_REQUIRED_ERROR })
-  @IsUrl({}, { message: INGREDIENT_ICON_URL_INVALID_ERROR })
+  @IsString({ message: 'Icon URL is required' })
+  @IsNotEmpty({ message: 'Icon URL is required' })
+  @IsUrl({}, { message: 'Icon URL must be a valid URL' })
   iconUrl!: string
 
   @Field(() => String, {
     nullable: false,
-    description: INGREDIENT_CONTENT_FIELD_DESCRIPTION,
+    description: 'Content description of the ingredient',
   })
-  @IsString({ message: INGREDIENT_CONTENT_REQUIRED_ERROR })
-  @IsNotEmpty({ message: INGREDIENT_CONTENT_REQUIRED_ERROR })
-  @MinLength(10, { message: INGREDIENT_CONTENT_MIN_LENGTH_ERROR })
+  @IsString({ message: 'Content is required' })
+  @IsNotEmpty({ message: 'Content is required' })
+  @MinLength(10, { message: 'Content must be at least 10 characters' })
   content!: string
 
   @Field(() => Float, {
     nullable: false,
-    description: INGREDIENT_PRICE_FIELD_DESCRIPTION,
+    description: 'Price of the ingredient',
   })
-  @IsNumber({}, { message: INGREDIENT_PRICE_NUMBER_ERROR })
-  @IsPositive({ message: INGREDIENT_PRICE_POSITIVE_ERROR })
+  @IsNumber({}, { message: 'Price must be a number' })
+  @IsPositive({ message: 'Price must be positive' })
   price!: Prisma.Decimal
 
   @Field(() => UNIT, {
     nullable: true,
-    description: INGREDIENT_DEFAULT_UNIT_FIELD_DESCRIPTION,
+    description: 'Default unit for measuring the ingredient',
   })
   @IsOptional()
-  @IsEnum(UNIT, { message: INGREDIENT_DEFAULT_UNIT_ENUM_ERROR })
+  @IsEnum(UNIT, { message: 'Default unit must be a valid unit type' })
   defaultUnit!: `${UNIT}`
 }
 
-@InputType({ description: INGREDIENT_UPDATE_INPUT_DESCRIPTION })
+@InputType({ description: 'Input for updating an ingredient' })
 export class IngredientsUpdateInput extends PartialType(
   IngredientsCreateInput,
 ) {}

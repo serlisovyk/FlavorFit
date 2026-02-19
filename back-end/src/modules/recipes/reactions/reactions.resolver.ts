@@ -5,12 +5,6 @@ import { CommentModel } from './models/comment.model'
 import { ToggleLikeResponse } from './models/toggle-like.response'
 import { CommentCreateInput, CommentUpdateInput } from './inputs/comment.input'
 import { ReactionsService } from './reactions.service'
-import {
-  CREATE_COMMENT_MUTATION_DESCRIPTION,
-  UPDATE_COMMENT_MUTATION_DESCRIPTION,
-  DELETE_COMMENT_MUTATION_DESCRIPTION,
-  TOGGLE_LIKE_MUTATION_DESCRIPTION,
-} from './reactions.constants'
 
 @Resolver()
 export class ReactionsResolver {
@@ -18,7 +12,7 @@ export class ReactionsResolver {
 
   @Mutation(() => CommentModel, {
     name: 'createComment',
-    description: CREATE_COMMENT_MUTATION_DESCRIPTION,
+    description: 'Create a new comment',
   })
   @Auth()
   createComment(
@@ -30,7 +24,7 @@ export class ReactionsResolver {
 
   @Mutation(() => CommentModel, {
     name: 'updateComment',
-    description: UPDATE_COMMENT_MUTATION_DESCRIPTION,
+    description: 'Update an existing comment',
   })
   @Auth()
   updateComment(
@@ -49,7 +43,7 @@ export class ReactionsResolver {
 
   @Mutation(() => CommentModel, {
     name: 'deleteComment',
-    description: DELETE_COMMENT_MUTATION_DESCRIPTION,
+    description: 'Delete a comment',
   })
   @Auth()
   deleteComment(
@@ -62,7 +56,7 @@ export class ReactionsResolver {
 
   @Mutation(() => ToggleLikeResponse, {
     name: 'toggleLike',
-    description: TOGGLE_LIKE_MUTATION_DESCRIPTION,
+    description: 'Toggle like for a recipe',
   })
   @Auth()
   toggleLike(

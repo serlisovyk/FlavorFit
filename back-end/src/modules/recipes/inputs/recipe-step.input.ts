@@ -6,44 +6,32 @@ import {
   IsNotEmpty,
   MinLength,
 } from 'class-validator'
-import {
-  RECIPE_STEP_INPUT_DESCRIPTION,
-  RECIPE_STEP_ORDER_FIELD_DESCRIPTION,
-  RECIPE_STEP_TITLE_FIELD_DESCRIPTION,
-  RECIPE_STEP_DESCRIPTION_FIELD_DESCRIPTION,
-  RECIPE_STEP_ORDER_POSITIVE_ERROR,
-  RECIPE_STEP_ORDER_INT_ERROR,
-  RECIPE_STEP_TITLE_REQUIRED_ERROR,
-  RECIPE_STEP_TITLE_MIN_LENGTH_ERROR,
-  RECIPE_STEP_DESCRIPTION_REQUIRED_ERROR,
-  RECIPE_STEP_DESCRIPTION_MIN_LENGTH_ERROR,
-} from '../recipes.constants'
 
-@InputType({ description: RECIPE_STEP_INPUT_DESCRIPTION })
+@InputType({ description: 'Recipe step input' })
 export class RecipeStepInput {
   @Field(() => Int, {
     nullable: false,
-    description: RECIPE_STEP_ORDER_FIELD_DESCRIPTION,
+    description: 'Step order number',
   })
-  @IsInt({ message: RECIPE_STEP_ORDER_INT_ERROR })
-  @IsPositive({ message: RECIPE_STEP_ORDER_POSITIVE_ERROR })
+  @IsInt({ message: 'Order must be an integer' })
+  @IsPositive({ message: 'Order must be positive' })
   order!: number
 
   @Field(() => String, {
     nullable: false,
-    description: RECIPE_STEP_TITLE_FIELD_DESCRIPTION,
+    description: 'Step title',
   })
-  @IsString({ message: RECIPE_STEP_TITLE_REQUIRED_ERROR })
-  @IsNotEmpty({ message: RECIPE_STEP_TITLE_REQUIRED_ERROR })
-  @MinLength(3, { message: RECIPE_STEP_TITLE_MIN_LENGTH_ERROR })
+  @IsString({ message: 'Step title is required' })
+  @IsNotEmpty({ message: 'Step title is required' })
+  @MinLength(3, { message: 'Step title must be at least 3 characters' })
   title!: string
 
   @Field(() => String, {
     nullable: false,
-    description: RECIPE_STEP_DESCRIPTION_FIELD_DESCRIPTION,
+    description: 'Step description',
   })
-  @IsString({ message: RECIPE_STEP_DESCRIPTION_REQUIRED_ERROR })
-  @IsNotEmpty({ message: RECIPE_STEP_DESCRIPTION_REQUIRED_ERROR })
-  @MinLength(10, { message: RECIPE_STEP_DESCRIPTION_MIN_LENGTH_ERROR })
+  @IsString({ message: 'Step description is required' })
+  @IsNotEmpty({ message: 'Step description is required' })
+  @MinLength(10, { message: 'Step description must be at least 10 characters' })
   description!: string
 }

@@ -1,26 +1,16 @@
 import { Field, InputType } from '@nestjs/graphql'
 import { IsEmail, IsNotEmpty, MaxLength, MinLength } from 'class-validator'
-import {
-  AUTH_EMAIL_DESCRIPTION,
-  AUTH_EMAIL_IS_EMAIL_ERROR,
-  AUTH_EMAIL_NOT_EMPTY_ERROR,
-  AUTH_INPUT_DESCRIPTION,
-  AUTH_PASSWORD_DESCRIPTION,
-  AUTH_PASSWORD_MAX_LENGTH_ERROR,
-  AUTH_PASSWORD_MIN_LENGTH_ERROR,
-  AUTH_PASSWORD_NOT_EMPTY_ERROR,
-} from '../auth.constants'
 
-@InputType({ description: AUTH_INPUT_DESCRIPTION })
+@InputType({ description: 'Login or registration credentials' })
 export class AuthInput {
-  @Field(() => String, { description: AUTH_EMAIL_DESCRIPTION })
-  @IsNotEmpty({ message: AUTH_EMAIL_NOT_EMPTY_ERROR })
-  @IsEmail({}, { message: AUTH_EMAIL_IS_EMAIL_ERROR })
+  @Field(() => String, { description: 'User email address' })
+  @IsNotEmpty({ message: 'Email cannot be empty' })
+  @IsEmail({}, { message: 'Email must be a valid address' })
   email!: string
 
-  @Field(() => String, { description: AUTH_PASSWORD_DESCRIPTION })
-  @IsNotEmpty({ message: AUTH_PASSWORD_NOT_EMPTY_ERROR })
-  @MinLength(6, { message: AUTH_PASSWORD_MIN_LENGTH_ERROR })
-  @MaxLength(50, { message: AUTH_PASSWORD_MAX_LENGTH_ERROR })
+  @Field(() => String, { description: 'User password' })
+  @IsNotEmpty({ message: 'Password cannot be empty' })
+  @MinLength(6, { message: 'Password must contain at least 6 characters' })
+  @MaxLength(50, { message: 'Password must contain at most 50 characters' })
   password!: string
 }

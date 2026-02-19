@@ -4,10 +4,6 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator'
 import { OrderModel } from './models/order.model'
 import { OrderInput } from './inputs/order.input'
 import { OrdersService } from './orders.service'
-import {
-  GET_ORDERS_QUERY_DESCRIPTION,
-  CREATE_ORDER_MUTATION_DESCRIPTION,
-} from './orders.constants'
 
 @Resolver()
 export class OrdersResolver {
@@ -15,7 +11,7 @@ export class OrdersResolver {
 
   @Query(() => [OrderModel], {
     name: 'getOrders',
-    description: GET_ORDERS_QUERY_DESCRIPTION,
+    description: 'Get all orders for the current user',
   })
   @Auth()
   getAllByUserId(@CurrentUser('id') userId: string) {
@@ -24,7 +20,7 @@ export class OrdersResolver {
 
   @Mutation(() => OrderModel, {
     name: 'createOrder',
-    description: CREATE_ORDER_MUTATION_DESCRIPTION,
+    description: 'Create a new order',
   })
   @Auth()
   createOrder(

@@ -1,36 +1,29 @@
 import { InputType, Field, Int } from '@nestjs/graphql'
-import {
-  RECIPES_QUERY_INPUT_DESCRIPTION,
-  RECIPES_QUERY_PAGE_FIELD_DESCRIPTION,
-  RECIPES_QUERY_LIMIT_FIELD_DESCRIPTION,
-  RECIPES_QUERY_SEARCH_TERM_FIELD_DESCRIPTION,
-  RECIPES_QUERY_SORT_FIELD_DESCRIPTION,
-} from '../recipes.constants'
 import { RECIPE_SORT_OPTIONS } from '../recipes.types'
 
-@InputType({ description: RECIPES_QUERY_INPUT_DESCRIPTION })
+@InputType({ description: 'Query parameters for recipes search' })
 export class RecipesQueryInput {
   @Field(() => Int, {
     defaultValue: 1,
-    description: RECIPES_QUERY_PAGE_FIELD_DESCRIPTION,
+    description: 'Page number for pagination',
   })
   page!: number
 
   @Field(() => Int, {
     defaultValue: 10,
-    description: RECIPES_QUERY_LIMIT_FIELD_DESCRIPTION,
+    description: 'Number of items per page',
   })
   limit!: number
 
   @Field(() => String, {
     nullable: true,
-    description: RECIPES_QUERY_SEARCH_TERM_FIELD_DESCRIPTION,
+    description: 'Search term to filter recipes',
   })
   searchTerm?: string
 
   @Field(() => String, {
     nullable: true,
-    description: RECIPES_QUERY_SORT_FIELD_DESCRIPTION,
+    description: 'Sort option for recipes',
   })
   sort?: RECIPE_SORT_OPTIONS
 }

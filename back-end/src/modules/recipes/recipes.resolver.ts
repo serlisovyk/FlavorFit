@@ -6,15 +6,6 @@ import { RecipeInput } from './inputs/recipe.input'
 import { RecipesQueryInput } from './inputs/recipes-query.input'
 import { AdminRecipesService } from './admin-recipes.service'
 import { RecipesService } from './recipes.service'
-import {
-  GET_RECIPES_QUERY_DESCRIPTION,
-  GET_RECIPE_BY_SLUG_QUERY_DESCRIPTION,
-  GET_ADMIN_RECIPES_QUERY_DESCRIPTION,
-  GET_RECIPE_BY_ID_QUERY_DESCRIPTION,
-  CREATE_RECIPE_MUTATION_DESCRIPTION,
-  UPDATE_RECIPE_MUTATION_DESCRIPTION,
-  DELETE_RECIPE_MUTATION_DESCRIPTION,
-} from './recipes.constants'
 
 @Resolver()
 export class RecipesResolver {
@@ -25,7 +16,7 @@ export class RecipesResolver {
 
   @Query(() => [RecipeModel], {
     name: 'recipes',
-    description: GET_RECIPES_QUERY_DESCRIPTION,
+    description: 'Get all recipes with pagination and filters',
   })
   getAll(@Args('input') input: RecipesQueryInput) {
     return this.recipesService.getAll(input)
@@ -33,7 +24,7 @@ export class RecipesResolver {
 
   @Query(() => RecipeModel, {
     name: 'recipeBySlug',
-    description: GET_RECIPE_BY_SLUG_QUERY_DESCRIPTION,
+    description: 'Get recipe by slug',
   })
   getBySlug(@Args('slug') slug: string) {
     return this.recipesService.getBySlug(slug)
@@ -41,7 +32,7 @@ export class RecipesResolver {
 
   @Query(() => [RecipeModel], {
     name: 'adminRecipes',
-    description: GET_ADMIN_RECIPES_QUERY_DESCRIPTION,
+    description: 'Get all recipes for admin',
   })
   @Admin()
   getAllAdmin() {
@@ -50,7 +41,7 @@ export class RecipesResolver {
 
   @Query(() => RecipeModel, {
     name: 'recipeById',
-    description: GET_RECIPE_BY_ID_QUERY_DESCRIPTION,
+    description: 'Get recipe by ID',
   })
   @Admin()
   getById(@Args('id') id: string) {
@@ -59,7 +50,7 @@ export class RecipesResolver {
 
   @Mutation(() => RecipeModel, {
     name: 'createRecipe',
-    description: CREATE_RECIPE_MUTATION_DESCRIPTION,
+    description: 'Create a new recipe',
   })
   @Admin()
   create(
@@ -71,7 +62,7 @@ export class RecipesResolver {
 
   @Mutation(() => RecipeModel, {
     name: 'updateRecipe',
-    description: UPDATE_RECIPE_MUTATION_DESCRIPTION,
+    description: 'Update an existing recipe',
   })
   @Admin()
   update(@Args('id') id: string, @Args('input') input: RecipeInput) {
@@ -80,7 +71,7 @@ export class RecipesResolver {
 
   @Mutation(() => RecipeModel, {
     name: 'deleteRecipeById',
-    description: DELETE_RECIPE_MUTATION_DESCRIPTION,
+    description: 'Delete a recipe by ID',
   })
   @Admin()
   delete(@Args('id') id: string) {

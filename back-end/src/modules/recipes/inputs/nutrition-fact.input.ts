@@ -1,63 +1,45 @@
 import { InputType, Field, Float, Int } from '@nestjs/graphql'
 import { IsNumber, IsPositive, IsInt } from 'class-validator'
-import {
-  NUTRITION_FACT_INPUT_DESCRIPTION,
-  NUTRITION_PROTEINS_FIELD_DESCRIPTION,
-  NUTRITION_FATS_FIELD_DESCRIPTION,
-  NUTRITION_CARBOHYDRATES_FIELD_DESCRIPTION,
-  NUTRITION_FIBER_FIELD_DESCRIPTION,
-  NUTRITION_CALORIES_FIELD_DESCRIPTION,
-  NUTRITION_PROTEINS_POSITIVE_ERROR,
-  NUTRITION_PROTEINS_NUMBER_ERROR,
-  NUTRITION_FATS_POSITIVE_ERROR,
-  NUTRITION_FATS_NUMBER_ERROR,
-  NUTRITION_CARBOHYDRATES_POSITIVE_ERROR,
-  NUTRITION_CARBOHYDRATES_NUMBER_ERROR,
-  NUTRITION_FIBER_POSITIVE_ERROR,
-  NUTRITION_FIBER_NUMBER_ERROR,
-  NUTRITION_CALORIES_POSITIVE_ERROR,
-  NUTRITION_CALORIES_NUMBER_ERROR,
-} from '../recipes.constants'
 
-@InputType({ description: NUTRITION_FACT_INPUT_DESCRIPTION })
+@InputType({ description: 'Nutrition facts input' })
 export class NutritionFactInput {
   @Field(() => Float, {
     nullable: false,
-    description: NUTRITION_PROTEINS_FIELD_DESCRIPTION,
+    description: 'Protein content in grams',
   })
-  @IsNumber({}, { message: NUTRITION_PROTEINS_NUMBER_ERROR })
-  @IsPositive({ message: NUTRITION_PROTEINS_POSITIVE_ERROR })
+  @IsNumber({}, { message: 'Proteins must be a number' })
+  @IsPositive({ message: 'Proteins must be positive' })
   proteins!: number
 
   @Field(() => Float, {
     nullable: false,
-    description: NUTRITION_FATS_FIELD_DESCRIPTION,
+    description: 'Fat content in grams',
   })
-  @IsNumber({}, { message: NUTRITION_FATS_NUMBER_ERROR })
-  @IsPositive({ message: NUTRITION_FATS_POSITIVE_ERROR })
+  @IsNumber({}, { message: 'Fats must be a number' })
+  @IsPositive({ message: 'Fats must be positive' })
   fats!: number
 
   @Field(() => Float, {
     nullable: false,
-    description: NUTRITION_CARBOHYDRATES_FIELD_DESCRIPTION,
+    description: 'Carbohydrate content in grams',
   })
-  @IsNumber({}, { message: NUTRITION_CARBOHYDRATES_NUMBER_ERROR })
-  @IsPositive({ message: NUTRITION_CARBOHYDRATES_POSITIVE_ERROR })
+  @IsNumber({}, { message: 'Carbohydrates must be a number' })
+  @IsPositive({ message: 'Carbohydrates must be positive' })
   carbohydrates!: number
 
   @Field(() => Float, {
     nullable: false,
-    description: NUTRITION_FIBER_FIELD_DESCRIPTION,
+    description: 'Fiber content in grams',
   })
-  @IsNumber({}, { message: NUTRITION_FIBER_NUMBER_ERROR })
-  @IsPositive({ message: NUTRITION_FIBER_POSITIVE_ERROR })
+  @IsNumber({}, { message: 'Fiber must be a number' })
+  @IsPositive({ message: 'Fiber must be positive' })
   fiber!: number
 
   @Field(() => Int, {
     nullable: false,
-    description: NUTRITION_CALORIES_FIELD_DESCRIPTION,
+    description: 'Calorie content',
   })
-  @IsInt({ message: NUTRITION_CALORIES_NUMBER_ERROR })
-  @IsPositive({ message: NUTRITION_CALORIES_POSITIVE_ERROR })
+  @IsInt({ message: 'Calories must be a number' })
+  @IsPositive({ message: 'Calories must be positive' })
   calories!: number
 }

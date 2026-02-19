@@ -5,19 +5,17 @@ import { AuthResponse } from './models/auth.response'
 import { AuthInput } from './inputs/auth.input'
 import { AuthService } from './auth.service'
 import {
-  LOGIN_MUTATION_DESCRIPTION,
-  LOGOUT_MUTATION_DESCRIPTION,
-  NEW_TOKENS_QUERY_DESCRIPTION,
   REFRESH_TOKEN_COOKIE_NAME,
   REFRESH_TOKEN_MISSING_ERROR,
-  REGISTER_MUTATION_DESCRIPTION,
 } from './auth.constants'
 
 @Resolver()
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
-  @Mutation(() => AuthResponse, { description: LOGIN_MUTATION_DESCRIPTION })
+  @Mutation(() => AuthResponse, {
+    description: 'Login with email and password',
+  })
   async login(
     @Args('data') input: AuthInput,
     @Context() { res }: GraphQLContext,
@@ -29,7 +27,9 @@ export class AuthResolver {
     return response
   }
 
-  @Mutation(() => AuthResponse, { description: REGISTER_MUTATION_DESCRIPTION })
+  @Mutation(() => AuthResponse, {
+    description: 'Register a new user account',
+  })
   async register(
     @Args('data') input: AuthInput,
     @Context() { res }: GraphQLContext,
@@ -41,7 +41,9 @@ export class AuthResolver {
     return response
   }
 
-  @Query(() => AuthResponse, { description: NEW_TOKENS_QUERY_DESCRIPTION })
+  @Query(() => AuthResponse, {
+    description: 'Refresh access token using refresh token',
+  })
   async newTokens(@Context() { req, res }: GraphQLContext) {
     const initialRefreshToken = req.cookies?.[REFRESH_TOKEN_COOKIE_NAME]
 
@@ -58,7 +60,7 @@ export class AuthResolver {
     return response
   }
 
-  @Mutation(() => Boolean, { description: LOGOUT_MUTATION_DESCRIPTION })
+  @Mutation(() => Boolean, { description: 'Logout and clear refresh token' })
   logout(@Context() { req, res }: GraphQLContext) {
     const initialRefreshToken = req.cookies?.[REFRESH_TOKEN_COOKIE_NAME]
 

@@ -4,10 +4,6 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator'
 import { UserModel } from './models/user.model'
 import { UserUpdateInput } from './inputs/user-update.input'
 import { UsersService } from './users.service'
-import {
-  GET_PROFILE_QUERY_DESCRIPTION,
-  UPDATE_PROFILE_MUTATION_DESCRIPTION,
-} from './users.constants'
 
 @Resolver()
 export class UsersResolver {
@@ -15,7 +11,7 @@ export class UsersResolver {
 
   @Query(() => UserModel, {
     name: 'profile',
-    description: GET_PROFILE_QUERY_DESCRIPTION,
+    description: 'Get current user profile',
   })
   @Auth()
   getProfile(@CurrentUser('id') id: string) {
@@ -23,7 +19,7 @@ export class UsersResolver {
   }
 
   @Mutation(() => UserModel, {
-    description: UPDATE_PROFILE_MUTATION_DESCRIPTION,
+    description: 'Update current user profile',
   })
   @Auth()
   updateProfile(

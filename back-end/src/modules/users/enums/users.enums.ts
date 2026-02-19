@@ -5,29 +5,23 @@ import {
   NUTRITION_GOAL,
   ROLE,
 } from '@prisma/generated/enums'
-import {
-  ACTIVITY_LEVEL_ENUM_DESCRIPTION,
-  GENDER_ENUM_DESCRIPTION,
-  NUTRITION_GOAL_ENUM_DESCRIPTION,
-  ROLE_ENUM_DESCRIPTION,
-} from '../users.constants'
 
 registerEnumType(GENDER, {
   name: 'GENDER',
-  description: GENDER_ENUM_DESCRIPTION,
+  description: 'User gender',
 })
 
 registerEnumType(ACTIVITY_LEVEL, {
   name: 'ACTIVITY_LEVEL',
-  description: ACTIVITY_LEVEL_ENUM_DESCRIPTION,
+  description: 'User physical activity level',
 })
 
 registerEnumType(NUTRITION_GOAL, {
   name: 'NUTRITION_GOAL',
-  description: NUTRITION_GOAL_ENUM_DESCRIPTION,
+  description: 'User nutrition goal (weight loss, maintenance, weight gain)',
 })
 
 registerEnumType(ROLE, {
   name: 'ROLE',
-  description: ROLE_ENUM_DESCRIPTION,
+  description: 'User role in the system',
 })

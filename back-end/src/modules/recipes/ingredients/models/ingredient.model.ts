@@ -1,44 +1,36 @@
 import { ObjectType, Field, Float } from '@nestjs/graphql'
 import { UNIT, type Ingredient, type Prisma } from '@prisma/generated/client'
 import { BaseModel } from '@/shared/models/base.model'
-import {
-  INGREDIENT_MODEL_DESCRIPTION,
-  INGREDIENT_NAME_FIELD_DESCRIPTION,
-  INGREDIENT_ICON_URL_FIELD_DESCRIPTION,
-  INGREDIENT_CONTENT_FIELD_DESCRIPTION,
-  INGREDIENT_PRICE_FIELD_DESCRIPTION,
-  INGREDIENT_DEFAULT_UNIT_FIELD_DESCRIPTION,
-} from '../ingredients.constants'
 
-@ObjectType({ description: INGREDIENT_MODEL_DESCRIPTION })
+@ObjectType({ description: 'Ingredient details' })
 export class IngredientModel extends BaseModel implements Ingredient {
   @Field(() => String, {
     nullable: false,
-    description: INGREDIENT_NAME_FIELD_DESCRIPTION,
+    description: 'Name of the ingredient',
   })
   name!: string
 
   @Field(() => String, {
     nullable: false,
-    description: INGREDIENT_ICON_URL_FIELD_DESCRIPTION,
+    description: 'Icon URL for the ingredient',
   })
   iconUrl!: string
 
   @Field(() => String, {
     nullable: false,
-    description: INGREDIENT_CONTENT_FIELD_DESCRIPTION,
+    description: 'Content description of the ingredient',
   })
   content!: string
 
   @Field(() => Float, {
     nullable: false,
-    description: INGREDIENT_PRICE_FIELD_DESCRIPTION,
+    description: 'Price of the ingredient',
   })
   price!: Prisma.Decimal
 
   @Field(() => UNIT, {
     nullable: false,
-    description: INGREDIENT_DEFAULT_UNIT_FIELD_DESCRIPTION,
+    description: 'Default unit for measuring the ingredient',
   })
   defaultUnit!: `${UNIT}`
 }

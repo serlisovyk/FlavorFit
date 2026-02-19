@@ -7,32 +7,22 @@ import {
   IsPositive,
   IsEnum,
 } from 'class-validator'
-import {
-  RECIPE_INGREDIENT_INPUT_DESCRIPTION,
-  RECIPE_INGREDIENT_ID_FIELD_DESCRIPTION,
-  RECIPE_INGREDIENT_QUANTITY_FIELD_DESCRIPTION,
-  RECIPE_INGREDIENT_UNIT_FIELD_DESCRIPTION,
-  RECIPE_INGREDIENT_ID_REQUIRED_ERROR,
-  RECIPE_INGREDIENT_QUANTITY_POSITIVE_ERROR,
-  RECIPE_INGREDIENT_QUANTITY_NUMBER_ERROR,
-  RECIPE_INGREDIENT_UNIT_ENUM_ERROR,
-} from '../recipes.constants'
 
-@InputType({ description: RECIPE_INGREDIENT_INPUT_DESCRIPTION })
+@InputType({ description: 'Recipe ingredient input' })
 export class RecipeIngredientInput {
-  @Field(() => ID, { description: RECIPE_INGREDIENT_ID_FIELD_DESCRIPTION })
-  @IsString({ message: RECIPE_INGREDIENT_ID_REQUIRED_ERROR })
-  @IsNotEmpty({ message: RECIPE_INGREDIENT_ID_REQUIRED_ERROR })
+  @Field(() => ID, { description: 'Ingredient ID' })
+  @IsString({ message: 'Ingredient ID is required' })
+  @IsNotEmpty({ message: 'Ingredient ID is required' })
   ingredientId!: string
 
   @Field(() => Number, {
-    description: RECIPE_INGREDIENT_QUANTITY_FIELD_DESCRIPTION,
+    description: 'Quantity of ingredient',
   })
-  @IsNumber({}, { message: RECIPE_INGREDIENT_QUANTITY_NUMBER_ERROR })
-  @IsPositive({ message: RECIPE_INGREDIENT_QUANTITY_POSITIVE_ERROR })
+  @IsNumber({}, { message: 'Quantity must be a number' })
+  @IsPositive({ message: 'Quantity must be positive' })
   quantity!: number
 
-  @Field(() => UNIT, { description: RECIPE_INGREDIENT_UNIT_FIELD_DESCRIPTION })
-  @IsEnum(UNIT, { message: RECIPE_INGREDIENT_UNIT_ENUM_ERROR })
+  @Field(() => UNIT, { description: 'Unit of measurement' })
+  @IsEnum(UNIT, { message: 'Unit must be a valid unit type' })
   unit!: UNIT
 }

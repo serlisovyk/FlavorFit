@@ -9,53 +9,41 @@ import {
 } from 'class-validator'
 import { MeasurementUpdateInput } from './measurement-update.input'
 import { ProfileUpdateInput } from './profile-update.input'
-import {
-  USER_EMAIL_IS_EMAIL_ERROR,
-  USER_MEASUREMENTS_VALID_ERROR,
-  USER_PASSWORD_MAX_LENGTH_ERROR,
-  USER_PASSWORD_MIN_LENGTH_ERROR,
-  USER_PROFILE_VALID_ERROR,
-  USER_UPDATE_EMAIL_DESCRIPTION,
-  USER_UPDATE_INPUT_DESCRIPTION,
-  USER_UPDATE_MEASUREMENTS_DESCRIPTION,
-  USER_UPDATE_PASSWORD_DESCRIPTION,
-  USER_UPDATE_PROFILE_DESCRIPTION,
-} from '../users.constants'
 
-@InputType({ description: USER_UPDATE_INPUT_DESCRIPTION })
+@InputType({ description: 'Data for updating user' })
 export class UserUpdateInput {
   @Field(() => String, {
     nullable: true,
-    description: USER_UPDATE_EMAIL_DESCRIPTION,
+    description: 'User email address',
   })
   @IsOptional()
-  @IsEmail({}, { message: USER_EMAIL_IS_EMAIL_ERROR })
+  @IsEmail({}, { message: 'Email must be a valid address' })
   email?: string
 
   @Field(() => String, {
     nullable: true,
-    description: USER_UPDATE_PASSWORD_DESCRIPTION,
+    description: 'New user password',
   })
   @IsOptional()
-  @MinLength(6, { message: USER_PASSWORD_MIN_LENGTH_ERROR })
-  @MaxLength(50, { message: USER_PASSWORD_MAX_LENGTH_ERROR })
+  @MinLength(6, { message: 'Password must contain at least 6 characters' })
+  @MaxLength(50, { message: 'Password must contain at most 50 characters' })
   password?: string
 
   @Field(() => ProfileUpdateInput, {
     nullable: true,
-    description: USER_UPDATE_PROFILE_DESCRIPTION,
+    description: 'Profile data to update',
   })
   @IsOptional()
-  @ValidateNested({ message: USER_PROFILE_VALID_ERROR })
+  @ValidateNested({ message: 'Profile contains invalid data' })
   @Type(() => ProfileUpdateInput)
   profile?: ProfileUpdateInput
 
   @Field(() => MeasurementUpdateInput, {
     nullable: true,
-    description: USER_UPDATE_MEASUREMENTS_DESCRIPTION,
+    description: 'Physical measurements data to update',
   })
   @IsOptional()
-  @ValidateNested({ message: USER_MEASUREMENTS_VALID_ERROR })
+  @ValidateNested({ message: 'Measurements contain invalid data' })
   @Type(() => MeasurementUpdateInput)
   measurements?: MeasurementUpdateInput
 }

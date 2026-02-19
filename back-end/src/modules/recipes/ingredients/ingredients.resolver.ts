@@ -6,13 +6,6 @@ import {
   IngredientsUpdateInput,
 } from './inputs/ingredients.input'
 import { IngredientsService } from './ingredients.service'
-import {
-  GET_INGREDIENTS_QUERY_DESCRIPTION,
-  GET_INGREDIENT_BY_ID_QUERY_DESCRIPTION,
-  CREATE_INGREDIENT_MUTATION_DESCRIPTION,
-  UPDATE_INGREDIENT_MUTATION_DESCRIPTION,
-  DELETE_INGREDIENT_MUTATION_DESCRIPTION,
-} from './ingredients.constants'
 
 @Resolver()
 export class IngredientsResolver {
@@ -20,7 +13,7 @@ export class IngredientsResolver {
 
   @Query(() => [IngredientModel], {
     name: 'ingredients',
-    description: GET_INGREDIENTS_QUERY_DESCRIPTION,
+    description: 'Get all ingredients',
   })
   @Admin()
   getAll() {
@@ -29,7 +22,7 @@ export class IngredientsResolver {
 
   @Query(() => IngredientModel, {
     name: 'ingredientById',
-    description: GET_INGREDIENT_BY_ID_QUERY_DESCRIPTION,
+    description: 'Get ingredient by ID',
   })
   @Admin()
   getById(@Args('id') id: string) {
@@ -38,7 +31,7 @@ export class IngredientsResolver {
 
   @Mutation(() => IngredientModel, {
     name: 'createIngredient',
-    description: CREATE_INGREDIENT_MUTATION_DESCRIPTION,
+    description: 'Create a new ingredient',
   })
   @Admin()
   create(@Args('input') input: IngredientsCreateInput) {
@@ -47,7 +40,7 @@ export class IngredientsResolver {
 
   @Mutation(() => IngredientModel, {
     name: 'updateIngredient',
-    description: UPDATE_INGREDIENT_MUTATION_DESCRIPTION,
+    description: 'Update an existing ingredient',
   })
   @Admin()
   update(@Args('id') id: string, @Args('input') input: IngredientsUpdateInput) {
@@ -56,7 +49,7 @@ export class IngredientsResolver {
 
   @Mutation(() => IngredientModel, {
     name: 'deleteIngredientById',
-    description: DELETE_INGREDIENT_MUTATION_DESCRIPTION,
+    description: 'Delete an ingredient by ID',
   })
   @Admin()
   delete(@Args('id') id: string) {

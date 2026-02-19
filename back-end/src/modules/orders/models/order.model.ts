@@ -3,46 +3,38 @@ import { Prisma, Order } from '@prisma/generated/client'
 import { ORDER_STATUS } from '@prisma/generated/enums'
 import { BaseModel } from '@/shared/models/base.model'
 import { OrderItemModel } from './order-item.model'
-import {
-  ORDER_MODEL_DESCRIPTION,
-  ORDER_ID_FIELD_DESCRIPTION,
-  ORDER_STATUS_FIELD_DESCRIPTION,
-  ORDER_TOTAL_FIELD_DESCRIPTION,
-  ORDER_USER_ID_FIELD_DESCRIPTION,
-  ORDER_ITEMS_FIELD_DESCRIPTION,
-} from '../orders.constants'
 import '../enums/order.enums'
 
-@ObjectType({ description: ORDER_MODEL_DESCRIPTION })
+@ObjectType({ description: 'Order details' })
 export class OrderModel extends BaseModel implements Order {
   @Field(() => String, {
     nullable: false,
-    description: ORDER_ID_FIELD_DESCRIPTION,
+    description: 'Unique order identifier',
   })
   orderId!: string
 
   @Field(() => ORDER_STATUS, {
     defaultValue: ORDER_STATUS.PENDING,
     nullable: false,
-    description: ORDER_STATUS_FIELD_DESCRIPTION,
+    description: 'Current status of the order',
   })
   status!: `${ORDER_STATUS}`
 
   @Field(() => Float, {
     nullable: false,
-    description: ORDER_TOTAL_FIELD_DESCRIPTION,
+    description: 'Total cost of the order',
   })
   total!: Prisma.Decimal
 
   @Field(() => String, {
     nullable: false,
-    description: ORDER_USER_ID_FIELD_DESCRIPTION,
+    description: 'User who placed the order',
   })
   userId!: string
 
   @Field(() => [OrderItemModel], {
     nullable: false,
-    description: ORDER_ITEMS_FIELD_DESCRIPTION,
+    description: 'List of items in the order',
   })
   items!: OrderItemModel[]
 }

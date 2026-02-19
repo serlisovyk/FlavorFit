@@ -5,79 +5,66 @@ import {
   type Measurement,
 } from '@prisma/generated/client'
 import { BaseModel } from '@/shared/models/base.model'
-import {
-  MEASUREMENT_ACTIVITY_LEVEL_DESCRIPTION,
-  MEASUREMENT_ARM_DESCRIPTION,
-  MEASUREMENT_CHEST_DESCRIPTION,
-  MEASUREMENT_GOAL_WEIGHT_DESCRIPTION,
-  MEASUREMENT_HEIGHT_DESCRIPTION,
-  MEASUREMENT_MODEL_DESCRIPTION,
-  MEASUREMENT_NUTRITION_GOAL_DESCRIPTION,
-  MEASUREMENT_THIGH_DESCRIPTION,
-  MEASUREMENT_USER_ID_DESCRIPTION,
-  MEASUREMENT_WAIST_DESCRIPTION,
-  MEASUREMENT_WEIGHT_DESCRIPTION,
-} from '../users.constants'
 
-@ObjectType({ description: MEASUREMENT_MODEL_DESCRIPTION })
+@ObjectType({ description: 'User physical measurements model' })
 export class MeasurementModel extends BaseModel implements Measurement {
   @Field(() => Int, {
     nullable: true,
-    description: MEASUREMENT_HEIGHT_DESCRIPTION,
+    description: 'User height in centimeters',
   })
   heightCm!: number | null
 
   @Field(() => Int, {
     nullable: true,
-    description: MEASUREMENT_WEIGHT_DESCRIPTION,
+    description: 'User weight in kilograms',
   })
   weightKg!: number | null
 
   @Field(() => Int, {
     nullable: true,
-    description: MEASUREMENT_GOAL_WEIGHT_DESCRIPTION,
+    description: 'User target weight in kilograms',
   })
   goalWeightKg!: number | null
 
   @Field(() => Int, {
     nullable: true,
-    description: MEASUREMENT_CHEST_DESCRIPTION,
+    description: 'Chest circumference in centimeters',
   })
   chestCm!: number | null
 
   @Field(() => Int, {
     nullable: true,
-    description: MEASUREMENT_WAIST_DESCRIPTION,
+    description: 'Waist circumference in centimeters',
   })
   waistCm!: number | null
 
   @Field(() => Int, {
     nullable: true,
-    description: MEASUREMENT_THIGH_DESCRIPTION,
+    description: 'Thigh circumference in centimeters',
   })
   thighCm!: number | null
 
   @Field(() => Int, {
     nullable: true,
-    description: MEASUREMENT_ARM_DESCRIPTION,
+    description: 'Arm circumference in centimeters',
   })
   armCm!: number | null
 
   @Field(() => ACTIVITY_LEVEL, {
     nullable: true,
-    description: MEASUREMENT_ACTIVITY_LEVEL_DESCRIPTION,
+    description: 'Physical activity level',
   })
   activityLevel!: `${ACTIVITY_LEVEL}` | null
 
   @Field(() => NUTRITION_GOAL, {
     nullable: true,
-    description: MEASUREMENT_NUTRITION_GOAL_DESCRIPTION,
+    description: 'Nutrition goal',
   })
   nutritionGoal!: `${NUTRITION_GOAL}` | null
 
   @Field(() => String, {
     nullable: false,
-    description: MEASUREMENT_USER_ID_DESCRIPTION,
+    description: 'ID of the user who owns the measurements',
   })
   userId!: string
 }
