@@ -9,7 +9,7 @@ export function NavigationMenu() {
   const pathname = usePathname()
 
   return (
-    <nav className="flex items-center gap-2">
+    <nav className="flex items-center gap-3">
       {navigationMenuData.map((item) => (
         <NavigationMenuItem
           key={item.href}

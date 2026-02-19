@@ -10,3 +10,13 @@ export interface NavigationMenuItemProps {
   item: NavigationMenuItem
   isActive: boolean
 }
+
+export interface UserInfoProps {
+  user: User
+}
+
+export interface User {
+  name: string
+  email: string
+  avatarUrl: string
+}
