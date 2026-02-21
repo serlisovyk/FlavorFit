@@ -1,6 +1,9 @@
 import { cn } from '@shared/utils'
 import { InputProps } from './types'
 
+// TODO: Move label, error, and other related UI elements
+// to a separate component (Field component probably)
+
 export function Input({
   className,
   id,
