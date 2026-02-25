@@ -10,7 +10,10 @@ export function Providers({ children, initialTheme }: ProvidersProps) {
     <ThemeProvider initialTheme={initialTheme}>
       <ApolloClientProvider>
         {children}
-        <Toaster position="top-center" />
+        <Toaster
+          position="top-center"
+          containerClassName="mt-16 font-mono text-sm"
+        />
       </ApolloClientProvider>
     </ThemeProvider>
   )

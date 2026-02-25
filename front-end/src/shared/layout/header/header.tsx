@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Logout } from '@features/auth'
 import { NavigationMenu } from './ui/navigation-menu'
 import { ThemeToggle } from './ui/theme-toggle'
 import { ROUTES } from '@shared/config'
@@ -30,7 +31,10 @@ export function Header() {
           <Bell className="size-5" />
         </Button>
 
-        <UserInfo />
+        <div className="flex items-center gap-4">
+          <UserInfo />
+          <Logout />
+        </div>
       </div>
     </header>
   )
