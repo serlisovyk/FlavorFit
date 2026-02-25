@@ -5,7 +5,4 @@ import { UserModel } from '@/modules/users/models/user.model'
 export class AuthResponse {
   @Field(() => UserModel, { description: 'Authenticated user' })
   user!: UserModel
-
-  @Field(() => String, { description: 'JWT access token for authentication' })
-  accessToken!: string
 }

@@ -6,12 +6,6 @@ import { Button } from '@shared/ui'
 import { Bell, Headset } from 'lucide-react'
 import { UserInfo } from './ui/user-info'
 
-const sampleUser = {
-  name: 'John Doe',
-  email: 'john.doe@example.com',
-  avatarUrl: 'https://i.pravatar.cc/150?img=3',
-}
-
 export function Header() {
   return (
     <header className="flex items-center justify-between p-5">
@@ -36,7 +30,7 @@ export function Header() {
           <Bell className="size-5" />
         </Button>
 
-        <UserInfo user={sampleUser} />
+        <UserInfo />
       </div>
     </header>
   )

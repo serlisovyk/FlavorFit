@@ -13,6 +13,7 @@ import {
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
+  // Todo: Add Captcha
   @Mutation(() => AuthResponse, {
     description: 'Login with email and password',
   })
@@ -20,13 +21,16 @@ export class AuthResolver {
     @Args('data') input: AuthInput,
     @Context() { res }: GraphQLContext,
   ) {
-    const { refreshToken, ...response } = await this.authService.login(input)
+    const { refreshToken, accessToken, ...response } =
+      await this.authService.login(input)
 
+    this.authService.toggleAccessTokenCookie(res, accessToken)
     this.authService.toggleRefreshTokenCookie(res, refreshToken)
 
     return response
   }
 
+  // Todo: Add Captcha
   @Mutation(() => AuthResponse, {
     description: 'Register a new user account',
   })
@@ -34,8 +38,10 @@ export class AuthResolver {
     @Args('data') input: AuthInput,
     @Context() { res }: GraphQLContext,
   ) {
-    const { refreshToken, ...response } = await this.authService.register(input)
+    const { refreshToken, accessToken, ...response } =
+      await this.authService.register(input)
 
+    this.authService.toggleAccessTokenCookie(res, accessToken)
     this.authService.toggleRefreshTokenCookie(res, refreshToken)
 
     return response
@@ -48,14 +54,17 @@ export class AuthResolver {
     const initialRefreshToken = req.cookies?.[REFRESH_TOKEN_COOKIE_NAME]
 
     if (!initialRefreshToken) {
+      this.authService.toggleAccessTokenCookie(res, null)
       this.authService.toggleRefreshTokenCookie(res, null)
+
       throw new BadRequestException(REFRESH_TOKEN_MISSING_ERROR)
     }
 
-    const { refreshToken: newRefreshToken, ...response } =
+    const { refreshToken, accessToken, ...response } =
       await this.authService.getNewTokens(initialRefreshToken)
 
-    this.authService.toggleRefreshTokenCookie(res, newRefreshToken)
+    this.authService.toggleAccessTokenCookie(res, accessToken)
+    this.authService.toggleRefreshTokenCookie(res, refreshToken)
 
     return response
   }
@@ -64,12 +73,12 @@ export class AuthResolver {
   logout(@Context() { req, res }: GraphQLContext) {
     const initialRefreshToken = req.cookies?.[REFRESH_TOKEN_COOKIE_NAME]
 
+    this.authService.toggleAccessTokenCookie(res, null)
+    this.authService.toggleRefreshTokenCookie(res, null)
+
     if (!initialRefreshToken) {
-      this.authService.toggleRefreshTokenCookie(res, null)
       throw new BadRequestException(REFRESH_TOKEN_MISSING_ERROR)
     }
-
-    this.authService.toggleRefreshTokenCookie(res, null)
 
     return true
   }

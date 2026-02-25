@@ -5,6 +5,7 @@ import { ExtractJwt, Strategy } from 'passport-jwt'
 import { PrismaService } from '../../prisma/prisma.service'
 import { UserModel } from '../users/models/user.model'
 import { JWT_SECRET_ENV } from '../../shared/constants'
+import { extractAccessTokenFromCookie } from './auth.utils'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -13,9 +14,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private readonly prisma: PrismaService,
   ) {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: ExtractJwt.fromExtractors([extractAccessTokenFromCookie]),
       secretOrKey: configService.getOrThrow<string>(JWT_SECRET_ENV),
-      ignoreExpiration: true,
     })
   }
 

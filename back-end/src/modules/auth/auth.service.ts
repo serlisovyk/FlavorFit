@@ -14,15 +14,17 @@ import { AuthInput } from './inputs/auth.input'
 import {
   JWT_ACCESS_TOKEN_EXPIRES_IN_ENV,
   JWT_REFRESH_TOKEN_EXPIRES_IN_ENV,
-  JWT_REFRESH_TOKEN_EXPIRES_DAYS_ENV,
   COOKIE_DOMAIN_ENV,
-  REFRESH_TOKEN_COOKIE_NAME,
   REGISTRATION_FAILED_ERROR,
   EMAIL_OR_PASSWORD_INVALID_ERROR,
   INVALID_REFRESH_TOKEN_ERROR,
   USER_NOT_FOUND_ERROR,
+  ACCESS_TOKEN_COOKIE_NAME,
+  JWT_ACCESS_TOKEN_EXPIRES_HOURS_ENV,
+  REFRESH_TOKEN_COOKIE_NAME,
+  JWT_REFRESH_TOKEN_EXPIRES_DAYS_ENV,
 } from './auth.constants'
-import { AuthTokenData } from './auth.interfaces'
+import { AuthTokenData, ToggleAuthTokenCookieParams } from './auth.interfaces'
 
 @Injectable()
 export class AuthService {
@@ -63,13 +65,55 @@ export class AuthService {
     return { user, ...tokens }
   }
 
-  toggleRefreshTokenCookie(response: Response, token: string | null) {
-    const expires = this.getRefreshTokenCookieExpires(token)
+  toggleAccessTokenCookie(response: Response, token: string | null) {
+    const expires = new Date(
+      Date.now() +
+        this.configService.getOrThrow<number>(
+          JWT_ACCESS_TOKEN_EXPIRES_HOURS_ENV,
+        ) *
+          3600000,
+    )
 
-    response.cookie(REFRESH_TOKEN_COOKIE_NAME, token, {
+    this.toggleAuthTokenCookie({
+      response,
+      token,
+      name: ACCESS_TOKEN_COOKIE_NAME,
+      expires,
+    })
+  }
+
+  toggleRefreshTokenCookie(response: Response, token: string | null) {
+    const expires = new Date(
+      Date.now() +
+        this.configService.getOrThrow<number>(
+          JWT_REFRESH_TOKEN_EXPIRES_DAYS_ENV,
+        ) *
+          24 *
+          60 *
+          60 *
+          1000,
+    )
+
+    this.toggleAuthTokenCookie({
+      response,
+      token,
+      name: REFRESH_TOKEN_COOKIE_NAME,
+      expires,
+    })
+  }
+
+  private toggleAuthTokenCookie({
+    response,
+    token,
+    name,
+    expires,
+  }: ToggleAuthTokenCookieParams) {
+    const expiresIn = !token ? new Date(0) : expires
+
+    response.cookie(name, token, {
       httpOnly: true,
       secure: true,
-      expires,
+      expires: expiresIn,
       domain: this.configService.get<string>(COOKIE_DOMAIN_ENV),
       sameSite: isDev(this.configService) ? 'none' : 'strict',
     })
@@ -127,23 +171,5 @@ export class AuthService {
     )
 
     return { accessToken, refreshToken }
-  }
-
-  private getRefreshTokenCookieExpires(token: string | null): Date {
-    const expires = new Date()
-
-    if (!token) {
-      expires.setTime(0)
-    } else {
-      const refreshTokenExpiresDays = Number(
-        this.configService.getOrThrow<string>(
-          JWT_REFRESH_TOKEN_EXPIRES_DAYS_ENV,
-        ),
-      )
-
-      expires.setDate(expires.getDate() + refreshTokenExpiresDays)
-    }
-
-    return expires
   }
 }
