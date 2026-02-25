@@ -1,10 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { ROUTES } from '@shared/config'
+import { getTokens, loginRedirect } from '@shared/server'
+import { jwtVerifyServer } from '@shared/server'
 
 export async function proxy(request: NextRequest) {
-  if (!request.cookies.get('accessToken')) {
-    return NextResponse.redirect(new URL(ROUTES.LOGIN, request.url))
+  const tokens = await getTokens(request)
+  if (!tokens) return loginRedirect(request)
+
+  if (tokens.isRefreshedAccessToken) {
+    const response = NextResponse.next()
+
+    if (tokens.setCookie) response.headers.set('Set-Cookie', tokens.setCookie)
+
+    return response
   }
+
+  const verifiedData = await jwtVerifyServer(tokens.accessToken)
+  if (!verifiedData) return loginRedirect(request)
+
+  return NextResponse.next()
 }
 
 export const config = {
