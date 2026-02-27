@@ -1,3 +1,5 @@
 export { getGraphQLConfig } from './graphql.config'
 export { getJwtConfig } from './jwt.config'
 export { getThrottlerConfig } from './throttler.config'
+export { getTurnstileConfig } from './turnstile.config'
+export { getResendConfig } from './resend.config'

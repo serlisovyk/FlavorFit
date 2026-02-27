@@ -1,0 +1,1 @@
+export const RESEND_API_KEY_ENV = 'RESEND_API_KEY'

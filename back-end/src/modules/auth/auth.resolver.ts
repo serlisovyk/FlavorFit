@@ -2,6 +2,7 @@ import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql'
 import { BadRequestException } from '@nestjs/common'
 import type { GraphQLContext } from '../../shared/types'
 import { AuthResponse } from './models/auth.response'
+import { VerifyCaptcha } from './decorators/captcha.decorator'
 import { AuthInput } from './inputs/auth.input'
 import { AuthService } from './auth.service'
 import {
@@ -13,10 +14,10 @@ import {
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
-  // Todo: Add Captcha
   @Mutation(() => AuthResponse, {
     description: 'Login with email and password',
   })
+  @VerifyCaptcha()
   async login(
     @Args('data') input: AuthInput,
     @Context() { res }: GraphQLContext,
@@ -30,10 +31,10 @@ export class AuthResolver {
     return response
   }
 
-  // Todo: Add Captcha
   @Mutation(() => AuthResponse, {
     description: 'Register a new user account',
   })
+  @VerifyCaptcha()
   async register(
     @Args('data') input: AuthInput,
     @Context() { res }: GraphQLContext,
