@@ -8,7 +8,8 @@ import { JwtService } from '@nestjs/jwt'
 import { StringValue } from 'ms'
 import { verify } from 'argon2'
 import { Response } from 'express'
-import { isDev } from '../../shared/utils'
+import { generateToken, isDev } from '../../shared/utils'
+import { EmailService } from '@/email/email.service'
 import { UsersService } from '../users/users.service'
 import { AuthInput } from './inputs/auth.input'
 import {
@@ -23,6 +24,7 @@ import {
   JWT_ACCESS_TOKEN_EXPIRES_HOURS_ENV,
   REFRESH_TOKEN_COOKIE_NAME,
   JWT_REFRESH_TOKEN_EXPIRES_DAYS_ENV,
+  CLIENT_URL_ENV,
 } from './auth.constants'
 import { AuthTokenData, ToggleAuthTokenCookieParams } from './auth.interfaces'
 
@@ -32,21 +34,34 @@ export class AuthService {
     private readonly configService: ConfigService,
     private readonly jwt: JwtService,
     private readonly usersService: UsersService,
+    private readonly emailService: EmailService,
   ) {}
 
   async register(input: AuthInput) {
     try {
       const preparedEmail = input.email.toLowerCase()
 
-      const newUser = await this.usersService.create(
-        preparedEmail,
-        input.password,
-      )
+      const emailVerificationToken = generateToken()
+
+      const newUser = await this.usersService.create({
+        email: preparedEmail,
+        password: input.password,
+        emailVerificationToken,
+      })
 
       const tokens = this.generateTokens({
         id: newUser.id,
         role: newUser.role,
       })
+
+      const verificationUrl = `${this.configService.get<string>(
+        CLIENT_URL_ENV,
+      )}/verify-email?token=${emailVerificationToken}`
+
+      await this.emailService.sendVerificationEmail(
+        newUser.email,
+        verificationUrl,
+      )
 
       return { user: newUser, ...tokens }
     } catch (error) {
@@ -64,6 +79,8 @@ export class AuthService {
 
     return { user, ...tokens }
   }
+
+  
 
   toggleAccessTokenCookie(response: Response, token: string | null) {
     const expires = new Date(

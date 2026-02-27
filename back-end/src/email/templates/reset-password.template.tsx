@@ -87,7 +87,6 @@ const textSmall = {
 }
 
 const buttonContainer = {
-  textAlign: 'center',
   marginBottom: '20px',
 }
 
@@ -103,7 +102,6 @@ const button = {
 const link = {
   color: '#007bff',
   textDecoration: 'none',
-  wordBreak: 'break-all',
 }
 
 const footer = {

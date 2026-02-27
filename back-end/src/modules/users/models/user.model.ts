@@ -12,6 +12,38 @@ export class UserModel extends BaseModel implements User {
   @Field(() => String, { nullable: false, description: 'User email address' })
   email!: string
 
+  // Todo: check this new fields, maybe type errors
+  @Field(() => Boolean, {
+    defaultValue: false,
+    nullable: false,
+    description: 'Indicates if the user email is verified',
+  })
+  isEmailVerified!: boolean
+
+  @Field(() => String, {
+    nullable: true,
+    description: 'Token used for email verification',
+  })
+  emailVerificationToken!: string | null
+
+  @Field(() => Date, {
+    nullable: true,
+    description: 'Expiration date of the email verification token',
+  })
+  emailVerificationTokenExpiresAt!: Date | null
+
+  @Field(() => String, {
+    nullable: true,
+    description: 'Token used for password reset',
+  })
+  resetPasswordToken!: string | null
+
+  @Field(() => Date, {
+    nullable: true,
+    description: 'Expiration date of the password reset token',
+  })
+  resetPasswordTokenExpiresAt!: Date | null
+
   @Field(() => String, {
     nullable: false,
     description: 'User password (hashed)',

@@ -10,7 +10,7 @@ export class EmailService {
 
   private async send(to: string, subject: string, html: string) {
     return this.resend.send({
-      from: 'FlavorFit <no-reply@flavorfit.com>',
+      from: 'onboarding@resend.dev',
       to,
       subject,
       html,

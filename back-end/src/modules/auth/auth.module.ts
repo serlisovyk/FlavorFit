@@ -3,8 +3,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { JwtModule } from '@nestjs/jwt'
 import { PassportModule } from '@nestjs/passport'
 import { getJwtConfig } from '@/shared/config'
+import { EmailModule } from '@/email/email.module'
 import { UsersModule } from '../users/users.module'
 import { JwtStrategy } from './jwt.strategy'
+import { AuthAccountService } from './auth-account.service'
 import { AuthService } from './auth.service'
 import { AuthResolver } from './auth.resolver'
 
@@ -17,7 +19,8 @@ import { AuthResolver } from './auth.resolver'
       useFactory: getJwtConfig,
     }),
     UsersModule,
+    EmailModule,
   ],
-  providers: [JwtStrategy, AuthService, AuthResolver],
+  providers: [JwtStrategy, AuthService, AuthAccountService, AuthResolver],
 })
 export class AuthModule {}

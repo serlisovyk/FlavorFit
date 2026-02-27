@@ -5,6 +5,12 @@ import { PrismaService } from '@/prisma/prisma.service'
 import { UserUpdateInput } from './inputs/user-update.input'
 import { USER_ALREADY_EXISTS_ERROR } from './users.constants'
 
+interface CreateUserParams {
+  email: string
+  password: string
+  emailVerificationToken: string
+}
+
 @Injectable()
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
@@ -27,7 +33,61 @@ export class UsersService {
     })
   }
 
-  async create(email: string, password: string) {
+  async findByEmailVerificationToken(token: string) {
+    return this.prisma.user.findFirst({
+      where: {
+        emailVerificationToken: token,
+        emailVerificationTokenExpiresAt: {
+          gt: new Date(),
+        },
+      },
+    })
+  }
+
+  async markEmailAsVerified(id: string) {
+    return this.prisma.user.update({
+      where: { id },
+      data: {
+        isEmailVerified: true,
+        emailVerificationToken: null,
+        emailVerificationTokenExpiresAt: null,
+      },
+    })
+  }
+
+  async setPasswordResetToken(id: string, token: string) {
+    return this.prisma.user.update({
+      where: { id },
+      data: {
+        resetPasswordToken: token,
+        resetPasswordTokenExpiresAt: new Date(Date.now() + 60 * 30 * 1000), // 30 minutes
+      },
+    })
+  }
+
+  async findByPasswordResetToken(token: string) {
+    return this.prisma.user.findFirst({
+      where: {
+        resetPasswordToken: token,
+        resetPasswordTokenExpiresAt: {
+          gt: new Date(),
+        },
+      },
+    })
+  }
+
+  async updatePassword(id: string, newPassword: string) {
+    return this.prisma.user.update({
+      where: { id },
+      data: {
+        password: await hash(newPassword),
+        resetPasswordToken: null,
+        resetPasswordTokenExpiresAt: null,
+      },
+    })
+  }
+
+  async create({ email, password, emailVerificationToken }: CreateUserParams) {
     const user = await this.findByEmail(email)
 
     if (user) throw new BadRequestException(USER_ALREADY_EXISTS_ERROR)
@@ -36,6 +96,10 @@ export class UsersService {
       data: {
         email,
         password: await hash(password),
+        emailVerificationToken,
+        emailVerificationTokenExpiresAt: new Date(
+          Date.now() + 60 * 60 * 1000, // 1 hour
+        ),
       },
     })
   }

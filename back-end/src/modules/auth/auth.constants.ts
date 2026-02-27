@@ -9,6 +9,7 @@ export const JWT_REFRESH_TOKEN_EXPIRES_DAYS_ENV =
   'JWT_REFRESH_TOKEN_EXPIRES_DAYS'
 
 export const COOKIE_DOMAIN_ENV = 'COOKIE_DOMAIN'
+export const CLIENT_URL_ENV = 'CLIENT_URL'
 
 export const REGISTRATION_FAILED_ERROR = 'Registration failed: '
 export const EMAIL_OR_PASSWORD_INVALID_ERROR = 'Invalid email or password'
