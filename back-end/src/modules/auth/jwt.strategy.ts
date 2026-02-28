@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { PassportStrategy } from '@nestjs/passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
-import { PrismaService } from '../../prisma/prisma.service'
+import { JWT_SECRET_ENV } from '@/shared/constants'
+import { PrismaService } from '@/common/prisma/prisma.service'
 import { UserModel } from '../users/models/user.model'
-import { JWT_SECRET_ENV } from '../../shared/constants'
 import { extractAccessTokenFromCookie } from './auth.utils'
 
 @Injectable()
@@ -19,7 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     })
   }
 
-  validate({ id }: UserModel): Promise<UserModel | null> {
+  validate({ id }: UserModel) {
     return this.prisma.user.findUnique({
       where: { id },
       include: {

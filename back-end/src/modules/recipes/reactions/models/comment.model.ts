@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql'
 import { Comment } from '@prisma/generated/client'
-import { BaseModel } from '@/shared/models/base.model'
+import { BaseModel } from '@/shared/models'
 
 @ObjectType({ description: 'Comment details' })
 export class CommentModel extends BaseModel implements Comment {

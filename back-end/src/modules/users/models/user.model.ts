@@ -2,7 +2,7 @@ import { ObjectType, Field, Int } from '@nestjs/graphql'
 import { ROLE, type User } from '@prisma/generated/client'
 import { RecipeModel } from '@/modules/recipes/models/recipe.model'
 import { OrderModel } from '@/modules/orders/models/order.model'
-import { BaseModel } from '@/shared/models/base.model'
+import { BaseModel } from '@/shared/models'
 import { ProfileModel } from './profile.model'
 import { MeasurementModel } from './measurement.model'
 import '../enums/users.enums'
@@ -12,7 +12,6 @@ export class UserModel extends BaseModel implements User {
   @Field(() => String, { nullable: false, description: 'User email address' })
   email!: string
 
-  // Todo: check this new fields, maybe type errors
   @Field(() => Boolean, {
     defaultValue: false,
     nullable: false,
@@ -61,29 +60,29 @@ export class UserModel extends BaseModel implements User {
     nullable: true,
     description: 'User profile',
   })
-  profile?: ProfileModel | null
+  profile!: ProfileModel | null
 
   @Field(() => MeasurementModel, {
     nullable: true,
     description: 'User physical measurements',
   })
-  measurements?: MeasurementModel | null
+  measurements!: MeasurementModel | null
 
   @Field(() => [RecipeModel], {
     nullable: true,
     description: 'Recipes created by the user',
   })
-  recipes?: RecipeModel[]
+  recipes!: RecipeModel[]
 
   // @Field(() => [Comment], { nullable: true })
-  // comments?: Comment[];
+  // comments!: Comment[];
 
   @Field(() => [Int], { nullable: true, description: 'IDs of liked recipes' })
-  likes?: number[]
+  likes!: number[]
 
   @Field(() => [OrderModel], {
     nullable: true,
     description: 'User orders',
   })
-  orders?: OrderModel[]
+  orders!: OrderModel[]
 }

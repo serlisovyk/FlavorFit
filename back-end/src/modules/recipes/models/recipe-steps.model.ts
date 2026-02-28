@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql'
 import { RecipeStep } from '@prisma/generated/client'
-import { BaseModel } from '@/shared/models/base.model'
+import { BaseModel } from '@/shared/models'
 
 @ObjectType({ description: 'Recipe step details' })
 export class RecipeStepModel extends BaseModel implements RecipeStep {

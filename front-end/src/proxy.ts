@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getTokens, loginRedirect } from '@shared/server'
-import { jwtVerifyServer } from '@shared/server'
+import { getTokens, loginRedirect, jwtVerifyServer } from '@shared/server'
 
 export async function proxy(request: NextRequest) {
   const tokens = await getTokens(request)

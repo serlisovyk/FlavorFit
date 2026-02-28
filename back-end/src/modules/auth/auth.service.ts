@@ -8,8 +8,9 @@ import { JwtService } from '@nestjs/jwt'
 import { StringValue } from 'ms'
 import { verify } from 'argon2'
 import { Response } from 'express'
-import { generateToken, isDev } from '../../shared/utils'
-import { EmailService } from '@/email/email.service'
+import { generateToken, isDev } from '@/shared/utils'
+import { ONE_HOUR_IN_MS, ONE_DAY_IN_MS } from '@/shared/constants'
+import { EmailService } from '@/common/email/email.service'
 import { UsersService } from '../users/users.service'
 import { AuthInput } from './inputs/auth.input'
 import {
@@ -26,7 +27,7 @@ import {
   JWT_REFRESH_TOKEN_EXPIRES_DAYS_ENV,
   CLIENT_URL_ENV,
 } from './auth.constants'
-import { AuthTokenData, ToggleAuthTokenCookieParams } from './auth.interfaces'
+import { AuthTokenData } from './auth.interfaces'
 
 @Injectable()
 export class AuthService {
@@ -80,59 +81,42 @@ export class AuthService {
     return { user, ...tokens }
   }
 
-  
-
-  toggleAccessTokenCookie(response: Response, token: string | null) {
-    const expires = new Date(
-      Date.now() +
-        this.configService.getOrThrow<number>(
-          JWT_ACCESS_TOKEN_EXPIRES_HOURS_ENV,
-        ) *
-          3600000,
+  setAuthCookies(
+    response: Response,
+    accessToken: string | null,
+    refreshToken: string | null,
+  ) {
+    const accessTokenExpiresHours = this.configService.getOrThrow<number>(
+      JWT_ACCESS_TOKEN_EXPIRES_HOURS_ENV,
     )
 
-    this.toggleAuthTokenCookie({
-      response,
-      token,
-      name: ACCESS_TOKEN_COOKIE_NAME,
-      expires,
-    })
-  }
-
-  toggleRefreshTokenCookie(response: Response, token: string | null) {
-    const expires = new Date(
-      Date.now() +
-        this.configService.getOrThrow<number>(
-          JWT_REFRESH_TOKEN_EXPIRES_DAYS_ENV,
-        ) *
-          24 *
-          60 *
-          60 *
-          1000,
+    const accessTokenExpires = new Date(
+      Date.now() + accessTokenExpiresHours * ONE_HOUR_IN_MS,
     )
 
-    this.toggleAuthTokenCookie({
-      response,
-      token,
-      name: REFRESH_TOKEN_COOKIE_NAME,
-      expires,
-    })
-  }
+    const refreshTokenExpiresDays = this.configService.getOrThrow<number>(
+      JWT_REFRESH_TOKEN_EXPIRES_DAYS_ENV,
+    )
 
-  private toggleAuthTokenCookie({
-    response,
-    token,
-    name,
-    expires,
-  }: ToggleAuthTokenCookieParams) {
-    const expiresIn = !token ? new Date(0) : expires
+    const refreshTokenExpires = new Date(
+      Date.now() + refreshTokenExpiresDays * ONE_DAY_IN_MS,
+    )
 
-    response.cookie(name, token, {
+    const defaultCookieOptions = {
       httpOnly: true,
       secure: true,
-      expires: expiresIn,
       domain: this.configService.get<string>(COOKIE_DOMAIN_ENV),
       sameSite: isDev(this.configService) ? 'none' : 'strict',
+    } as const
+
+    response.cookie(ACCESS_TOKEN_COOKIE_NAME, accessToken, {
+      ...defaultCookieOptions,
+      expires: accessToken ? accessTokenExpires : new Date(0),
+    })
+
+    response.cookie(REFRESH_TOKEN_COOKIE_NAME, refreshToken, {
+      ...defaultCookieOptions,
+      expires: refreshToken ? refreshTokenExpires : new Date(0),
     })
   }
 

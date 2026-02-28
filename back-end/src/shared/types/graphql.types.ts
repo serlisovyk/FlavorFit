@@ -1,10 +1,14 @@
 import { Request, Response } from 'express'
+import { UserModel } from '@prisma/generated/models'
 
 export interface GraphQLContext {
-  req: RequestWithCookies
+  req: PreparedRequest
   res: Response
 }
 
-interface RequestWithCookies extends Request {
+export interface PreparedRequest extends Request {
   cookies: Record<string, string | undefined>
+  user?: CurrentUser
 }
+
+export type CurrentUser = Omit<UserModel, 'password'>

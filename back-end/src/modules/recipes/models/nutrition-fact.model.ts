@@ -1,6 +1,6 @@
 import { ObjectType, Field, Float } from '@nestjs/graphql'
 import { Prisma, NutritionFact } from '@prisma/generated/client'
-import { BaseModel } from '@/shared/models/base.model'
+import { BaseModel } from '@/shared/models'
 
 @ObjectType({ description: 'Nutrition facts details' })
 export class NutritionFactModel extends BaseModel implements NutritionFact {

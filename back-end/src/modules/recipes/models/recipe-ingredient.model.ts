@@ -1,7 +1,7 @@
 import { ObjectType, Field, Float } from '@nestjs/graphql'
 import { Prisma, RecipeIngredient } from '@prisma/generated/client'
 import { UNIT } from '@prisma/generated/enums'
-import { BaseModel } from '@/shared/models/base.model'
+import { BaseModel } from '@/shared/models'
 import { IngredientModel } from '../ingredients/models/ingredient.model'
 
 @ObjectType({ description: 'Recipe ingredient details' })
@@ -26,7 +26,7 @@ export class RecipeIngredientModel
     nullable: false,
     description: 'Ingredient details',
   })
-  ingredient?: IngredientModel
+  ingredient!: IngredientModel | null
 
   @Field(() => String, {
     nullable: false,

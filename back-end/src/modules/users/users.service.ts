@@ -1,15 +1,11 @@
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { hash } from 'argon2'
 import { Prisma } from '@prisma/generated/client'
-import { PrismaService } from '@/prisma/prisma.service'
+import { PrismaService } from '@/common/prisma/prisma.service'
+import { ONE_HOUR_IN_MS, THIRTY_MINUTES_IN_MS } from '@/shared/constants'
 import { UserUpdateInput } from './inputs/user-update.input'
 import { USER_ALREADY_EXISTS_ERROR } from './users.constants'
-
-interface CreateUserParams {
-  email: string
-  password: string
-  emailVerificationToken: string
-}
+import { CreateUserParams } from './users.types'
 
 @Injectable()
 export class UsersService {
@@ -60,7 +56,9 @@ export class UsersService {
       where: { id },
       data: {
         resetPasswordToken: token,
-        resetPasswordTokenExpiresAt: new Date(Date.now() + 60 * 30 * 1000), // 30 minutes
+        resetPasswordTokenExpiresAt: new Date(
+          Date.now() + THIRTY_MINUTES_IN_MS,
+        ),
       },
     })
   }
@@ -97,9 +95,7 @@ export class UsersService {
         email,
         password: await hash(password),
         emailVerificationToken,
-        emailVerificationTokenExpiresAt: new Date(
-          Date.now() + 60 * 60 * 1000, // 1 hour
-        ),
+        emailVerificationTokenExpiresAt: new Date(Date.now() + ONE_HOUR_IN_MS),
       },
     })
   }

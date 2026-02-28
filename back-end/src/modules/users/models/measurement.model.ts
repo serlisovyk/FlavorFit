@@ -4,7 +4,7 @@ import {
   NUTRITION_GOAL,
   type Measurement,
 } from '@prisma/generated/client'
-import { BaseModel } from '@/shared/models/base.model'
+import { BaseModel } from '@/shared/models'
 
 @ObjectType({ description: 'User physical measurements model' })
 export class MeasurementModel extends BaseModel implements Measurement {

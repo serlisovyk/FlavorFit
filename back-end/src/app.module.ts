@@ -5,12 +5,12 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
 import { ThrottlerModule } from '@nestjs/throttler'
 import { TurnstileModule } from 'nest-cloudflare-turnstile'
 import { ResendModule } from 'nestjs-resend'
-import { PrismaModule } from './prisma/prisma.module'
-import { EmailModule } from './email/email.module'
 import { AuthModule } from './modules/auth/auth.module'
 import { UsersModule } from './modules/users/users.module'
 import { RecipesModule } from './modules/recipes/recipes.module'
 import { OrdersModule } from './modules/orders/orders.module'
+import { PrismaModule } from './common/prisma/prisma.module'
+import { EmailModule } from './common/email/email.module'
 import {
   getGraphQLConfig,
   getResendConfig,

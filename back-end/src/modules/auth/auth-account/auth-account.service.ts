@@ -1,9 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { UsersService } from '../users/users.service'
-import { EmailService } from '@/email/email.service'
+import { EmailService } from '@/common/email/email.service'
 import { generateToken } from '@/shared/utils'
-import { CLIENT_URL_ENV } from './auth.constants'
+import { UsersService } from '../../users/users.service'
+import {
+  CLIENT_URL_ENV,
+  INVALID_OR_EXPIRED_EMAIL_TOKEN_ERROR,
+  INVALID_OR_EXPIRED_PASSWORD_RESET_TOKEN_ERROR,
+} from '../auth.constants'
 
 @Injectable()
 export class AuthAccountService {
@@ -17,9 +21,7 @@ export class AuthAccountService {
     const user = await this.usersService.findByEmailVerificationToken(token)
 
     if (!user) {
-      throw new BadRequestException(
-        'Invalid or expired email verification token',
-      )
+      throw new BadRequestException(INVALID_OR_EXPIRED_EMAIL_TOKEN_ERROR)
     }
 
     await this.usersService.markEmailAsVerified(user.id)
@@ -28,9 +30,7 @@ export class AuthAccountService {
   }
 
   async requestPasswordReset(email: string) {
-    const preparedEmail = email.toLowerCase()
-
-    const user = await this.usersService.findByEmail(preparedEmail)
+    const user = await this.usersService.findByEmail(email.toLowerCase())
 
     if (!user) return true
 
@@ -38,7 +38,7 @@ export class AuthAccountService {
 
     await this.usersService.setPasswordResetToken(user.id, resetToken)
 
-    const resetUrl = `${this.configService.get<string>(
+    const resetUrl = `${this.configService.getOrThrow<string>(
       CLIENT_URL_ENV,
     )}/reset-password?token=${resetToken}`
 
@@ -51,7 +51,9 @@ export class AuthAccountService {
     const user = await this.usersService.findByPasswordResetToken(token)
 
     if (!user) {
-      throw new BadRequestException('Invalid or expired password reset token')
+      throw new BadRequestException(
+        INVALID_OR_EXPIRED_PASSWORD_RESET_TOKEN_ERROR,
+      )
     }
 
     await this.usersService.updatePassword(user.id, newPassword)

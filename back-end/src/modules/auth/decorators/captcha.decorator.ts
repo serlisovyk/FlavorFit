@@ -1,4 +1,4 @@
 import { UseGuards } from '@nestjs/common'
-import { GqlTurnstileGuard } from '../guards/gql-turnstile.guard'
+import { CaptchaGuard } from '../guards/captcha.guard'
 
-export const VerifyCaptcha = () => UseGuards(GqlTurnstileGuard)
+export const Captcha = () => UseGuards(CaptchaGuard)

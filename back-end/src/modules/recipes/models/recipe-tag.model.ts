@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql'
 import { RecipeTag } from '@prisma/generated/client'
-import { BaseModel } from '@/shared/models/base.model'
+import { BaseModel } from '@/shared/models'
 
 @ObjectType({ description: 'Recipe tag details' })
 export class RecipeTagModel extends BaseModel implements RecipeTag {

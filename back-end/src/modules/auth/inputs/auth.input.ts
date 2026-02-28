@@ -14,24 +14,3 @@ export class AuthInput {
   @MaxLength(50, { message: 'Password must contain at most 50 characters' })
   password!: string
 }
-
-@InputType()
-export class RequestPasswordResetInput {
-  @Field(() => String, { description: 'Email address for password reset' })
-  @IsNotEmpty({ message: 'Email cannot be empty' })
-  @IsEmail({}, { message: 'Email must be a valid address' })
-  email!: string
-}
-
-@InputType()
-export class ResetPasswordInput {
-  @Field(() => String, { description: 'Password reset token from email' })
-  @IsNotEmpty({ message: 'Token cannot be empty' })
-  token!: string
-
-  @Field(() => String, { description: 'New password' })
-  @IsNotEmpty({ message: 'Password cannot be empty' })
-  @MinLength(6, { message: 'Password must contain at least 6 characters' })
-  @MaxLength(50, { message: 'Password must contain at most 50 characters' })
-  newPassword!: string
-}

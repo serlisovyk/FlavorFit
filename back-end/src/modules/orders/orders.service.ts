@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common'
 import { ORDER_STATUS } from '@prisma/generated/enums'
-import { PrismaService } from '@/prisma/prisma.service'
+import { PrismaService } from '@/common/prisma/prisma.service'
 import { OrderInput } from './inputs/order.input'
 import {
   ORDER_EMPTY_ERROR,

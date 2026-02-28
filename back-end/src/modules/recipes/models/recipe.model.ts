@@ -1,7 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql'
 import { Recipe } from '@prisma/generated/client'
 import { DIFFICULTY } from '@prisma/generated/enums'
-import { BaseModel } from '@/shared/models/base.model'
+import { BaseModel } from '@/shared/models'
 import { NutritionFactModel } from './nutrition-fact.model'
 import { RecipeTagModel } from './recipe-tag.model'
 import { RecipeIngredientModel } from './recipe-ingredient.model'
@@ -50,25 +50,25 @@ export class RecipeModel extends BaseModel implements Recipe {
     nullable: true,
     description: 'Nutrition facts',
   })
-  nutritionFact?: NutritionFactModel
+  nutritionFact!: NutritionFactModel | null
 
   @Field(() => [RecipeTagModel], {
     nullable: true,
     description: 'Recipe tags',
   })
-  tags?: RecipeTagModel[]
+  tags!: RecipeTagModel[] | null
 
   @Field(() => [RecipeIngredientModel], {
     nullable: true,
     description: 'Recipe ingredients',
   })
-  recipeIngredients?: RecipeIngredientModel[]
+  recipeIngredients!: RecipeIngredientModel[] | null
 
   @Field(() => [RecipeStepModel], {
     nullable: true,
     description: 'Recipe steps',
   })
-  recipeSteps?: RecipeStepModel[]
+  recipeSteps!: RecipeStepModel[] | null
 
   // @Field(() => [Comment], { nullable: true })
   // comments?: Comment[];
@@ -77,7 +77,7 @@ export class RecipeModel extends BaseModel implements Recipe {
     nullable: true,
     description: 'User IDs who liked the recipe',
   })
-  likes?: number[]
+  likes!: number[] | null
 
   @Field(() => String, {
     nullable: false,

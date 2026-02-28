@@ -1,34 +1,34 @@
 import {
-  Html,
-  Head,
-  Preview,
   Body,
+  Button,
   Container,
+  Head,
+  Html,
+  Link,
+  Preview,
   Section,
   Text,
-  Button,
-  Link,
 } from '@react-email/components'
-import { ResetPasswordEmailProps } from '../email.types'
+import { VerificationEmailProps } from '../email.types'
 
-export function ResetPasswordEmail({ url, appName }: ResetPasswordEmailProps) {
+export function VerificationEmail({ url, appName }: VerificationEmailProps) {
   return (
     <Html>
       <Head />
-      <Preview>Reset your password</Preview>
+      <Preview>Verify your email</Preview>
       <Body style={body}>
         <Container style={container}>
           <Section>
-            <Text style={heading}>Reset your password</Text>
+            <Text style={heading}>Verify your email</Text>
 
             <Text style={text}>
-              You recently requested to reset your password for your {appName}
-              account.
+              Thank you for signing up for {appName}! Please click the button
+              below to verify your email address and complete your registration.
             </Text>
 
-            <Section style={buttonContainer}>
+            <Section>
               <Button href={url} style={button}>
-                Reset Password
+                Verify Email
               </Button>
             </Section>
           </Section>
@@ -42,11 +42,8 @@ export function ResetPasswordEmail({ url, appName }: ResetPasswordEmailProps) {
             {url}
           </Link>
 
-          <Text style={text}>Link will expire limited time.</Text>
-
           <Text style={footer}>
-            If you did not request a password reset, no further action is
-            required.
+            If you did not create an account, no further action is required.
           </Text>
         </Container>
       </Body>
@@ -57,15 +54,16 @@ export function ResetPasswordEmail({ url, appName }: ResetPasswordEmailProps) {
 const body = {
   backgroundColor: '#f9f9f9',
   fontFamily: 'Arial, sans-serif',
+  padding: '20px',
 }
 
 const container = {
   backgroundColor: '#ffffff',
   borderRadius: '8px',
-  padding: '20px',
-  margin: '20px auto',
-  width: '100%',
+  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
   maxWidth: '600px',
+  margin: '0 auto',
+  padding: '20px',
 }
 
 const heading = {
@@ -80,18 +78,8 @@ const text = {
   marginBottom: '20px',
 }
 
-const textSmall = {
-  fontSize: '14px',
-  lineHeight: '1.5',
-  marginBottom: '10px',
-}
-
-const buttonContainer = {
-  marginBottom: '20px',
-}
-
 const button = {
-  backgroundColor: '#007bff',
+  backgroundColor: '#9b7dfe',
   color: '#ffffff',
   padding: '10px 20px',
   borderRadius: '4px',
@@ -99,13 +87,18 @@ const button = {
   fontSize: '16px',
 }
 
+const textSmall = {
+  fontSize: '14px',
+  lineHeight: '1.5',
+  marginBottom: '10px',
+}
+
 const link = {
-  color: '#007bff',
-  textDecoration: 'none',
+  color: '#9b7dfe',
 }
 
 const footer = {
-  fontSize: '14px',
-  lineHeight: '1.5',
+  fontSize: '12px',
+  color: '#888888',
   marginTop: '20px',
 }

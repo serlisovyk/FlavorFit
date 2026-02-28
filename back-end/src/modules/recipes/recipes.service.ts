@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { Prisma } from '@prisma/generated/client'
-import { PrismaService } from '@/prisma/prisma.service'
+import { PrismaService } from '@/common/prisma/prisma.service'
 import { RecipesQueryInput } from './inputs/recipes-query.input'
 import { RECIPE_NOT_FOUND_ERROR } from './recipes.constants'
 import { RECIPE_SORT_OPTIONS } from './recipes.types'

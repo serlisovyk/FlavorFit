@@ -1,7 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql'
 import { Profile } from '@prisma/generated/client'
 import { GENDER } from '@prisma/generated/enums'
-import { BaseModel } from '@/shared/models/base.model'
+import { BaseModel } from '@/shared/models'
 
 @ObjectType({ description: 'User profile model' })
 export class ProfileModel extends BaseModel implements Profile {

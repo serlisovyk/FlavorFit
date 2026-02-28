@@ -1,11 +1,11 @@
 import { ExecutionContext } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { GqlExecutionContext } from '@nestjs/graphql'
-import { RequestWithUser } from '../auth.interfaces'
+import { GraphQLContext } from '@/shared/types'
 
 export class GqlAuthGuard extends AuthGuard('jwt') {
   getRequest(context: ExecutionContext) {
-    const ctx = GqlExecutionContext.create(context)
-    return ctx.getContext<{ req: RequestWithUser }>().req
+    const graphqlContext = GqlExecutionContext.create(context)
+    return graphqlContext.getContext<GraphQLContext>().req
   }
 }

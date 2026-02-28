@@ -3,3 +3,15 @@ export const MODE_ENV = 'MODE'
 export const CORS_DOMAINS_ENV = 'CORS_DOMAINS'
 
 export const PORT_ENV = 'PORT'
+
+export const APP_NAME_ENV = 'APP_NAME'
+
+export const JWT_SECRET_ENV = 'JWT_SECRET'
+
+export const RESEND_API_KEY_ENV = 'RESEND_API_KEY'
+
+export const THROTTLE_TTL_ENV = 'THROTTLE_TTL'
+export const THROTTLE_LIMIT_ENV = 'THROTTLE_LIMIT'
+
+export const CLOUDFLARE_TURNSTILE_SECRET_KEY_ENV =
+  'CLOUDFLARE_TURNSTILE_SECRET_KEY'

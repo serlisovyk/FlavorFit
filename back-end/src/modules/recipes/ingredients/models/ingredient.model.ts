@@ -1,6 +1,6 @@
 import { ObjectType, Field, Float } from '@nestjs/graphql'
 import { UNIT, type Ingredient, type Prisma } from '@prisma/generated/client'
-import { BaseModel } from '@/shared/models/base.model'
+import { BaseModel } from '@/shared/models'
 
 @ObjectType({ description: 'Ingredient details' })
 export class IngredientModel extends BaseModel implements Ingredient {

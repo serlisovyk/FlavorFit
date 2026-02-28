@@ -1,7 +1,7 @@
 import { ObjectType, Field, Float } from '@nestjs/graphql'
 import { Prisma, Order } from '@prisma/generated/client'
 import { ORDER_STATUS } from '@prisma/generated/enums'
-import { BaseModel } from '@/shared/models/base.model'
+import { BaseModel } from '@/shared/models'
 import { OrderItemModel } from './order-item.model'
 import '../enums/order.enums'
 

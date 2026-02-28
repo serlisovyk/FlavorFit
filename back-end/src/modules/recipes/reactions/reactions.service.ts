@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common'
 import { ROLE } from '@prisma/generated/enums'
-import { PrismaService } from '@/prisma/prisma.service'
+import { PrismaService } from '@/common/prisma/prisma.service'
 import { CommentCreateInput, CommentUpdateInput } from './inputs/comment.input'
 import { COMMENT_NOT_FOUND_OR_UNAUTHORIZED_ERROR } from './reactions.constants'
 
