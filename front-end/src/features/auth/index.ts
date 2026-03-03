@@ -1,3 +1,7 @@
 export { AuthForm } from './ui/auth-form'
 export { Logout } from './ui/logout'
+export { VerifyEmail } from './ui/verify-email'
+export { ForgotPassword } from './ui/forgot-password'
+export { ResetPassword } from './ui/reset-password'
+export { CaptchaProvider } from './providers'
 export { useAuth } from './queries'

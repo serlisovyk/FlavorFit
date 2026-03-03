@@ -19,7 +19,10 @@ export class AuthAccountResolver {
     description: 'Request password reset email',
   })
   @Captcha()
-  async requestPasswordReset(@Args('data') input: RequestPasswordResetInput) {
+  async requestPasswordReset(
+    @Args('data', { type: () => RequestPasswordResetInput })
+    input: RequestPasswordResetInput,
+  ) {
     return this.authAccountService.requestPasswordReset(input.email)
   }
 
@@ -27,7 +30,10 @@ export class AuthAccountResolver {
     description: 'Reset password using token from password reset email',
   })
   @Captcha()
-  async resetPassword(@Args('data') input: ResetPasswordInput) {
+  async resetPassword(
+    @Args('data', { type: () => ResetPasswordInput })
+    input: ResetPasswordInput,
+  ) {
     return this.authAccountService.resetPassword(input.token, input.newPassword)
   }
 }

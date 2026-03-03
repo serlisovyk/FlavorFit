@@ -1,15 +1,16 @@
 'use client'
 
+import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AuthInput } from '@generated/graphql'
 import { Input, Button } from '@shared/ui'
-import { AuthChangeTypeForm } from '../auth-change-form'
+import { AuthLinks } from '../auth-links'
+import { Captcha } from '../captcha'
 import { useAuthMutation } from '../../queries'
 import { authSchema } from '../../schemas'
-import { AuthFormProps } from '../../types'
 import { AUTH_FORM_DEFAULT_VALUES } from '../../constants'
-import Image from 'next/image'
+import { AuthFormProps } from '../../types'
 
 export function AuthForm({ type }: AuthFormProps) {
   const isLogin = type === 'login'
@@ -24,9 +25,9 @@ export function AuthForm({ type }: AuthFormProps) {
     resolver: zodResolver(authSchema),
   })
 
-  const { auth, isLoading } = useAuthMutation(isLogin)
+  const { handleAuth, isLoading } = useAuthMutation(isLogin)
 
-  const handleAuth = (data: AuthInput) => auth({ variables: { data } })
+  const onSubmit = (data: AuthInput) => handleAuth(data)
 
   const formTitle = isLogin ? 'Sign In' : 'Sign Up'
 
@@ -37,7 +38,7 @@ export function AuthForm({ type }: AuthFormProps) {
           {formTitle}
         </h1>
 
-        <form className="space-y-3 mb-4" onSubmit={handleSubmit(handleAuth)}>
+        <form className="space-y-3 mb-4" onSubmit={handleSubmit(onSubmit)}>
           <Input
             id="email"
             type="email"
@@ -58,18 +59,20 @@ export function AuthForm({ type }: AuthFormProps) {
             error={errors.password}
           />
 
+          <Captcha />
+
           <div className="text-center">
             <Button
               variant="accent"
               type="submit"
               disabled={!isValid || isLoading}
             >
-              {formTitle}
+              {isLoading ? 'Submitting...' : formTitle}
             </Button>
           </div>
         </form>
 
-        <AuthChangeTypeForm isLogin={isLogin} />
+        <AuthLinks isLogin={isLogin} />
 
         <Image
           src="/images/salad.png"

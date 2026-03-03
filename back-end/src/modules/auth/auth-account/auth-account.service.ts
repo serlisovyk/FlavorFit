@@ -7,6 +7,8 @@ import {
   CLIENT_URL_ENV,
   INVALID_OR_EXPIRED_EMAIL_TOKEN_ERROR,
   INVALID_OR_EXPIRED_PASSWORD_RESET_TOKEN_ERROR,
+  RESET_PASSWORD_URL,
+  RESET_PASSWORD_SUBJECT,
 } from '../auth.constants'
 
 @Injectable()
@@ -40,9 +42,13 @@ export class AuthAccountService {
 
     const resetUrl = `${this.configService.getOrThrow<string>(
       CLIENT_URL_ENV,
-    )}/reset-password?token=${resetToken}`
+    )}${RESET_PASSWORD_URL}?token=${resetToken}`
 
-    await this.emailService.sendResetPasswordEmail(user.email, resetUrl)
+    await this.emailService.sendResetPasswordEmail(
+      user.email,
+      resetUrl,
+      RESET_PASSWORD_SUBJECT,
+    )
 
     return true
   }

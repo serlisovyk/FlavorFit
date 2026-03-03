@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache, ApolloLink } from '@apollo/client'
-import { NODE_ENV } from '@shared/config'
+import { NODE_ENV } from '@shared/env'
 import { IS_CLIENT, NODE } from '@shared/constants'
 import { errorLink, httpLink } from '../links'
 

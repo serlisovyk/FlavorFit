@@ -24,3 +24,9 @@ export const INVALID_OR_EXPIRED_EMAIL_TOKEN_ERROR =
   'Invalid or expired email verification token'
 export const INVALID_OR_EXPIRED_PASSWORD_RESET_TOKEN_ERROR =
   'Invalid or expired password reset token'
+
+export const VERIFICATION_EMAIL_URL = '/auth/verify-email'
+export const VERIFICATION_EMAIL_SUBJECT = 'Verify your email'
+
+export const RESET_PASSWORD_URL = '/auth/reset-password'
+export const RESET_PASSWORD_SUBJECT = 'Reset your password'

@@ -1,0 +1,18 @@
+import { clientEnvSchema } from '../schemas'
+
+const {
+  NODE_ENV,
+  NEXT_PUBLIC_SERVER_URL_ENV,
+  NEXT_PUBLIC_TURNSTILE_SITE_KEY_ENV,
+} = clientEnvSchema.parse({
+  NODE_ENV: process.env.NODE_ENV,
+  NEXT_PUBLIC_SERVER_URL_ENV: process.env.NEXT_PUBLIC_SERVER_URL,
+  NEXT_PUBLIC_TURNSTILE_SITE_KEY_ENV:
+    process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
+})
+
+export {
+  NODE_ENV,
+  NEXT_PUBLIC_SERVER_URL_ENV,
+  NEXT_PUBLIC_TURNSTILE_SITE_KEY_ENV,
+}

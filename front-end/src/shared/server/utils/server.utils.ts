@@ -3,7 +3,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { jwtVerify } from 'jose'
 import { CombinedGraphQLErrors } from '@apollo/client'
-import { JWT_SECRET_ENV, ROUTES } from '@shared/config'
+import { ROUTES } from '@shared/config'
+import { JWT_SECRET_ENV } from '@shared/env/server-index'
 import { fetchRefreshToken } from '../services'
 import {
   ACCESS_TOKEN_COOKIE_NAME,

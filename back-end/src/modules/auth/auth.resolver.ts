@@ -19,7 +19,7 @@ export class AuthResolver {
   })
   @Captcha()
   async login(
-    @Args('data') input: AuthInput,
+    @Args('data', { type: () => AuthInput }) input: AuthInput,
     @Context() { res }: GraphQLContext,
   ) {
     const { refreshToken, accessToken, ...response } =
@@ -35,7 +35,7 @@ export class AuthResolver {
   })
   @Captcha()
   async register(
-    @Args('data') input: AuthInput,
+    @Args('data', { type: () => AuthInput }) input: AuthInput,
     @Context() { res }: GraphQLContext,
   ) {
     const { refreshToken, accessToken, ...response } =

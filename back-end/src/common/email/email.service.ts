@@ -13,7 +13,7 @@ export class EmailService {
     private readonly configService: ConfigService,
   ) {}
 
-  async sendVerificationEmail(to: string, url: string) {
+  async sendVerificationEmail(to: string, url: string, subject: string) {
     const html = await render(
       VerificationEmail({
         url,
@@ -21,10 +21,10 @@ export class EmailService {
       }),
     )
 
-    return this.send(to, 'Verify your email', html)
+    return this.send(to, subject, html)
   }
 
-  async sendResetPasswordEmail(to: string, url: string) {
+  async sendResetPasswordEmail(to: string, url: string, subject: string) {
     const html = await render(
       ResetPasswordEmail({
         url,
@@ -32,7 +32,7 @@ export class EmailService {
       }),
     )
 
-    return this.send(to, 'Reset your password', html)
+    return this.send(to, subject, html)
   }
 
   private async send(to: string, subject: string, html: string) {

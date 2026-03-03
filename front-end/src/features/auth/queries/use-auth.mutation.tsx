@@ -1,16 +1,25 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useApolloClient, useMutation } from '@apollo/client/react'
 import toast from 'react-hot-toast'
-import { LoginDocument, MeDocument, RegisterDocument } from '@generated/graphql'
-import { ROUTES } from '@shared/config'
+import { useApolloClient, useMutation } from '@apollo/client/react'
+import {
+  AuthInput,
+  LoginDocument,
+  MeDocument,
+  RegisterDocument,
+} from '@generated/graphql'
+import { ROUTES, TURNSTILE_TOKEN_HEADER } from '@shared/config'
+import { useCaptcha } from '../providers'
 import { AuthMutation, AuthMutationVariables } from '../types'
 
 export function useAuthMutation(isLogin: boolean) {
   const router = useRouter()
 
   const client = useApolloClient()
+
+  const { captchaRef, captchaToken, setCaptchaToken, validateToken } =
+    useCaptcha()
 
   const [auth, { loading }] = useMutation<AuthMutation, AuthMutationVariables>(
     isLogin ? LoginDocument : RegisterDocument,
@@ -34,10 +43,22 @@ export function useAuthMutation(isLogin: boolean) {
       },
 
       onError: (error) => {
-        toast.error(error.message, { id: 'auth-error' })
+        toast.error(error.message)
+
+        captchaRef.current?.reset()
+        setCaptchaToken(null)
       },
     },
   )
 
-  return { auth, isLoading: loading }
+  const handleAuth = (data: AuthInput) => {
+    if (!validateToken()) return
+
+    auth({
+      variables: { data },
+      context: { headers: { [TURNSTILE_TOKEN_HEADER]: captchaToken } },
+    })
+  }
+
+  return { handleAuth, isLoading: loading }
 }

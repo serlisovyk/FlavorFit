@@ -26,6 +26,8 @@ import {
   REFRESH_TOKEN_COOKIE_NAME,
   JWT_REFRESH_TOKEN_EXPIRES_DAYS_ENV,
   CLIENT_URL_ENV,
+  VERIFICATION_EMAIL_URL,
+  VERIFICATION_EMAIL_SUBJECT,
 } from './auth.constants'
 import { AuthTokenData } from './auth.interfaces'
 
@@ -57,11 +59,12 @@ export class AuthService {
 
       const verificationUrl = `${this.configService.get<string>(
         CLIENT_URL_ENV,
-      )}/verify-email?token=${emailVerificationToken}`
+      )}${VERIFICATION_EMAIL_URL}?token=${emailVerificationToken}`
 
       await this.emailService.sendVerificationEmail(
         newUser.email,
         verificationUrl,
+        VERIFICATION_EMAIL_SUBJECT,
       )
 
       return { user: newUser, ...tokens }

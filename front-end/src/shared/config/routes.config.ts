@@ -4,6 +4,7 @@ class RoutesConfig {
   private readonly AUTH = '/auth'
   readonly LOGIN = this.AUTH + '/login'
   readonly REGISTER = this.AUTH + '/register'
+  readonly FORGOT_PASSWORD = this.AUTH + '/forgot-password'
 
   readonly DASHBOARD = '/dashboard'
   readonly MEAL_PLANS = this.DASHBOARD + '/meal-plans'
