@@ -9,6 +9,7 @@ import { AuthModule } from './modules/auth/auth.module'
 import { UsersModule } from './modules/users/users.module'
 import { RecipesModule } from './modules/recipes/recipes.module'
 import { OrdersModule } from './modules/orders/orders.module'
+import { UploadModule } from './modules/upload/upload.module';
 import { PrismaModule } from './common/prisma/prisma.module'
 import { EmailModule } from './common/email/email.module'
 import {
@@ -23,27 +24,24 @@ import {
     ConfigModule.forRoot({ isGlobal: true }),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
-      imports: [ConfigModule],
       useFactory: getGraphQLConfig,
       inject: [ConfigService],
     }),
     ThrottlerModule.forRootAsync({
-      imports: [ConfigModule],
       useFactory: getThrottlerConfig,
       inject: [ConfigService],
     }),
     TurnstileModule.forRootAsync({
-      imports: [ConfigModule],
       useFactory: getTurnstileConfig,
       inject: [ConfigService],
     }),
     ResendModule.forRootAsync({
-      imports: [ConfigModule],
       useFactory: getResendConfig,
       inject: [ConfigService],
     }),
     PrismaModule,
     EmailModule,
+    UploadModule,
     AuthModule,
     UsersModule,
     RecipesModule,

@@ -13,6 +13,7 @@ class RoutesConfig {
   readonly ORDER_GROCERIES = this.DASHBOARD + '/order-groceries'
   readonly RECIPES = this.DASHBOARD + '/recipes'
   readonly FORUM = this.DASHBOARD + '/forum'
+  readonly PROFILE = this.DASHBOARD + '/profile'
 }
 
 export const ROUTES = new RoutesConfig()

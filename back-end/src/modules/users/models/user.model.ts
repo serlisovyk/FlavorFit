@@ -12,6 +12,9 @@ export class UserModel extends BaseModel implements User {
   @Field(() => String, { nullable: false, description: 'User email address' })
   email!: string
 
+  @Field(() => String, { nullable: true, description: 'User avatar URL' })
+  avatarUrl!: string | null
+
   @Field(() => Boolean, {
     defaultValue: false,
     nullable: false,

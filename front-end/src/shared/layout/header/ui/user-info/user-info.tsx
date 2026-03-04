@@ -1,7 +1,10 @@
 'use client'
 
+import Link from 'next/link'
+import Image from 'next/image'
+import { UserCircle } from 'lucide-react'
 import { useAuth } from '@features/auth'
-// import Image from 'next/image'
+import { ROUTES } from '@shared/config'
 
 export function UserInfo() {
   const { user } = useAuth()
@@ -10,20 +13,30 @@ export function UserInfo() {
 
   const { email } = user
 
+  const avatarUrl = null
+  const name = 'Test User'
+
   return (
-    <div className="flex items-center gap-3">
-      {/* <Image
-        src={avatarUrl}
-        alt={`${name}'s Avatar`}
-        width={36}
-        height={36}
-        className="rounded-full"
-      /> */}
+    <Link href={ROUTES.PROFILE} className="flex items-center gap-3">
+      {avatarUrl ? (
+        <Image
+          src={avatarUrl}
+          alt={'User avatar'}
+          width={36}
+          height={36}
+          className="rounded-full"
+        />
+      ) : (
+        <UserCircle
+          size={36}
+          className="rounded-full text-gray-500 opacity-60"
+        />
+      )}
 
       <div>
-        {/* <div className="font-medium">{name}</div> */}
+        <div className="font-medium">{name}</div>
         {email && <div className="opacity-60 text-xs">{email}</div>}
       </div>
-    </div>
+    </Link>
   )
 }

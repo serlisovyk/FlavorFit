@@ -9,7 +9,7 @@ import { UserInfo } from './ui/user-info'
 
 export function Header() {
   return (
-    <header className="flex items-center justify-between p-5">
+    <header className="flex items-center justify-between mb-10">
       <div className="flex items-center gap-8">
         <Link
           href={ROUTES.DASHBOARD}
