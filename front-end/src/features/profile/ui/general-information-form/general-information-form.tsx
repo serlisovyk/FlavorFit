@@ -3,6 +3,8 @@ import { Input } from '@shared/ui'
 import { AvatarUpload } from '../avatar-upload'
 import { GeneralInformationFormProps } from '../../types'
 
+// TODO: add select with gender and update body image based on it
+
 export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
   const { register, watch, setValue } = form
 
@@ -19,17 +21,17 @@ export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
 
           <Input
             label="Full name"
-            placeholder="Full name"
+            placeholder="Enter your full name"
             className="pl-9 rounded-xl"
             Icon={User}
-            {...register('fullName')}
+            {...register('profile.fullName')}
           />
         </div>
 
         {/* TODO: Email verification status icon */}
         <Input
           label="Email"
-          placeholder="Email"
+          placeholder="Enter your email"
           className="pl-9 rounded-xl"
           Icon={Mail}
           {...register('email')}
@@ -38,10 +40,10 @@ export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
         <Input
           type="number"
           label="Age"
-          placeholder="Age"
+          placeholder="Enter your age"
           className="pl-9 rounded-xl"
           Icon={UserCircle}
-          {...register('age')}
+          {...register('profile.age')}
         />
 
         {/* TODO: Create ui textarea component */}
@@ -50,9 +52,9 @@ export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
         </label>
         <textarea
           id="bio"
-          placeholder="Bio"
+          placeholder="Enter your bio"
           className="w-full rounded-md border resize-none bg-[#ececec] p-3 font-mono"
-          {...register('bio')}
+          {...register('profile.bio')}
         />
       </div>
     </div>

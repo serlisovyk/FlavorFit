@@ -145,6 +145,7 @@ export class UsersService {
         ...updateProfile,
         ...updateMeasurements,
         email: data.email,
+        avatarUrl: data.avatarUrl,
       },
       include: { profile: true, measurements: true },
     })

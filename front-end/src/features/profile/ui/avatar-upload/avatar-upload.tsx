@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { ChangeEvent } from 'react'
-import { Edit } from 'lucide-react'
+import { Edit, UserCircle } from 'lucide-react'
 import { Button } from '@shared/ui'
 import { cn } from '@shared/utils'
 import { useAvatarUpload } from '../../queries'
@@ -18,13 +18,20 @@ export function AvatarUpload({ value, onChange }: AvatarUploadProps) {
 
   return (
     <div className="flex items-center gap-3">
-      <Image
-        src={value || '/images/avatar-placeholder.png'}
-        alt="User avatar"
-        width={48}
-        height={48}
-        className="rounded-full object-cover"
-      />
+      {!value ? (
+        <UserCircle
+          size={36}
+          className="rounded-full text-gray-500 opacity-60"
+        />
+      ) : (
+        <Image
+          src={value}
+          alt="User avatar"
+          width={48}
+          height={48}
+          className="rounded-full object-cover"
+        />
+      )}
 
       <label>
         <span className="sr-only">Avatar upload input</span>

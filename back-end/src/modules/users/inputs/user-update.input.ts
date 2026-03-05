@@ -3,6 +3,7 @@ import { Type } from 'class-transformer'
 import {
   IsEmail,
   IsOptional,
+  IsUrl,
   MaxLength,
   MinLength,
   ValidateNested,
@@ -19,6 +20,14 @@ export class UserUpdateInput {
   @IsOptional()
   @IsEmail({}, { message: 'Email must be a valid address' })
   email?: string
+
+  @Field(() => String, {
+    nullable: true,
+    description: 'User avatar URL',
+  })
+  @IsOptional()
+  @IsUrl({}, { message: 'Avatar URL must be a valid URL' })
+  avatarUrl?: string
 
   @Field(() => String, {
     nullable: true,

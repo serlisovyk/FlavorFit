@@ -4199,6 +4199,18 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "avatarUrl",
+            "description": "User avatar URL",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "email",
             "description": "User email address",
             "type": {
