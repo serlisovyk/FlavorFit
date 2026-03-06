@@ -1,19 +1,10 @@
 import Image from 'next/image'
+import { Controller } from 'react-hook-form'
 import { Activity, Goal, Ruler, Weight } from 'lucide-react'
-import {
-  Input,
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@shared/ui'
+import { Input, Select } from '@shared/ui'
 import { setValueAsNumber } from '../../utils'
 import { BodyMeasurementsFormProps } from '../../types'
-import { Controller } from 'react-hook-form'
-import { Activity_Level, Nutrition_Goal } from '@generated/graphql'
+import { ACTIVITY_LEVEL_OPTIONS, NUTRITION_GOAL_OPTIONS } from '../../constants'
 
 export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
   const { register, control } = form
@@ -110,31 +101,18 @@ export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
             <Controller
               control={control}
               name="measurements.nutritionGoal"
-              render={({ field }) => (
+              render={({ field: { value, onChange } }) => (
                 <Select
-                  value={field.value || undefined}
-                  onValueChange={field.onChange}
-                >
-                  <SelectTrigger className="w-full rounded-xl bg-[#ececec] pl-9">
-                    <SelectValue placeholder="Select a nutrition goal" />
-                  </SelectTrigger>
-                  <SelectContent id="nutritionGoal">
-                    <SelectGroup>
-                      <SelectLabel>Nutrition Goal</SelectLabel>
-                      <SelectItem value={Nutrition_Goal.Maintenance}>
-                        Maintenance
-                      </SelectItem>
-                      <SelectItem value={Nutrition_Goal.MuscleGain}>
-                        Muscle Gain
-                      </SelectItem>
-                      <SelectItem value={Nutrition_Goal.WeightLoss}>
-                        Weight Loss
-                      </SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
+                  value={value || undefined}
+                  onChange={onChange}
+                  placeholder="Define your nutrition goal"
+                  triggerClassName="w-full rounded-xl bg-[#ececec] pl-9"
+                  label="Nutrition Goal"
+                  id="nutritionGoal"
+                  options={NUTRITION_GOAL_OPTIONS}
+                />
               )}
-            ></Controller>
+            />
           </div>
 
           <div className="relative">
@@ -153,37 +131,18 @@ export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
             <Controller
               control={control}
               name="measurements.activityLevel"
-              render={({ field }) => (
+              render={({ field: { value, onChange } }) => (
                 <Select
-                  value={field.value || undefined}
-                  onValueChange={field.onChange}
-                >
-                  <SelectTrigger className="w-full rounded-xl bg-[#ececec] pl-9">
-                    <SelectValue placeholder="Define your activity level" />
-                  </SelectTrigger>
-                  <SelectContent id="activityLevel">
-                    <SelectGroup>
-                      <SelectLabel>Activity Level</SelectLabel>
-                      <SelectItem value={Activity_Level.Active}>
-                        Active
-                      </SelectItem>
-                      <SelectItem value={Activity_Level.Light}>
-                        Light
-                      </SelectItem>
-                      <SelectItem value={Activity_Level.Moderate}>
-                        Moderate
-                      </SelectItem>
-                      <SelectItem value={Activity_Level.Sedentary}>
-                        Very Sedentary
-                      </SelectItem>
-                      <SelectItem value={Activity_Level.VeryActive}>
-                        Very Active
-                      </SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
+                  value={value || undefined}
+                  onChange={onChange}
+                  placeholder="Define your activity level"
+                  triggerClassName="w-full rounded-xl bg-[#ececec] pl-9"
+                  label="Activity Level"
+                  id="activityLevel"
+                  options={ACTIVITY_LEVEL_OPTIONS}
+                />
               )}
-            ></Controller>
+            />
           </div>
         </div>
       </div>

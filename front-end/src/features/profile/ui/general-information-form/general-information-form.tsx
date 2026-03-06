@@ -1,19 +1,10 @@
+import { Controller } from 'react-hook-form'
 import { CircleSmall, Mail, User, UserCircle } from 'lucide-react'
-import {
-  Input,
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from '@shared/ui'
+import { Input, Select } from '@shared/ui'
 import { AvatarUpload } from '../avatar-upload'
 import { setValueAsNumber } from '../../utils'
+import { GENDER_SELECT_OPTIONS } from '../../constants'
 import { GeneralInformationFormProps } from '../../types'
-import { Gender } from '@generated/graphql'
-import { Controller } from 'react-hook-form'
 
 // TODO: add select with gender and update body image based on it
 
@@ -64,24 +55,18 @@ export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
             <Controller
               control={control}
               name="profile.gender"
-              render={({ field }) => (
+              render={({ field: { value, onChange } }) => (
                 <Select
-                  value={field.value || undefined}
-                  onValueChange={field.onChange}
-                >
-                  <SelectTrigger className="w-full rounded-xl bg-[#ececec] pl-9">
-                    <SelectValue placeholder="Select a gender" />
-                  </SelectTrigger>
-                  <SelectContent id="gender">
-                    <SelectGroup>
-                      <SelectLabel>Gender</SelectLabel>
-                      <SelectItem value={Gender.Male}>Male</SelectItem>
-                      <SelectItem value={Gender.Female}>Female</SelectItem>
-                    </SelectGroup>
-                  </SelectContent>
-                </Select>
+                  value={value || undefined}
+                  onChange={onChange}
+                  options={GENDER_SELECT_OPTIONS}
+                  placeholder="Select your gender"
+                  triggerClassName="w-full rounded-xl bg-[#ececec] pl-9"
+                  label="Gender"
+                  id="gender"
+                />
               )}
-            ></Controller>
+            />
           </div>
 
           <Input
