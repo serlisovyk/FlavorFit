@@ -15,6 +15,7 @@ export function ProfileForm({ data }: ProfileFormProps) {
     mode: 'onChange',
     defaultValues: {
       email: data?.me?.email ?? '',
+      avatarUrl: data?.me?.avatarUrl ?? '',
       measurements: data?.me?.measurements ?? {},
       profile: data?.me?.profile ?? {},
     },
@@ -29,7 +30,24 @@ export function ProfileForm({ data }: ProfileFormProps) {
   })
 
   const onSubmit = (data: IProfileForm) => {
-    updateProfile({ variables: { data } })
+    updateProfile({
+      variables: {
+        data: {
+          ...data,
+          // TODO: Refactor, move into util fn
+          measurements: Object.fromEntries(
+            Object.entries(data.measurements || {}).filter(
+              ([key]) => key !== '__typename',
+            ),
+          ),
+          profile: Object.fromEntries(
+            Object.entries(data.profile || {}).filter(
+              ([key]) => key !== '__typename',
+            ),
+          ),
+        },
+      },
+    })
   }
 
   const handleFormReset = () => reset()

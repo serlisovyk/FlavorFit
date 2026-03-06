@@ -1,12 +1,24 @@
-import { Mail, User, UserCircle } from 'lucide-react'
-import { Input } from '@shared/ui'
+import { CircleSmall, Mail, User, UserCircle } from 'lucide-react'
+import {
+  Input,
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from '@shared/ui'
 import { AvatarUpload } from '../avatar-upload'
+import { setValueAsNumber } from '../../utils'
 import { GeneralInformationFormProps } from '../../types'
+import { Gender } from '@generated/graphql'
+import { Controller } from 'react-hook-form'
 
 // TODO: add select with gender and update body image based on it
 
 export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
-  const { register, watch, setValue } = form
+  const { register, watch, setValue, control } = form
 
   return (
     <div className="rounded-xl border bg-background p-6">
@@ -37,14 +49,50 @@ export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
           {...register('email')}
         />
 
-        <Input
-          type="number"
-          label="Age"
-          placeholder="Enter your age"
-          className="pl-9 rounded-xl"
-          Icon={UserCircle}
-          {...register('profile.age')}
-        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          {/* TODO: refactor it, create Field component */}
+          <div className="relative">
+            <label htmlFor="gender" className="text-sm mb-1.5 block opacity-70">
+              Gender
+            </label>
+
+            <CircleSmall
+              size={16}
+              className="absolute bottom-2.5 left-3 opacity-50"
+            />
+
+            <Controller
+              control={control}
+              name="profile.gender"
+              render={({ field }) => (
+                <Select
+                  value={field.value || undefined}
+                  onValueChange={field.onChange}
+                >
+                  <SelectTrigger className="w-full rounded-xl bg-[#ececec] pl-9">
+                    <SelectValue placeholder="Select a gender" />
+                  </SelectTrigger>
+                  <SelectContent id="gender">
+                    <SelectGroup>
+                      <SelectLabel>Gender</SelectLabel>
+                      <SelectItem value={Gender.Male}>Male</SelectItem>
+                      <SelectItem value={Gender.Female}>Female</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
+            ></Controller>
+          </div>
+
+          <Input
+            type="number"
+            label="Age"
+            placeholder="Enter your age"
+            className="pl-9 rounded-xl"
+            Icon={UserCircle}
+            {...register('profile.age', { setValueAs: setValueAsNumber })}
+          />
+        </div>
 
         {/* TODO: Create ui textarea component */}
         <label className="block text-sm opacity-70" htmlFor="bio">
