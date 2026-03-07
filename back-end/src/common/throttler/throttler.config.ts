@@ -1,6 +1,6 @@
 import { ConfigService } from '@nestjs/config'
 import { ThrottlerOptions } from '@nestjs/throttler'
-import { THROTTLE_LIMIT_ENV, THROTTLE_TTL_ENV } from '../constants'
+import { THROTTLE_LIMIT_ENV, THROTTLE_TTL_ENV } from './throttler.constants'
 
 export function getThrottlerConfig(
   configService: ConfigService,
