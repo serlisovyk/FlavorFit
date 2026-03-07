@@ -30,24 +30,24 @@ export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
           <Field
             variant={FIELD_VARIANT.INPUT}
             label="Full name"
-            Icon={User}
             id="fullName"
             placeholder="Enter your full name"
+            Icon={User}
             className="pl-9 rounded-xl"
-            {...register('profile.fullName')}
             error={errors.profile?.fullName}
+            {...register('profile.fullName')}
           />
         </div>
 
         <Field
           variant={FIELD_VARIANT.INPUT}
           label="Email"
-          Icon={Mail}
           id="email"
           placeholder="Enter your email"
+          Icon={Mail}
           className="pl-9 rounded-xl"
-          {...register('email')}
           error={errors.email}
+          {...register('email')}
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -57,13 +57,13 @@ export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
             render={({ field: { value, onChange } }) => (
               <Field
                 variant={FIELD_VARIANT.SELECT}
-                label="Gender"
-                Icon={CircleSmall}
-                id="gender"
                 value={value || undefined}
                 onChange={onChange}
-                options={GENDER_SELECT_OPTIONS}
+                label="Gender"
+                id="gender"
                 placeholder="Select your gender"
+                Icon={CircleSmall}
+                options={GENDER_SELECT_OPTIONS}
                 triggerClassName="w-full rounded-xl bg-[#ececec] pl-9"
                 error={errors.profile?.gender}
               />
@@ -73,13 +73,13 @@ export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
           <Field
             variant={FIELD_VARIANT.INPUT}
             label="Age"
-            Icon={UserCircle}
             id="age"
             type="number"
             placeholder="Enter your age"
+            Icon={UserCircle}
             className="pl-9 rounded-xl"
-            {...register('profile.age', { setValueAs: setValueAsNumber })}
             error={errors.profile?.age}
+            {...register('profile.age', { setValueAs: setValueAsNumber })}
           />
         </div>
 
@@ -89,8 +89,8 @@ export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
           id="bio"
           placeholder="Enter your bio"
           className="rounded-xl bg-[#ececec] p-3 font-mono"
-          {...register('profile.bio')}
           error={errors.profile?.bio}
+          {...register('profile.bio')}
         />
       </div>
     </div>

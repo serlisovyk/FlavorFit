@@ -11,5 +11,6 @@ export async function postAvatarUpload(formData: FormData) {
   if (!response.ok) throw new Error('Failed to upload avatar')
 
   const data: UploadResponse = await response.json()
+
   return data
 }

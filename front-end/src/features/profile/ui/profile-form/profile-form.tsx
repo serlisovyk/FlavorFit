@@ -19,13 +19,15 @@ export function ProfileForm({ data }: ProfileFormProps) {
     },
   })
 
-  const { reset, handleSubmit } = form
+  const { reset, handleSubmit, formState: { isValid } } = form
 
   const { updateProfile, isLoading } = useUpdateProfile()
 
   const onSubmit = (data: IProfileForm) => updateProfile(data)
 
   const handleFormReset = () => reset()
+
+  const isButtonsDisabled = isLoading || !isValid
 
   return (
     <div>
@@ -36,10 +38,10 @@ export function ProfileForm({ data }: ProfileFormProps) {
           </Heading>
 
           <div className="flex justify-end gap-3">
-            <Button type="button" variant="outline" onClick={handleFormReset}>
+            <Button type="button" variant="outline" onClick={handleFormReset} disabled={isButtonsDisabled}>
               Cancel
             </Button>
-            <Button type="submit" variant="accent" disabled={isLoading}>
+            <Button type="submit" variant="accent" disabled={isButtonsDisabled}>
               Save changes
             </Button>
           </div>

@@ -36,29 +36,29 @@ export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
           <Field
             variant={FIELD_VARIANT.INPUT}
             label="Height (cm)"
-            Icon={Ruler}
             id="heightCm"
             type="number"
             placeholder="Your height"
+            Icon={Ruler}
             className="pl-9 rounded-xl"
+            error={errors.measurements?.heightCm}
             {...register('measurements.heightCm', {
               setValueAs: setValueAsNumber,
             })}
-            error={errors.measurements?.heightCm}
           />
 
           <Field
             variant={FIELD_VARIANT.INPUT}
             label="Weight (kg)"
-            Icon={Weight}
             id="weightKg"
             type="number"
             placeholder="Your weight"
+            Icon={Weight}
             className="pl-9 rounded-xl"
+            error={errors.measurements?.weightKg}
             {...register('measurements.weightKg', {
               setValueAs: setValueAsNumber,
             })}
-            error={errors.measurements?.weightKg}
           />
 
           <Field
@@ -68,10 +68,10 @@ export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
             type="number"
             placeholder="Your goal weight"
             className="rounded-xl"
+            error={errors.measurements?.goalWeightKg}
             {...register('measurements.goalWeightKg', {
               setValueAs: setValueAsNumber,
             })}
-            error={errors.measurements?.goalWeightKg}
           />
 
           <Field
@@ -81,10 +81,10 @@ export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
             type="number"
             placeholder="Your chest measurement"
             className="rounded-xl"
+            error={errors.measurements?.chestCm}
             {...register('measurements.chestCm', {
               setValueAs: setValueAsNumber,
             })}
-            error={errors.measurements?.chestCm}
           />
 
           <Field
@@ -94,10 +94,10 @@ export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
             type="number"
             placeholder="Your thigh measurement"
             className="rounded-xl"
+            error={errors.measurements?.thighCm}
             {...register('measurements.thighCm', {
               setValueAs: setValueAsNumber,
             })}
-            error={errors.measurements?.thighCm}
           />
 
           <Field
@@ -107,10 +107,10 @@ export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
             type="number"
             placeholder="Your arm measurement"
             className="rounded-xl"
+            error={errors.measurements?.armCm}
             {...register('measurements.armCm', {
               setValueAs: setValueAsNumber,
             })}
-            error={errors.measurements?.armCm}
           />
 
           <Controller
@@ -119,14 +119,14 @@ export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
             render={({ field: { value, onChange } }) => (
               <Field
                 variant={FIELD_VARIANT.SELECT}
-                label="Nutrition Goal"
-                Icon={Goal}
-                id="nutritionGoal"
                 value={value || undefined}
                 onChange={onChange}
+                label="Nutrition Goal"
+                id="nutritionGoal"
                 placeholder="Define your nutrition goal"
-                triggerClassName="w-full rounded-xl bg-[#ececec] pl-9"
+                Icon={Goal}
                 options={NUTRITION_GOAL_OPTIONS}
+                triggerClassName="w-full rounded-xl bg-[#ececec] pl-9"
                 error={errors.measurements?.nutritionGoal}
               />
             )}
@@ -138,14 +138,14 @@ export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
             render={({ field: { value, onChange } }) => (
               <Field
                 variant={FIELD_VARIANT.SELECT}
-                label="Activity Level"
-                Icon={Activity}
-                id="activityLevel"
                 value={value || undefined}
                 onChange={onChange}
+                label="Activity Level"
+                id="activityLevel"
                 placeholder="Define your activity level"
-                triggerClassName="w-full rounded-xl bg-[#ececec] pl-9"
+                Icon={Activity}
                 options={ACTIVITY_LEVEL_OPTIONS}
+                triggerClassName="w-full rounded-xl bg-[#ececec] pl-9"
                 error={errors.measurements?.activityLevel}
               />
             )}
