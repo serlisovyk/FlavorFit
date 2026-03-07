@@ -27,9 +27,9 @@ interface SelectTriggerSize {
 export interface SelectProps {
   value: string | undefined | null
   onChange: (value: string | undefined | null) => void
-  label: string
   id: string
   options: SelectOption[]
+  label?: string
   placeholder?: string
   triggerClassName?: string
 }

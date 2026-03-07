@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { RequestPasswordResetInput } from '@generated/graphql'
-import { Button, Input } from '@shared/ui'
+import { Button, Field, FIELD_VARIANT } from '@shared/ui'
 import { Captcha } from '../captcha'
 import { useForgotPasswordMutation } from '../../queries'
 import { forgotPasswordSchema } from '../../schemas'
@@ -33,10 +33,12 @@ export function ForgotPassword() {
         </h1>
 
         <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
-          <Input
+          <Field
+            variant={FIELD_VARIANT.INPUT}
             id="email"
             type="email"
             label="Email"
+            isShowLabel={false}
             placeholder="Enter email:"
             required
             {...register('email')}

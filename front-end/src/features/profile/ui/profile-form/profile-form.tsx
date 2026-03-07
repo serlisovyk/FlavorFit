@@ -1,13 +1,11 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
 import { User } from 'lucide-react'
-import { useMutation } from '@apollo/client/react'
-import { UpdateProfileDocument } from '@generated/graphql'
 import { Button, Heading } from '@shared/ui'
 import { GeneralInformationForm } from '../general-information-form'
 import { BodyMeasurementsForm } from '../body-measurements-form'
+import { useUpdateProfile } from '../../queries'
 import { ProfileForm as IProfileForm, ProfileFormProps } from '../../types'
 
 export function ProfileForm({ data }: ProfileFormProps) {
@@ -23,32 +21,9 @@ export function ProfileForm({ data }: ProfileFormProps) {
 
   const { reset, handleSubmit } = form
 
-  const [updateProfile, { loading }] = useMutation(UpdateProfileDocument, {
-    onCompleted() {
-      toast.success('Profile updated')
-    },
-  })
+  const { updateProfile, isLoading } = useUpdateProfile()
 
-  const onSubmit = (data: IProfileForm) => {
-    updateProfile({
-      variables: {
-        data: {
-          ...data,
-          // TODO: Refactor, move into util fn
-          measurements: Object.fromEntries(
-            Object.entries(data.measurements || {}).filter(
-              ([key]) => key !== '__typename',
-            ),
-          ),
-          profile: Object.fromEntries(
-            Object.entries(data.profile || {}).filter(
-              ([key]) => key !== '__typename',
-            ),
-          ),
-        },
-      },
-    })
-  }
+  const onSubmit = (data: IProfileForm) => updateProfile(data)
 
   const handleFormReset = () => reset()
 
@@ -64,7 +39,7 @@ export function ProfileForm({ data }: ProfileFormProps) {
             <Button type="button" variant="outline" onClick={handleFormReset}>
               Cancel
             </Button>
-            <Button type="submit" variant="accent" disabled={loading}>
+            <Button type="submit" variant="accent" disabled={isLoading}>
               Save changes
             </Button>
           </div>

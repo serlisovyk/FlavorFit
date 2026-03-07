@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Input } from '@shared/ui'
+import { Button, Field, FIELD_VARIANT } from '@shared/ui'
 import { Captcha } from '../captcha'
 import { useResetPasswordMutation } from '../../queries'
 import { resetPasswordSchema } from '../../schemas'
@@ -32,10 +32,12 @@ export function ResetPassword() {
         </h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <Input
+          <Field
+            variant={FIELD_VARIANT.INPUT}
             id="newPassword"
             type="password"
             label="New password"
+            isShowLabel={false}
             placeholder="Enter new password:"
             required
             {...register('newPassword')}

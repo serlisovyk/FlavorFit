@@ -1,15 +1,22 @@
 import Image from 'next/image'
-import { Controller } from 'react-hook-form'
+import { Controller, useWatch } from 'react-hook-form'
 import { Activity, Goal, Ruler, Weight } from 'lucide-react'
-import { Input, Select } from '@shared/ui'
+import { Field, FIELD_VARIANT } from '@shared/ui'
 import { setValueAsNumber } from '../../utils'
 import { BodyMeasurementsFormProps } from '../../types'
 import { ACTIVITY_LEVEL_OPTIONS, NUTRITION_GOAL_OPTIONS } from '../../constants'
 
 export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
-  const { register, control } = form
+  const {
+    register,
+    control,
+    formState: { errors },
+  } = form
 
-  const gender = form.watch('profile.gender')
+  const gender = useWatch({
+    control,
+    name: 'profile.gender',
+  })?.toLocaleLowerCase()
 
   return (
     <div className="rounded-xl border bg-background p-6 flex items-center gap-6">
@@ -26,124 +33,123 @@ export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
         <h2 className="mb-6 text-lg font-semibold">Body measurements</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Input
-            type="number"
+          <Field
+            variant={FIELD_VARIANT.INPUT}
             label="Height (cm)"
+            Icon={Ruler}
+            id="heightCm"
+            type="number"
             placeholder="Your height"
             className="pl-9 rounded-xl"
-            Icon={Ruler}
             {...register('measurements.heightCm', {
               setValueAs: setValueAsNumber,
             })}
+            error={errors.measurements?.heightCm}
           />
 
-          <Input
-            type="number"
+          <Field
+            variant={FIELD_VARIANT.INPUT}
             label="Weight (kg)"
+            Icon={Weight}
+            id="weightKg"
+            type="number"
             placeholder="Your weight"
             className="pl-9 rounded-xl"
-            Icon={Weight}
             {...register('measurements.weightKg', {
               setValueAs: setValueAsNumber,
             })}
+            error={errors.measurements?.weightKg}
           />
 
-          <Input
-            type="number"
+          <Field
+            variant={FIELD_VARIANT.INPUT}
             label="Goal weight (kg)"
+            id="goalWeightKg"
+            type="number"
             placeholder="Your goal weight"
             className="rounded-xl"
             {...register('measurements.goalWeightKg', {
               setValueAs: setValueAsNumber,
             })}
+            error={errors.measurements?.goalWeightKg}
           />
 
-          <Input
-            type="number"
+          <Field
+            variant={FIELD_VARIANT.INPUT}
             label="Chest (cm)"
+            id="chestCm"
+            type="number"
             placeholder="Your chest measurement"
             className="rounded-xl"
             {...register('measurements.chestCm', {
               setValueAs: setValueAsNumber,
             })}
+            error={errors.measurements?.chestCm}
           />
 
-          <Input
-            type="number"
+          <Field
+            variant={FIELD_VARIANT.INPUT}
             label="Thigh (cm)"
+            id="thighCm"
+            type="number"
             placeholder="Your thigh measurement"
             className="rounded-xl"
             {...register('measurements.thighCm', {
               setValueAs: setValueAsNumber,
             })}
+            error={errors.measurements?.thighCm}
           />
 
-          <Input
-            type="number"
+          <Field
+            variant={FIELD_VARIANT.INPUT}
             label="Arm (cm)"
+            id="armCm"
+            type="number"
             placeholder="Your arm measurement"
             className="rounded-xl"
             {...register('measurements.armCm', {
               setValueAs: setValueAsNumber,
             })}
+            error={errors.measurements?.armCm}
           />
 
-          <div className="relative">
-            <label
-              htmlFor="nutritionGoal"
-              className="text-sm mb-1.5 block opacity-70"
-            >
-              Nutrition Goal
-            </label>
+          <Controller
+            control={control}
+            name="measurements.nutritionGoal"
+            render={({ field: { value, onChange } }) => (
+              <Field
+                variant={FIELD_VARIANT.SELECT}
+                label="Nutrition Goal"
+                Icon={Goal}
+                id="nutritionGoal"
+                value={value || undefined}
+                onChange={onChange}
+                placeholder="Define your nutrition goal"
+                triggerClassName="w-full rounded-xl bg-[#ececec] pl-9"
+                options={NUTRITION_GOAL_OPTIONS}
+                error={errors.measurements?.nutritionGoal}
+              />
+            )}
+          />
 
-            <Goal size={16} className="absolute bottom-2.5 left-3 opacity-50" />
-
-            <Controller
-              control={control}
-              name="measurements.nutritionGoal"
-              render={({ field: { value, onChange } }) => (
-                <Select
-                  value={value || undefined}
-                  onChange={onChange}
-                  placeholder="Define your nutrition goal"
-                  triggerClassName="w-full rounded-xl bg-[#ececec] pl-9"
-                  label="Nutrition Goal"
-                  id="nutritionGoal"
-                  options={NUTRITION_GOAL_OPTIONS}
-                />
-              )}
-            />
-          </div>
-
-          <div className="relative">
-            <label
-              htmlFor="activityLevel"
-              className="text-sm mb-1.5 block opacity-70"
-            >
-              Activity Level
-            </label>
-
-            <Activity
-              size={16}
-              className="absolute bottom-2.5 left-3 opacity-50"
-            />
-
-            <Controller
-              control={control}
-              name="measurements.activityLevel"
-              render={({ field: { value, onChange } }) => (
-                <Select
-                  value={value || undefined}
-                  onChange={onChange}
-                  placeholder="Define your activity level"
-                  triggerClassName="w-full rounded-xl bg-[#ececec] pl-9"
-                  label="Activity Level"
-                  id="activityLevel"
-                  options={ACTIVITY_LEVEL_OPTIONS}
-                />
-              )}
-            />
-          </div>
+          <Controller
+            control={control}
+            name="measurements.activityLevel"
+            render={({ field: { value, onChange } }) => (
+              <Field
+                variant={FIELD_VARIANT.SELECT}
+                label="Activity Level"
+                Icon={Activity}
+                id="activityLevel"
+                value={value || undefined}
+                onChange={onChange}
+                placeholder="Define your activity level"
+                triggerClassName="w-full rounded-xl bg-[#ececec] pl-9"
+                options={ACTIVITY_LEVEL_OPTIONS}
+                error={errors.measurements?.activityLevel}
+              />
+            )}
+          />
         </div>
       </div>
     </div>

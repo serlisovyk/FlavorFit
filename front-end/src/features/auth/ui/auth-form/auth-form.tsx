@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AuthInput } from '@generated/graphql'
-import { Input, Button } from '@shared/ui'
+import { Button, Field, FIELD_VARIANT } from '@shared/ui'
 import { AuthLinks } from '../auth-links'
 import { Captcha } from '../captcha'
 import { useAuthMutation } from '../../queries'
@@ -39,20 +39,24 @@ export function AuthForm({ type }: AuthFormProps) {
         </h1>
 
         <form className="space-y-3 mb-4" onSubmit={handleSubmit(onSubmit)}>
-          <Input
+          <Field
+            variant={FIELD_VARIANT.INPUT}
             id="email"
             type="email"
             label="Email"
+            isShowLabel={false}
             placeholder="Enter email:"
             required
             {...register('email')}
             error={errors.email}
           />
 
-          <Input
+          <Field
+            variant={FIELD_VARIANT.INPUT}
             id="password"
             type="password"
             label="Password"
+            isShowLabel={false}
             placeholder="Enter password:"
             required
             {...register('password')}

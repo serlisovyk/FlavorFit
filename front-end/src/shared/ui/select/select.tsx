@@ -13,27 +13,29 @@ export function Select({
   value,
   onChange,
   placeholder,
-  label,
   options,
+  label,
   id,
   triggerClassName,
 }: SelectProps) {
   return (
-    <SelectBase value={value || undefined} onValueChange={onChange}>
-      <SelectTrigger className={triggerClassName}>
-        <SelectValue placeholder={placeholder} />
-      </SelectTrigger>
+    <div>
+      <SelectBase value={value || undefined} onValueChange={onChange}>
+        <SelectTrigger className={triggerClassName}>
+          <SelectValue placeholder={placeholder} />
+        </SelectTrigger>
 
-      <SelectContent id={id}>
-        <SelectGroup>
-          <SelectLabel>{label}</SelectLabel>
-          {options.map((option) => (
-            <SelectItem key={option.value} value={option.value}>
-              {option.label}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </SelectBase>
+        <SelectContent id={id}>
+          <SelectGroup>
+            <SelectLabel>{label}</SelectLabel>
+            {options.map((option) => (
+              <SelectItem key={option.value} value={option.value}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </SelectBase>
+    </div>
   )
 }

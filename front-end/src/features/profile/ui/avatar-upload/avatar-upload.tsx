@@ -27,8 +27,8 @@ export function AvatarUpload({ value, onChange }: AvatarUploadProps) {
         <Image
           src={value}
           alt="User avatar"
-          width={48}
-          height={48}
+          width={60}
+          height={60}
           className="rounded-full object-cover"
         />
       )}
@@ -45,7 +45,12 @@ export function AvatarUpload({ value, onChange }: AvatarUploadProps) {
           disabled={isLoading}
         />
 
-        <Button variant="soft" asChild disabled={isLoading}>
+        <Button
+          variant="soft"
+          asChild
+          disabled={isLoading}
+          title="Add your avatar"
+        >
           <span>
             <Edit className={cn(isLoading && 'animate-spin')} />
           </span>
