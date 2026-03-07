@@ -3,5 +3,9 @@ query Me {
     id
     email
     role
+    avatarUrl
+    profile {
+      fullName
+    }
   }
 }

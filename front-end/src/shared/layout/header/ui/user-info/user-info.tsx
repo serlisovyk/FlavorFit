@@ -11,10 +11,7 @@ export function UserInfo() {
 
   if (!user) return null
 
-  const { email } = user
-
-  const avatarUrl = null
-  const name = 'Test User'
+  const { email, avatarUrl, profile } = user
 
   return (
     <Link href={ROUTES.PROFILE} className="flex items-center gap-3">
@@ -34,8 +31,8 @@ export function UserInfo() {
       )}
 
       <div>
-        <div className="font-medium">{name}</div>
-        {email && <div className="opacity-60 text-xs">{email}</div>}
+        <div className="font-medium">{profile?.fullName || 'No name'}</div>
+        {email && <div className="opacity-60 text-sm">{email}</div>}
       </div>
     </Link>
   )
