@@ -21,7 +21,7 @@ export function UserInfo() {
           alt={'User avatar'}
           width={36}
           height={36}
-          className="rounded-full"
+          className="rounded-full w-9 h-9 object-cover"
         />
       ) : (
         <UserCircle

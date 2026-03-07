@@ -29,7 +29,7 @@ export function AvatarUpload({ value, onChange }: AvatarUploadProps) {
           alt="User avatar"
           width={60}
           height={60}
-          className="rounded-full object-cover"
+          className="rounded-full w-15 h-15 object-cover"
         />
       )}
 

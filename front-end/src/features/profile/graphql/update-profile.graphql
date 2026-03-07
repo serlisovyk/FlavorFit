@@ -2,6 +2,7 @@ mutation UpdateProfile($data: UserUpdateInput!) {
   updateProfile(data: $data) {
     id
     email
+    avatarUrl
     profile {
       fullName
       gender
