@@ -17,7 +17,7 @@ export function AvatarUpload({ value, onChange }: AvatarUploadProps) {
   }
 
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3 relative">
       {!value ? (
         <UserCircle
           size={36}
@@ -50,6 +50,7 @@ export function AvatarUpload({ value, onChange }: AvatarUploadProps) {
           asChild
           disabled={isLoading}
           title="Add your avatar"
+          className="absolute -right-1 -bottom-1 rounded-full p-2.5"
         >
           <span>
             <Edit className={cn(isLoading && 'animate-spin')} />

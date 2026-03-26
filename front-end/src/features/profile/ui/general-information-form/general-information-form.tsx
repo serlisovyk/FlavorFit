@@ -17,7 +17,7 @@ export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
   const avatarUrl = useWatch({ control, name: 'avatarUrl' })
 
   return (
-    <div className="rounded-xl border bg-background p-6">
+    <div className="rounded-xl border p-6">
       <h2 className="mb-6 text-lg font-semibold">General information</h2>
 
       <div className="space-y-4">
@@ -64,7 +64,7 @@ export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
                 placeholder="Select your gender"
                 Icon={CircleSmall}
                 options={GENDER_SELECT_OPTIONS}
-                triggerClassName="w-full rounded-xl bg-[#ececec] pl-9"
+                triggerClassName="w-full rounded-xl bg-[#f0efef] pl-9"
                 error={errors.profile?.gender}
               />
             )}
@@ -88,7 +88,7 @@ export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
           label="Bio"
           id="bio"
           placeholder="Enter your bio"
-          className="rounded-xl bg-[#ececec] p-3 font-mono"
+          className="rounded-xl bg-[#f0efef] p-3 font-mono"
           error={errors.profile?.bio}
           {...register('profile.bio')}
         />

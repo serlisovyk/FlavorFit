@@ -31,7 +31,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
       className={cn(theme, 'scroll-smooth')}
       suppressHydrationWarning
     >
-      <body className={`${monoFont.variable} antialiased`}>
+      <body className={`${monoFont.variable} antialiased bg-background`}>
         <Providers initialTheme={theme}>{children}</Providers>
       </body>
     </html>

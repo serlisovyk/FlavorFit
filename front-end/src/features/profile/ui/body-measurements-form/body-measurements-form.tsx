@@ -19,7 +19,7 @@ export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
   })?.toLocaleLowerCase()
 
   return (
-    <div className="rounded-xl border bg-background p-6 flex items-center gap-6">
+    <div className="rounded-xl border p-6 flex items-center gap-6">
       <div>
         <Image
           src={`/images/${gender}.svg`}
@@ -126,7 +126,7 @@ export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
                 placeholder="Define your nutrition goal"
                 Icon={Goal}
                 options={NUTRITION_GOAL_OPTIONS}
-                triggerClassName="w-full rounded-xl bg-[#ececec] pl-9"
+                triggerClassName="w-full rounded-xl bg-[#f0efef] pl-9"
                 error={errors.measurements?.nutritionGoal}
               />
             )}
@@ -145,7 +145,7 @@ export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
                 placeholder="Define your activity level"
                 Icon={Activity}
                 options={ACTIVITY_LEVEL_OPTIONS}
-                triggerClassName="w-full rounded-xl bg-[#ececec] pl-9"
+                triggerClassName="w-full rounded-xl bg-[#f0efef] pl-9"
                 error={errors.measurements?.activityLevel}
               />
             )}
