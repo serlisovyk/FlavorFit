@@ -7,7 +7,11 @@ import {
 } from '@shared/ui/collapsible'
 import { SidebarAccordionItemProps } from '../../types'
 
-export function SidebarAccordionItem({ item }: SidebarAccordionItemProps) {
+export function SidebarAccordionItem({
+  item,
+  activeValue,
+  onValueChange,
+}: SidebarAccordionItemProps) {
   const { name, icon: Icon, items, isInitialOpen } = item
 
   return (
@@ -15,7 +19,10 @@ export function SidebarAccordionItem({ item }: SidebarAccordionItemProps) {
       <CollapsibleTrigger
         className={cn(
           'flex items-center justify-between w-full opacity-80 py-1.5 px-2 rounded-xl',
-          { 'bg-accent': isInitialOpen },
+          {
+            'bg-accent':
+              activeValue && items.some(({ value }) => value === activeValue),
+          },
         )}
       >
         <span className="flex items-center gap-2 text-sm font-semibold">
@@ -28,10 +35,16 @@ export function SidebarAccordionItem({ item }: SidebarAccordionItemProps) {
       <CollapsibleContent>
         <ul className="pl-4 space-y-2 text-sm pt-2">
           {items.map(({ value, label, badgeValue }) => (
-            <li key={value} className="opacity-50">
+            <li
+              key={value}
+              className={cn('opacity-50', {
+                'opacity-100': activeValue === value,
+              })}
+            >
               <button
                 type="button"
                 className="flex items-center justify-between w-full"
+                onClick={() => onValueChange?.(value)}
               >
                 <span className="flex items-center gap-1.5">
                   <CornerDownRight size={18} />
@@ -39,7 +52,7 @@ export function SidebarAccordionItem({ item }: SidebarAccordionItemProps) {
                 </span>
 
                 {badgeValue && (
-                  <span className="rounded-xl bg-red-200 text-red-800 text-xs mr-2 block font-semibold p-0.5">
+                  <span className="rounded-xl bg-red-200 text-red-800 text-xs mr-2 block font-semibold py-0.5 px-1">
                     {badgeValue}
                   </span>
                 )}

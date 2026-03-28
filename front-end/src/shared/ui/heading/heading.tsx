@@ -12,8 +12,11 @@ export function Heading({
 
   return (
     <div className="flex items-center gap-1.5">
-      {Icon && <Icon className="opacity-50" />}
-      <Tag className={cn('text-lg font-semibold', className)}>{children}</Tag>
+      {Icon && <Icon className="opacity-60" />}
+
+      <Tag className={cn('text-lg text-[#222222] font-semibold', className)}>
+        {children}
+      </Tag>
     </div>
   )
 }
