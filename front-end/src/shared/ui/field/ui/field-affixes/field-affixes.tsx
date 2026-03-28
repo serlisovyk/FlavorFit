@@ -5,7 +5,7 @@ export function FieldAffixes({
   id,
   label,
   isShowLabel,
-  Icon,
+  icon: Icon,
 }: FieldAffixesProps) {
   return (
     <>

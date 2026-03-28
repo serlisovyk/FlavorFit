@@ -29,7 +29,7 @@ export type FieldProps = InputFieldProps | TextareaFieldProps | SelectFieldProps
 interface BaseFieldProps {
   label?: string
   isShowLabel?: boolean
-  Icon?: LucideIcon
+  icon?: LucideIcon
   error?: RHFFieldError | undefined
   wrapperClassName?: string
 }
@@ -42,7 +42,7 @@ export interface FieldAffixesProps {
   id?: string
   label?: string
   isShowLabel?: boolean
-  Icon?: LucideIcon
+  icon?: LucideIcon
 }
 
 export interface FieldErrorProps {

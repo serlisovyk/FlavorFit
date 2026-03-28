@@ -5,14 +5,14 @@ import { FieldError } from './ui/field-error'
 import { FieldProps } from './types'
 
 export function Field(props: FieldProps) {
-  const { label, Icon, error, wrapperClassName, id, isShowLabel } = props
+  const { label, icon, error, wrapperClassName, id, isShowLabel } = props
 
   return (
     <div className={cn('relative', wrapperClassName)}>
       <FieldAffixes
         id={id}
         label={label}
-        Icon={Icon}
+        icon={icon}
         isShowLabel={isShowLabel}
       />
 

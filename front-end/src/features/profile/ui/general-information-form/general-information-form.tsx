@@ -32,7 +32,7 @@ export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
             label="Full name"
             id="fullName"
             placeholder="Enter your full name"
-            Icon={User}
+            icon={User}
             className="pl-9 rounded-xl"
             error={errors.profile?.fullName}
             {...register('profile.fullName')}
@@ -44,7 +44,7 @@ export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
           label="Email"
           id="email"
           placeholder="Enter your email"
-          Icon={Mail}
+          icon={Mail}
           className="pl-9 rounded-xl"
           error={errors.email}
           {...register('email')}
@@ -62,7 +62,7 @@ export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
                 label="Gender"
                 id="gender"
                 placeholder="Select your gender"
-                Icon={CircleSmall}
+                icon={CircleSmall}
                 options={GENDER_SELECT_OPTIONS}
                 triggerClassName="w-full rounded-xl bg-[#f0efef] pl-9"
                 error={errors.profile?.gender}
@@ -76,7 +76,7 @@ export function GeneralInformationForm({ form }: GeneralInformationFormProps) {
             id="age"
             type="number"
             placeholder="Enter your age"
-            Icon={UserCircle}
+            icon={UserCircle}
             className="pl-9 rounded-xl"
             error={errors.profile?.age}
             {...register('profile.age', { setValueAs: setValueAsNumber })}

@@ -39,7 +39,7 @@ export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
             id="heightCm"
             type="number"
             placeholder="Your height"
-            Icon={Ruler}
+            icon={Ruler}
             className="pl-9 rounded-xl"
             error={errors.measurements?.heightCm}
             {...register('measurements.heightCm', {
@@ -53,7 +53,7 @@ export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
             id="weightKg"
             type="number"
             placeholder="Your weight"
-            Icon={Weight}
+            icon={Weight}
             className="pl-9 rounded-xl"
             error={errors.measurements?.weightKg}
             {...register('measurements.weightKg', {
@@ -124,7 +124,7 @@ export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
                 label="Nutrition Goal"
                 id="nutritionGoal"
                 placeholder="Define your nutrition goal"
-                Icon={Goal}
+                icon={Goal}
                 options={NUTRITION_GOAL_OPTIONS}
                 triggerClassName="w-full rounded-xl bg-[#f0efef] pl-9"
                 error={errors.measurements?.nutritionGoal}
@@ -143,7 +143,7 @@ export function BodyMeasurementsForm({ form }: BodyMeasurementsFormProps) {
                 label="Activity Level"
                 id="activityLevel"
                 placeholder="Define your activity level"
-                Icon={Activity}
+                icon={Activity}
                 options={ACTIVITY_LEVEL_OPTIONS}
                 triggerClassName="w-full rounded-xl bg-[#f0efef] pl-9"
                 error={errors.measurements?.activityLevel}
