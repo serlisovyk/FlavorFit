@@ -13,7 +13,7 @@ export function Recipes() {
   const debouncedSetSearchTerm = useDebounce(searchTerm, 400)
 
   return (
-    <div>
+    <div className="grid grid-cols-[1fr_4.5fr] gap-5">
       <RecipesSidebar
         searchTerm={searchTerm}
         filter={filter}
@@ -21,8 +21,10 @@ export function Recipes() {
         setFilter={setFilter}
       />
 
-      <RecipesBanners />
-      <RecipesCatalog />
+      <div>
+        <RecipesBanners />
+        <RecipesCatalog />
+      </div>
     </div>
   )
 }

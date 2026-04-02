@@ -25,7 +25,7 @@ export function SidebarAccordionItem({
           },
         )}
       >
-        <span className="flex items-center gap-2 text-sm font-semibold">
+        <span className="flex items-center gap-2 font-semibold">
           <Icon size={22} />
           {name}
         </span>
@@ -33,7 +33,7 @@ export function SidebarAccordionItem({
         <ChevronDown size={20} />
       </CollapsibleTrigger>
       <CollapsibleContent>
-        <ul className="pl-4 space-y-2 text-sm pt-2">
+        <ul className="pl-4 space-y-2 pt-2">
           {items.map(({ value, label, badgeValue }) => (
             <li
               key={value}
